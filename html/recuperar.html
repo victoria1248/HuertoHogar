@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HuertoHogar - Restablecer Clave</title>
+  
+  
+  
+  
+
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/izquierda.css">
+  <link rel="stylesheet" href="../css/formulario.css">
+  <link rel="stylesheet" href="../css/botones.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="contenedor-pantalla">
+    
+    
+    <div class="seccion-izquierda">
+      <div class="superposicion-gradiente"></div>
+    </div>
+
+    
+    <div class="seccion-derecha">
+      <div class="tarjeta-formulario"><p class="texto-cambiar-form"><a href="index.html">← Volver al inicio</a></p>
+        
+        <form id="form-recuperar" class="formulario activo">
+          <div class="encabezado-form">
+            <h2 class="titulo-form">Restablecer clave</h2>
+            <p class="descripcion-form">Ingrese su correo para restablecer la contraseña.</p>
+          </div>
+
+          <div id="recuperar-mensaje-exito" class="alerta-exito oculto">
+            Demostración: el correo tiene un formato válido. Este proyecto no está conectado a un servicio de envío de correos.
+          </div>
+
+          
+          <div class="grupo-campo">
+            <label for="recuperar-correo" class="etiqueta">Correo electrónico registrado</label>
+            <div class="input-con-icono">
+              <span class="icono-campo">✉</span>
+              <input type="email" id="recuperar-correo" placeholder="ejemplo@gmail.com">
+            </div>
+            <span class="mensaje-error" id="err-recuperar-correo"></span>
+          </div>
+
+          
+          <button type="submit" class="btn-verde">Enviar correo de restablecimiento</button>
+
+          
+          <p class="texto-cambiar-form">
+            <a href="login.html">Volver a iniciar sesión</a>
+          </p>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/recuperar.js"></script>
+<script src="../js/main.js" defer></script>
+</body>
+</html>

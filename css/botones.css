@@ -1,0 +1,117 @@
+/* ==========================================================================
+   🔘 ESTILOS DE BOTONES Y ENLACES (botones.css)
+   ==========================================================================
+   EN ESTE ARCHIVO:
+   - Botones optimizados y compactos para encajar en 1 sola pantalla sin scroll.
+   ========================================================================== */
+
+/* 1. BOTÓN PRINCIPAL (VERDE HUERTO HOGAR) */
+.btn-verde {
+  width: 100%;
+  padding: 9px; /* Altura compacta */
+  background-color: var(--color-verde-principal);
+  color: var(--color-blanco);
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-verde:hover {
+  background-color: var(--color-verde-hover);
+}
+
+/* 2. BOTÓN SECUNDARIO DE GOOGLE */
+.btn-google {
+  width: 100%;
+  padding: 7px;
+  background-color: #ffffff;
+  color: #444;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-google:hover {
+  background-color: #f7f7f7;
+}
+
+/* 3. BOTÓN MOSTRAR / OCULTAR CONTRASEÑA (OJO 👁) */
+.btn-toggle-password {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: #777;
+  padding: 2px;
+}
+
+.btn-toggle-password:hover {
+  color: var(--color-verde-principal);
+}
+
+/* 4. SEPARADOR "o" ENTRE BOTONES */
+.separador-o {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #aaa;
+  font-size: 11px;
+  margin: 2px 0;
+}
+
+.separador-o::before, .separador-o::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.separador-o span {
+  padding: 0 8px;
+}
+
+/* 5. ENLACES Y PIE DE PÁGINA */
+.contenedor-olvido {
+  text-align: right;
+  margin-top: -4px;
+}
+
+.enlace-secundario {
+  font-size: 11px;
+  color: var(--color-verde-principal);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.enlace-secundario:hover {
+  text-decoration: underline;
+}
+
+.texto-cambiar-form {
+  text-align: center;
+  font-size: 11px;
+  color: var(--color-texto-oscuro);
+  margin-top: 4px;
+}
+
+.texto-cambiar-form a {
+  color: var(--color-verde-principal);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.texto-cambiar-form a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,56 @@
+/* Elementos compartidos: cargar después de los estilos de cada página. */
+body { min-height:100vh; height:auto; display:flex; flex-direction:column; }
+main, .noticias, .pagina-pago { flex:1; min-width:0; }
+.pagina { display:flex; flex-direction:column; min-height:100vh; }
+.sitio-header { height:auto; padding:0; border:0; display:block; background:white; flex-shrink:0; }
+.sitio-header .header-container { width:100%; max-width:1500px; margin:auto; min-height:100px; padding:18px 4%; display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+.sitio-header .logo { width:auto; flex-shrink:0; }
+.sitio-header .logo img { width:150px; height:65px; object-fit:contain; display:block; }
+.sitio-header .nav-menu { width:auto; margin:0; display:block; flex:1; }
+.sitio-header .nav-menu ul { list-style:none; display:flex; flex-wrap:wrap; justify-content:center; gap:12px 20px; }
+.sitio-header .nav-menu a { color:#333; text-decoration:none; font-size:16px; }
+.sitio-header .nav-menu a:hover,.sitio-header .nav-menu a.active { color:#196b24; text-decoration:underline; text-underline-offset:6px; }
+.sitio-header .header-icons { display:flex; gap:18px; margin-left:auto; }
+.sitio-header .header-icons img { width:26px; height:26px; object-fit:contain; }
+.sitio-footer { margin-top:auto; display:flex; width:100%; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; padding:32px 5%; gap:28px; background:#196b24; color:white; }
+.sitio-footer .footer-logo img { width:170px; height:auto; }
+.sitio-footer .footer-column { min-width:160px; }
+.sitio-footer h3 { font-size:16px; margin-bottom:14px; }
+.sitio-footer ul { list-style:none; }
+.sitio-footer li { margin-bottom:8px; }
+.sitio-footer a,.sitio-footer p { color:white; font-size:14px; line-height:1.6; text-decoration:none; }
+.sitio-footer a:hover { text-decoration:underline; }
+.sitio-footer .social-icons { display:flex; gap:15px; margin-bottom:10px; }
+.sitio-footer .social-img { width:24px; height:24px; object-fit:contain; }
+:focus-visible { outline:3px solid #c18c25; outline-offset:3px; }
+.campo input { height:40px; font-size:16px; }
+.campo label { height:auto; padding:6px 10px; }
+.formulario-contacto { padding:20px; }
+.formulario-contacto button { height:auto; padding:12px; background:#196b24; color:white; }
+.content-wrapper > * { min-width:0; }
+.contenedor-principal-pago { grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(220px,.8fr); }
+.tarjeta-seccion-pago { min-width:0; }
+.rectangulo-resumen h2 { font-size:22px; margin-bottom:14px; }
+.rectangulo-resumen p { font-size:16px; line-height:1.6; }
+.noticias { padding:30px 5%; }
+.contenedor-noticia { height:auto; min-height:220px; }
+.noticia { min-height:220px; }
+.btn-details { display:block; text-align:center; text-decoration:none; }
+@media(max-width:1050px) { .sitio-header .nav-menu { flex-basis:100%; order:3; } .content-wrapper { flex-direction:column; } .contenedor-principal-pago { grid-template-columns:minmax(0,1fr) minmax(0,1fr); } .columna-derecha-resumen { grid-column:1/-1; position:static; } }
+@media(max-width:768px) { .contenedor-principal-pago { grid-template-columns:minmax(0,1fr); } .sitio-footer { justify-content:center; text-align:center; } .sitio-footer .social-icons { justify-content:center; } .main-content { padding:25px 20px; } .map-container { min-height:300px; } .map-image { height:300px; } .noticia { flex-direction:column; gap:20px; padding:24px 32px; } .noticia img { margin:0; } .historia-contenido { grid-template-columns:1fr; } }
+@media(max-width:480px) { .sitio-footer { flex-direction:column; align-items:center; } .sitio-header .header-container { gap:12px; } .hero-text h1 { font-size:36px; } .dato-contacto { gap:8px; } .dato-contacto img { width:36px; flex-shrink:0; } }
+
+/* Iconos locales: disponibles sin conexión. */
+.fa-solid,.fa-regular,.fa-brands { font-style:normal; display:inline-block; }
+.fa-seedling::before { content:"🌱"; }
+.fa-leaf::before { content:"🍃"; }
+.fa-truck::before { content:"🚚"; }
+.fa-shield-halved::before { content:"✓"; }
+.fa-heart::before { content:"♡"; }
+.fa-location-dot::before { content:"📍"; }
+.fa-phone::before { content:"☎"; }
+.fa-envelope::before { content:"✉"; }
+.fa-clock::before { content:"◷"; }
+.fa-star::before { content:"★"; }
+.fa-star-half-stroke::before { content:"☆"; }
+.fa-square-check::before { content:"☑"; }

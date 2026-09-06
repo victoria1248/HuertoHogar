@@ -1,0 +1,194 @@
+/* ========================================
+   PIE DE PÁGINA
+======================================== */
+
+footer {
+    /* Color verde de fondo */
+    background-color: #1b5e20;
+
+    /* Color blanco para los textos */
+    color: white;
+
+    /*
+    Espacio interior:
+    40px arriba,
+    8% a la derecha,
+    20px abajo,
+    8% a la izquierda
+    */
+    padding: 40px 8% 20px 8%;
+
+    /* Activa Flexbox */
+    display: flex;
+
+    /*
+    Distribuye el logo y las columnas,
+    dejando espacio entre ellas
+    */
+    justify-content: space-between;
+
+    /*
+    Permite que los elementos bajen a otra fila
+    si no tienen suficiente espacio
+    */
+    flex-wrap: wrap;
+
+    /* Separación entre el logo y las columnas */
+    gap: 30px;
+}
+
+
+/* ========================================
+   LOGO DEL FOOTER
+======================================== */
+
+/* Imagen del logo que aparece en el footer */
+.footer-logo img {
+    /* El logo puede medir como máximo 180px */
+    max-width: 180px;
+
+    /* Mantiene la proporción original de la imagen */
+    height: auto;
+}
+
+
+/* ========================================
+   TÍTULOS DE LAS COLUMNAS
+======================================== */
+
+/* Títulos como CONTACTO y REDES SOCIALES */
+.footer-column h3 {
+    /* Tamaño del título */
+    font-size: 1.1rem;
+
+    /* Espacio debajo del título */
+    margin-bottom: 15px;
+
+    /* Separación entre las letras */
+    letter-spacing: 1px;
+}
+
+
+/* ========================================
+   LISTAS DEL FOOTER
+======================================== */
+
+/* Lista que contiene los enlaces */
+.footer-column ul {
+    /* Elimina los puntos de la lista */
+    list-style: none;
+}
+
+
+/* Cada elemento de la lista */
+.footer-column ul li {
+    /* Espacio debajo de cada elemento */
+    margin-bottom: 8px;
+}
+
+
+/* ========================================
+   ENLACES Y PÁRRAFOS
+======================================== */
+
+/*
+Selecciona los enlaces y párrafos
+que están dentro de las columnas
+*/
+.footer-column a,
+.footer-column p {
+    /* Color blanco verdoso */
+    color: #d1e7dd;
+
+    /* Elimina el subrayado de los enlaces */
+    text-decoration: none;
+
+    /* Tamaño del texto */
+    font-size: 0.85rem;
+
+    /* Separación entre líneas */
+    line-height: 1.4;
+}
+
+
+/* Efecto al pasar el mouse sobre un enlace */
+.footer-column a:hover {
+    /* Cambia el enlace a color blanco */
+    color: white;
+}
+
+
+/* ========================================
+   ICONOS DE REDES SOCIALES
+======================================== */
+
+/* Contenedor de los iconos sociales */
+.social-icons {
+    /* Coloca los iconos en una misma fila */
+    display: flex;
+
+    /* Separación entre los iconos */
+    gap: 15px;
+
+    /* Centra verticalmente los iconos */
+    align-items:center;
+
+    /* Espacio debajo de los iconos */
+    margin-bottom: 15px;
+
+    /* Tamaño de los iconos */
+    font-size: 1.3rem;
+}
+
+
+/* Enlaces que contienen los iconos */
+.social-icons a {
+    /* Color blanco para los iconos */
+    color: white;
+}
+
+
+/* Imagen utilizada como icono social */
+.social-img {
+    /* Ancho de la imagen */
+    width: 22px;
+
+    /* Alto de la imagen */
+    height: 22px;
+
+    /*
+    Muestra la imagen completa
+    sin cortarla ni deformarla
+    */
+    object-fit: contain;
+}
+
+
+/* ========================================
+   DISEÑO PARA CELULAR Y TABLET
+======================================== */
+
+/*
+Estos estilos se aplican cuando la pantalla
+tiene un ancho de 768px o menos
+*/
+@media (max-width: 768px) {
+
+    /* Ajusta el footer para pantallas pequeñas */
+    footer {
+        /*
+        Coloca el logo y las columnas
+        uno debajo del otro
+        */
+        flex-direction: column;
+
+        /* Centra los textos */
+        text-align: center;
+
+        /*
+        Centra horizontalmente todos
+        los elementos del footer
+        */
+        align-items: center;
+    }
+}

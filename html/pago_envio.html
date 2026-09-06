@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HuertoHogar - Pago y Envío</title>
+
+    
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/navegacion.css">
+    <link rel="stylesheet" href="../css/formulario.css">
+    <link rel="stylesheet" href="../css/botones.css">
+    <link rel="stylesheet" href="../css/pago_envio.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+<link rel="stylesheet" href="../css/comun.css">
+</head>
+
+<body>
+
+    
+    <div class="barra-superior-verde"></div>
+
+    
+    <header class="sitio-header"><div class="header-container">
+<a class="logo" href="index.html"><img src="../img/Logo_2.png" alt="HuertoHogar"></a>
+<nav class="nav-menu" aria-label="Menú principal"><ul><li><a href="index.html">Inicio</a></li><li><a href="categoria.html">Categorías</a></li><li><a href="nosotros.html">Nosotros</a></li><li><a href="blog.html">Blog</a></li><li><a href="contactos.html">Contacto</a></li><li><a href="impacto.html">Impacto</a></li><li><a href="noticia.html">Noticias</a></li></ul></nav>
+<div class="header-icons"><a href="login.html" title="Mi cuenta"><img src="../img/icon_perfil.png" alt="Mi cuenta"></a><a href="pago_envio.html" title="Pago y envío"><img src="../img/icon_carrito.png" alt="Pago y envío"></a></div>
+</div></header>
+
+    <div class="pagina-pago">
+
+        
+        <div class="contenedor-pasos">
+            <div class="linea-pasos">
+                <div class="puntero-paso"></div>
+            </div>
+            <div class="texto-pasos">DATOS PERSONALES/ DATOS TARJETA</div>
+        </div>
+
+        
+        <form id="form-pago-completo" novalidate>
+
+            <div class="contenedor-principal-pago">
+
+                
+                <div class="tarjeta-seccion-pago">
+                    <h2 class="titulo-seccion-pago">Datos Personales</h2>
+
+                    
+                    <div class="campo-pago">
+                        <label for="nombre_completo" class="etiqueta-pago">Nombre completo :</label>
+                        <input type="text" id="nombre_completo" class="input-pago" placeholder="Ingresar tu nombre completo" required>
+                        <span class="mensaje-error" id="err-nombre_completo"></span>
+                    </div>
+
+                    
+                    <div class="campo-pago">
+                        <label for="domicilio" class="etiqueta-pago">Domicilio :</label>
+                        <input type="text" id="domicilio" class="input-pago" placeholder="Ingresar tu dirección" required>
+                        <span class="mensaje-error" id="err-domicilio"></span>
+                    </div>
+
+                    
+                    <div class="fila-doble">
+                        <div class="campo-pago">
+                            <label for="telefono" class="etiqueta-pago">Teléfono :</label>
+                            <input type="tel" id="telefono" class="input-pago" placeholder="Ej: 912345678" required>
+                            <span class="mensaje-error" id="err-telefono"></span>
+                        </div>
+
+                        <div class="campo-pago">
+                            <label class="etiqueta-pago">Casa / Dpto :</label>
+                            <div class="selector-vivienda">
+                                <label><input type="radio" name="tipo_vivienda" value="casa" checked> Casa</label>
+                                <label><input type="radio" name="tipo_vivienda" value="dpto"> Dpto</label>
+                            </div>
+
+                            
+                            <div id="campo-casa">
+                                <input type="text" id="numero_casa" class="input-pago" placeholder="N° de Casa" required>
+                                <span class="mensaje-error" id="err-numero_casa"></span>
+                            </div>
+
+                            
+                            <div id="campo-dpto" class="oculto">
+                                <div class="input-dpto-doble">
+                                    <input type="text" id="piso_dpto" class="input-pago" placeholder="Piso">
+                                    <input type="text" id="numero_dpto" class="input-pago" placeholder="N° Depto">
+                                </div>
+                                <span class="mensaje-error" id="err-dpto"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="campo-pago">
+                        <label for="region_envio" class="etiqueta-pago">Región :</label>
+                        <select id="region_envio" class="select-pago" required>
+                            <option value="">Selecciona tu región...</option>
+                        </select>
+                        <span class="mensaje-error" id="err-region_envio"></span>
+                    </div>
+
+                    
+                    <div class="campo-pago">
+                        <label for="comuna_envio" class="etiqueta-pago">Comuna :</label>
+                        <select id="comuna_envio" class="select-pago" required disabled>
+                            <option value="">Selecciona primero una región...</option>
+                        </select>
+                        <span class="mensaje-error" id="err-comuna_envio"></span>
+                    </div>
+
+                    
+                    <div class="campo-pago">
+                        <label for="ciudad_envio" class="etiqueta-pago">Ciudad :</label>
+                        <select id="ciudad_envio" class="select-pago" required disabled>
+                            <option value="">Selecciona primero una región...</option>
+                        </select>
+                        <span class="mensaje-error" id="err-ciudad_envio"></span>
+                    </div>
+                </div>
+
+                
+                <div class="tarjeta-seccion-pago">
+                    <h2 class="titulo-seccion-pago">Datos de la tarjeta:</h2>
+
+                    
+                    <div class="opciones-metodo-pago">
+                        <div class="caja-metodo seleccionado" data-metodo="debito">
+                            💳 Débito
+                        </div>
+                        <div class="caja-metodo" data-metodo="credito">
+                            💳 Crédito
+                        </div>
+                    </div>
+
+                    
+                    <div id="contenedor-cuotas" class="campo-pago oculto">
+                        <label for="cuotas" class="etiqueta-pago">Seleccionar Cuotas :</label>
+                        <select id="cuotas" class="select-pago">
+                            <option value="1">1 Cuota sin interés</option>
+                            <option value="3">3 Cuotas sin interés</option>
+                            <option value="6">6 Cuotas sin interés</option>
+                            <option value="12">12 Cuotas</option>
+                            <option value="18">18 Cuotas</option>
+                            <option value="24">24 Cuotas</option>
+                        </select>
+                    </div>
+
+                    
+                    <div class="campo-pago">
+                        <label for="card_nombre" class="etiqueta-pago">Nombre en la tarjeta:</label>
+                        <input type="text" id="card_nombre" class="input-pago" placeholder="Ingresar nombre del titular" required>
+                        <span class="mensaje-error" id="err-card_nombre"></span>
+                    </div>
+
+                    
+                    <div class="campo-pago">
+                        <label for="card_numero" class="etiqueta-pago">Número de tarjeta:</label>
+                        <div class="input-card-number-wrapper">
+                            <input type="text" id="card_numero" class="input-pago" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                            <span id="card-brand-badge" class="card-brand-badge">💳</span>
+                        </div>
+                        <span class="mensaje-error" id="err-card_numero"></span>
+                    </div>
+
+                    
+                    <div class="fila-doble">
+                        <div class="campo-pago">
+                            <label for="card_exp" class="etiqueta-pago">Fecha de caducidad</label>
+                            <input type="text" id="card_exp" class="input-pago" placeholder="MM/AA" maxlength="5" required>
+                            <span class="mensaje-error" id="err-card_exp"></span>
+                        </div>
+                        <div class="campo-pago">
+                            <label for="card_cvv" class="etiqueta-pago">Código de seguridad</label>
+                            <input type="password" id="card_cvv" class="input-pago" placeholder="CVV" maxlength="4" required>
+                            <span class="mensaje-error" id="err-card_cvv"></span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="campo-pago">
+                        <label for="card_zip" class="etiqueta-pago">Código postal :</label>
+                        <input type="text" id="card_zip" class="input-pago" placeholder="Ingresar código postal" required>
+                        <span class="mensaje-error" id="err-card_zip"></span>
+                    </div>
+
+                    
+                    <div class="campo-pago">
+                        <label for="card_region" class="etiqueta-pago">Region :</label>
+                        <input type="text" id="card_region" class="input-pago" placeholder="Ingresar región de facturación" required>
+                        <span class="mensaje-error" id="err-card_region"></span>
+                    </div>
+                </div>
+
+                
+                <div class="columna-derecha-resumen">
+
+                    
+                    <div class="rectangulo-resumen"><h2>Pago de demostración</h2><p>Usa datos ficticios para probar el formulario. No se realizará ningún cobro ni se enviará un pedido.</p></div>
+
+                    
+                    <button type="submit" id="btn-pagar-comprar" class="btn-verde btn-comprar-grande">Validar datos</button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    
+    <footer class="sitio-footer"><div class="footer-logo"><a href="index.html"><img src="../img/logo_1.png" alt="HuertoHogar"></a></div>
+<div class="footer-column"><h3>CONTACTO</h3><ul><li><a href="nosotros.html">Nosotros</a></li><li><a href="blog.html">Blog</a></li><li><a href="contactos.html">Contáctanos</a></li><li><a href="pago_envio.html">Pago y envío</a></li></ul></div>
+<div class="footer-column"><h3>INFORMACIÓN</h3><ul><li><a href="categoria.html">Categorías</a></li><li><a href="impacto.html">Impacto ambiental</a></li><li><a href="noticia.html">Noticias</a></li><li><a href="admin.html">Acceso administrativo</a></li></ul></div>
+<div class="footer-column"><h3>REDES SOCIALES</h3><div class="social-icons"><img src="../img/facebook.png" alt="Facebook" class="social-img"><img src="../img/twitter.png" alt="Twitter" class="social-img"><img src="../img/instagram.png" alt="Instagram" class="social-img"></div><p>@HuertoHogar · Región de Valparaíso, Chile</p><p><a href="mailto:info@huertohogar.cl">info@huertohogar.cl</a></p></div></footer>
+
+    
+    <script src="../js/pago_envio.js"></script>
+<script src="../js/main.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+/* ==========================================================================
+   🖼 ESTILOS DE LA SECCIÓN IZQUIERDA (izquierda.css)
+   ==========================================================================
+   EN ESTE ARCHIVO:
+   - Cambias la imagen de fondo del lado izquierdo.
+   - Cambias la posición del logo de HuertoHogar.
+   - Cambias los colores o posición de la etiqueta de "100% Fresco y Natural".
+   ========================================================================== */
+
+/* 1. CONTENEDOR DEL LADO IZQUIERDO CON IMAGEN DE FONDO */
+.seccion-izquierda {
+  flex: 1.2;
+  position: relative;
+  
+  /* === IMAGEN DE FONDO (canasta) */
+  background-image: url('../img/fondo1.png');
+  background-size: cover;
+  background-position: left bottom; /* Ancla la imagen abajo a la izquierda para ver la canasta completa */
+  background-repeat: no-repeat;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+}
+
+/* GRADIENTE SUTIL Y DISMINUIDO PARA MOSTRAR EL LOGO Y LA IMAGEN CLARAMENTE */
+.superposicion-gradiente {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Inicia transparente a la izquierda y hace un difuminado sutil solo al 65% */
+  background: linear-gradient(to right, transparent 0%, rgba(227, 231, 234, 0.4) 65%, rgba(227, 231, 234, 0.95) 100%);
+  z-index: 1;
+}
+
+/* 2. LOGO E INFORMACIÓN DE HUERTO HOGAR */
+.contenedor-logo {
+  position: relative;
+  z-index: 2;
+  color: #1f3b2b;
+}
+
+/* CIRCULO BLANCO ATRÁS DEL ICONO DEL LOGO */
+.icono-logo {
+  background: #ffffff;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.titulo-empresa {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #1e4d30;
+}
+
+.subtitulo-empresa {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #3f684c;
+}
+
+/* 3. ETIQUETA EN LA PARTE INFERIOR DE LA IMAGEN ("100% Fresco y Natural") */
+.etiqueta-fresco {
+  position: relative;
+  z-index: 2;
+  background-color: #fff8e7;
+  border: 1px solid #e0c896;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.etiqueta-fresco span:first-child {
+  font-size: 14px;
+  font-weight: 700;
+  color: #8b5e29;
+}
+
+.etiqueta-fresco span:last-child {
+  font-size: 11px;
+  color: #6b471c;
+}
+
+/* 4. CUADRO EXCLUSIVO DE ADMIN EN LA ESQUINA SUPERIOR IZQUIERDA */
+.cuadro-admin {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ADAPTABILIDAD PARA CELULARES */
+@media (max-width: 850px) {
+  .seccion-izquierda {
+    min-height: 220px;
+    padding: 20px;
+  }
+
+  .superposicion-gradiente {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(227, 231, 234, 1) 100%);
+  }
+
+  .cuadro-admin {
+    top: 12px;
+    left: 12px;
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+}
+

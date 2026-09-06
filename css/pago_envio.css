@@ -1,0 +1,269 @@
+/* ==========================================================================
+   💳 ESTILOS EXCLUSIVOS DE PAGO Y ENVÍO (pago_envio.css)
+   ========================================================================== */
+
+.pagina-pago {
+  background-color: #f2f4f7;
+  min-height: 100vh;
+}
+
+/* BARRA INDICADORA DE PASOS */
+.contenedor-pasos {
+  width: 100%;
+  max-width: 1200px;
+  margin: 15px auto 10px auto;
+  padding: 0 20px;
+}
+
+.linea-pasos {
+  position: relative;
+  height: 2px;
+  background-color: #ccc;
+  margin-bottom: 8px;
+}
+
+.puntero-paso {
+  position: absolute;
+  top: 50%;
+  left: 18%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background-color: #aaa;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.texto-pasos {
+  font-size: 11px;
+  font-weight: 700;
+  color: #555;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* CONTENEDOR PRINCIPAL (3 COLUMNAS) */
+.contenedor-principal-pago {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 20px 40px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 340px;
+  gap: 25px;
+  align-items: start;
+}
+
+/* TARJETAS DE FORMULARIO */
+.tarjeta-seccion-pago {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.tarjeta-seccion-pago:nth-child(1),
+.tarjeta-seccion-pago:nth-child(2) {
+  border-right: 2px solid #e6e9ed;
+}
+
+.titulo-seccion-pago {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+/* CAMPOS DE TEXTO Y SELECTS */
+.campo-pago {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.etiqueta-pago {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+
+.input-pago, .select-pago {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 13px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background-color: #eef2f5;
+  color: #222;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-pago:focus, .select-pago:focus {
+  border-color: var(--color-verde-principal);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(45, 138, 86, 0.15);
+}
+
+.select-pago {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+  padding-right: 32px;
+}
+
+.select-pago:disabled {
+  background-color: #e5e7eb;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* FILAS DOBLES */
+.fila-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* OPCIÓN CASA / DPTO */
+.selector-vivienda {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 6px;
+  background: #f0f4f8;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #d0d7de;
+}
+
+.selector-vivienda label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-dpto-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* BOTONES DÉBITO Y CRÉDITO */
+.opciones-metodo-pago {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.caja-metodo {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background-color: #f8fafc;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.caja-metodo:hover {
+  border-color: #888;
+}
+
+.caja-metodo.seleccionado {
+  border-color: var(--color-verde-principal);
+  background-color: #e8f5e9;
+  color: var(--color-verde-hover);
+}
+
+/* INSIGNIA DE TARJETA */
+.input-card-number-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.card-brand-badge {
+  position: absolute;
+  right: 10px;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+/* SECTOR DERECHO DE RESUMEN */
+.columna-derecha-resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: sticky;
+  top: 20px;
+}
+
+/* RECTÁNGULO DE RESUMEN VACÍO */
+.rectangulo-resumen {
+  background-color: #e3e7ea;
+  border: 2px solid #b0b8c0;
+  border-radius: 10px;
+  padding: 16px;
+  min-height: 260px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* BOTÓN COMPRAR VERDE */
+.btn-comprar-grande {
+  padding: 16px !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px;
+  background: linear-gradient(180deg, #66ff88 0%, #2ecc71 100%) !important;
+  color: #0b3c1b !important;
+  border: 1px solid #27ae60 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3) !important;
+  cursor: pointer;
+}
+
+.btn-comprar-grande:hover {
+  filter: brightness(1.05);
+}
+
+/* ADAPTABILIDAD RESPONSIVE */
+@media (max-width: 1024px) {
+  .contenedor-principal-pago {
+    grid-template-columns: 1fr 1fr;
+  }
+  .columna-derecha-resumen {
+    grid-column: span 2;
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .contenedor-principal-pago {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+  .tarjeta-seccion-pago:nth-child(1),
+  .tarjeta-seccion-pago:nth-child(2) {
+    border-right: none;
+  }
+  .columna-derecha-resumen {
+    grid-column: span 1;
+  }
+  .fila-doble {
+    grid-template-columns: 1fr;
+  }
+}
