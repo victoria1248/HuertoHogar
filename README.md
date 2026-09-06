@@ -12,9 +12,9 @@ En este link encuentra el mockup
 
 # Equipo
 
- -Victoria Del Pilar Gonzalez Gonzalez
- -Benjamin Ignacio Perez Pizarro
- -Matias Maximiliano Maldonado Alarcon
+-Victoria Del Pilar Gonzalez Gonzalez
+-Benjamin Ignacio Perez Pizarro
+-Matias Maximiliano Maldonado Alarcon
 
 ## 📁 Estructura del proyecto
 
