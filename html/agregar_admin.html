@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HuertoHogar - Agregar Administrador</title>
+
+    <link rel="stylesheet" href="../css/administrador.css">
+</head>
+
+<body>
+    <div class="admin-container">
+
+        <!-- ================= MENÚ LATERAL ================= -->
+        <aside class="sidebar">
+
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <img src="../img/logo-principal.png" alt="HuertoHogar">
+            </div>
+
+            <!-- Navegación del administrador -->
+            <nav class="menu-admin">
+                <a href="dashbord.html" class="menu-item">
+                    <span>⌂</span>
+                    Inicio
+                </a>
+
+                <a href="agregar_admin.html" class="menu-item activo">
+                    <span>🔑</span>
+                    Agregar Admin
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>📦</span>
+                    Productos
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>▦</span>
+                    Categorías
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>🛒</span>
+                    Pedidos
+                </a>
+
+                <a href="gestion_clientes.html" class="menu-item">
+                    <span>♙</span>
+                    Clientes
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>🚚</span>
+                    Envíos
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>☆</span>
+                    Reseñas
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>▤</span>
+                    Reportes
+                </a>
+
+                <a href="#" class="menu-item">
+                    <span>⚙</span>
+                    Configuración
+                </a>
+            </nav>
+
+            <!-- Cerrar sesión -->
+            <a href="admin.html" class="cerrar-sesion">
+                ↪ Cerrar sesión
+            </a>
+
+            <!-- Imagen decorativa -->
+            <img
+                src="../img/cesta de verduras.png"
+                class="imagen-canasta"
+                alt="HuertoHogar"
+            >
+        </aside>
+
+        <!-- ================= CONTENIDO PRINCIPAL ================= -->
+        <main class="contenido-admin">
+
+            <!-- Encabezado -->
+            <header class="admin-header">
+                <button class="menu-hamburguesa">
+                    ☰
+                </button>
+
+                <div class="header-derecha">
+                    <span class="campana">🔔</span>
+
+                    <div class="usuario-admin">
+                        <span class="icono-usuario">👤</span>
+
+                        <div>
+                            <strong>Administrador</strong>
+                            <small>Administrador</small>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Bienvenida / Título -->
+            <section class="bienvenida">
+                <h1>Gestión de Administradores</h1>
+            </section>
+
+            <!-- ================= AGREGAR ADMINISTRADOR ================= -->
+            <section id="seccion-agregar-admin" class="seccion-agregar-admin" style="margin-top: 10px;">
+                <h2>🔑 Registrar Nuevo Administrador</h2>
+                <p style="font-size: 11px; color: #666; margin-bottom: 15px;">
+                    Crea credenciales (correo y contraseña) para permitir que otra persona con el rol de administrador pueda acceder al sistema desde el inicio de sesión.
+                </p>
+
+                <div id="mensaje-error-agregar-admin" class="alerta-mensaje-admin error"></div>
+                <div id="mensaje-exito-agregar-admin" class="alerta-mensaje-admin exito"></div>
+
+                <form id="form-agregar-admin">
+                    <div class="form-admin-grid">
+                        <div class="campo-admin">
+                            <label for="nuevo-admin-correo">Correo Electrónico Admin</label>
+                            <input type="email" id="nuevo-admin-correo" placeholder="ejemplo@huertohogar.cl" required>
+                        </div>
+
+                        <div class="campo-admin">
+                            <label for="nuevo-admin-clave">Contraseña</label>
+                            <input type="password" id="nuevo-admin-clave" placeholder="Ingresa una clave segura" required>
+                        </div>
+
+                        <button type="submit" class="btn-agregar-admin">➕ Agregar Admin</button>
+                    </div>
+                </form>
+
+                <h3 style="font-size: 13px; margin-top: 20px; margin-bottom: 10px; color: #333;">Administradores Registrados</h3>
+                <div class="tabla-contenedor">
+                    <table class="tabla-clientes">
+                        <thead>
+                            <tr>
+                                <th>Correo del Administrador</th>
+                                <th>Estado</th>
+                                <th>Contraseña</th>
+                                <th style="text-align: center;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-admins-body">
+                            <!-- Se llena dinámicamente con JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
