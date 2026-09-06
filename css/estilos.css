@@ -43,7 +43,7 @@ body {
     min-height: 100vh;
 
     /* Color de fondo gris verdoso claro */
-    background-color: #f3f5f1;
+    background-color: #EAEAEA;
 
     /* Color general de los textos */
     color: #171717;
@@ -141,7 +141,7 @@ body {
     box-sizing: border-box;
 
     /* Color de fondo */
-    background-color: #f2f5df; 
+    background-color: #EAEAEA; 
     background-size: cover;      /* Cubre todo el área de la sección */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat;
@@ -170,7 +170,7 @@ body {
 /* Contenedor del título, botón y descripción */
 .hero-text {
     /* Ocupa el 45% del ancho */
-    width: 45%;
+    width: 50%;
 
     /* Limita su ancho máximo */
     max-width: 600px;
@@ -275,13 +275,13 @@ body {
 /* Contenedor de la imagen principal */
 .hero-image {
     /* Ocupa la mitad del ancho disponible */
-    width: 50%;
+    width: 2040px;
 
     /* Activa Flexbox */
     display: flex;
 
     /* Centra la imagen horizontalmente */
-    justify-content: center;
+    justify-content: right;
 
     /* Centra la imagen verticalmente */
     align-items: center;
@@ -294,7 +294,7 @@ body {
     width: 100%;
 
     /* Limita su ancho máximo */
-    max-width: 700px;
+    max-width: 900px;
 
     /* Alto de la imagen */
     height: 430px;
