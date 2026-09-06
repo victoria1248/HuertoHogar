@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HuertoHogar - Registro</title>
+  
+  
+  
+  
+
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/izquierda.css">
+  <link rel="stylesheet" href="../css/formulario.css">
+  <link rel="stylesheet" href="../css/botones.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <div class="contenedor-pantalla">
+    
+    
+    <div class="seccion-izquierda">
+      <div class="superposicion-gradiente"></div>
+    </div>
+
+    
+    <div class="seccion-derecha">
+      <div class="tarjeta-formulario"><p class="texto-cambiar-form"><a href="index.html">← Volver al inicio</a></p>
+        
+        <form id="form-registro" class="formulario activo"><div class="encabezado-form"><h2 class="titulo-form">Crear cuenta</h2><p class="descripcion-form">Registro de demostración: utiliza una clave ficticia. Los datos se guardan en este navegador.</p></div><div class="grupo-campo"><label class="etiqueta" for="reg-nombre">Nombre completo</label><div class="input-con-icono"><input id="reg-nombre" type="text" required></div><span class="mensaje-error" id="err-nombre" aria-live="polite"></span></div><div class="grupo-campo"><label class="etiqueta" for="reg-correo">Correo Gmail</label><div class="input-con-icono"><input id="reg-correo" type="email" required></div><span class="mensaje-error" id="err-correo" aria-live="polite"></span></div><div class="grupo-campo"><label class="etiqueta" for="reg-password">Contraseña (mínimo 8 caracteres)</label><div class="input-con-icono"><input id="reg-password" type="password" required></div><span class="mensaje-error" id="err-password" aria-live="polite"></span></div><div class="grupo-campo"><label class="etiqueta" for="reg-confirm-password">Confirmar contraseña</label><div class="input-con-icono"><input id="reg-confirm-password" type="password" required></div><span class="mensaje-error" id="err-confirm-pass" aria-live="polite"></span></div><button type="submit" class="btn-verde">Crear cuenta</button><p class="texto-cambiar-form"><a href="login.html">Ya tengo una cuenta</a></p></form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/registro.js"></script>
+<script src="../js/main.js" defer></script>
+</body>
+</html>
