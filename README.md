@@ -7,7 +7,14 @@ El proyecto organiza su contenido en páginas independientes y separa la estruct
 
 # Mockup
 En este link encuentra el mockup
-https://www.figma.com/design/TIT3fZ3WVIyWK7DLDUUcnG/Proyecto-huerto?node-id=0-1&p=f&m=draw
+## https://www.figma.com/design/TIT3fZ3WVIyWK7DLDUUcnG/Proyecto-huerto?node-id=0-1&p=f&m=draw
+
+
+# Equipo
+
+-Victoria Del Pilar Gonzalez Gonzalez
+-Benjamin Ignacio Perez Pizarro
+-Matias Maximiliano Maldonado Alarcon
 
 ## 📁 Estructura del proyecto
 
@@ -33,9 +40,4 @@ HUERTOHOGAR/
 │
 └── 📄 README.md
 
-# Equipo
-
--Victoria Del Pilar Gonzalez Gonzalez
--Benjamin Ignacio Perez Pizarro
--Matias Maximiliano Maldonado Alarcon
  
