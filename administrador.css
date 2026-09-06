@@ -1,0 +1,850 @@
+/* =====================================================
+   HUERTO HOGAR
+   PANEL DE ADMINISTRADOR
+   ===================================================== */
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    background-color: #eeeeee;
+
+    font-family: Arial, sans-serif;
+
+    color: #333333;
+
+}
+
+
+/* =====================================================
+   CONTENEDOR
+   ===================================================== */
+
+.admin-container {
+
+    display: flex;
+
+    width: 100%;
+
+    min-height: 100vh;
+
+}
+
+
+/* =====================================================
+   SIDEBAR (OCULTO POR DEFECTO, SE DESPLIEGA CON LAS 3 BARRITAS)
+   ===================================================== */
+
+.sidebar {
+
+    width: 220px;
+
+    height: 100vh;
+
+    background-color: #ffffff;
+
+    display: flex;
+
+    flex-direction: column;
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    z-index: 1000;
+
+    transform: translateX(-100%);
+
+    transition: transform 0.3s ease-in-out;
+
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.25);
+
+    overflow-y: auto;
+
+}
+
+
+/* Cuando se pulsa el botón de 3 barritas (☰), se despliega de izquierda a derecha */
+.sidebar.abierto {
+
+    transform: translateX(0);
+
+}
+
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
+.sidebar-logo {
+
+    height: 80px;
+
+    background-color: #196B24;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.sidebar-logo img {
+
+    width: 105px;
+
+    height: auto;
+
+}
+
+
+/* =====================================================
+   MENU
+   ===================================================== */
+
+.menu-admin {
+
+    padding: 20px 10px;
+
+}
+
+
+.menu-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    height: 36px;
+
+    padding: 0 12px;
+
+    margin-bottom: 5px;
+
+    color: #333333;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    border-radius: 4px;
+
+}
+
+
+.menu-item:hover {
+
+    background-color: #E5F2E7;
+
+}
+
+
+.menu-item.activo {
+
+    background-color: #2E8B57;
+
+    color: white;
+
+}
+
+
+.menu-item span {
+
+    width: 18px;
+
+    text-align: center;
+
+}
+
+
+/* =====================================================
+   CERRAR SESION
+   ===================================================== */
+
+.cerrar-sesion {
+
+    margin: 5px 15px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #cccccc;
+
+    color: #333333;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   IMAGEN
+   ===================================================== */
+
+.imagen-canasta {
+
+    width: 170px;
+
+    height: auto;
+
+    margin-top: auto;
+
+    margin-bottom: 10px;
+
+    margin-left: 15px;
+
+}
+
+
+/* =====================================================
+   CONTENIDO
+   ===================================================== */
+
+.contenido-admin {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.admin-header {
+
+    height: 80px;
+
+    background-color: white;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 0 30px;
+
+    border-bottom: 1px solid #dddddd;
+
+}
+
+
+.menu-hamburguesa {
+
+    background: none;
+
+    border: none;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+}
+
+
+.header-derecha {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+}
+
+
+.campana {
+
+    font-size: 18px;
+
+}
+
+
+.usuario-admin {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+.icono-usuario {
+
+    font-size: 28px;
+
+}
+
+
+.usuario-admin strong {
+
+    display: block;
+
+    font-size: 12px;
+
+}
+
+
+.usuario-admin small {
+
+    display: block;
+
+    font-size: 10px;
+
+    color: #777777;
+
+}
+
+
+/* =====================================================
+   BIENVENIDA
+   ===================================================== */
+
+.bienvenida {
+
+    padding: 20px 30px 10px;
+
+}
+
+
+.bienvenida h1 {
+
+    margin: 0;
+
+    color: #196B24;
+
+    font-size: 20px;
+
+}
+
+
+/* =====================================================
+   ESTADISTICAS
+   ===================================================== */
+
+.estadisticas {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
+
+    padding: 10px 30px 20px;
+
+}
+
+
+.estadistica {
+
+    background-color: white;
+
+    min-height: 75px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    border-radius: 4px;
+
+}
+
+
+.estadistica-icono {
+
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50%;
+
+    background-color: #EDF7ED;
+
+    color: #2E8B57;
+
+    font-size: 17px;
+
+}
+
+
+.estadistica span {
+
+    display: block;
+
+    font-size: 10px;
+
+    color: #777777;
+
+}
+
+
+.estadistica strong {
+
+    display: block;
+
+    color: #196B24;
+
+    font-size: 19px;
+
+    margin-top: 3px;
+
+}
+
+
+.stock-bajo .estadistica-icono {
+
+    background-color: #FFF5C7;
+
+    color: #D9A900;
+
+}
+
+
+.stock-bajo strong {
+
+    color: #D9A900;
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+   ===================================================== */
+
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns: 1.5fr 1fr;
+
+    gap: 20px;
+
+    padding: 0 30px 30px;
+
+}
+
+
+.panel {
+
+    background-color: white;
+
+    padding: 20px;
+
+    border-radius: 4px;
+
+}
+
+
+.panel-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+.panel-header h2 {
+
+    font-size: 13px;
+
+    margin: 0;
+
+}
+
+
+/* =====================================================
+   GRAFICO
+   ===================================================== */
+
+.grafico {
+
+    height: 170px;
+
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-around;
+
+    gap: 15px;
+
+    border-bottom: 1px solid #dddddd;
+
+}
+
+
+.barra {
+
+    width: 35px;
+
+    background-color: #2E8B57;
+
+    border-radius: 4px 4px 0 0;
+
+}
+
+
+.ventas-total {
+
+    margin-top: 15px;
+
+}
+
+
+.ventas-total span {
+
+    font-size: 10px;
+
+    color: #777777;
+
+}
+
+
+.ventas-total strong {
+
+    display: block;
+
+    color: #196B24;
+
+    margin-top: 5px;
+
+}
+
+
+/* =====================================================
+   PRODUCTOS
+   ===================================================== */
+
+.panel-header button {
+
+    border: none;
+
+    background-color: #FFD900;
+
+    padding: 7px 12px;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+}
+
+
+.producto {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 8px 0;
+
+    border-bottom: 1px solid #eeeeee;
+
+}
+
+
+.producto img {
+
+    width: 45px;
+
+    height: 45px;
+
+    object-fit: cover;
+
+    border-radius: 4px;
+
+}
+
+
+.producto strong {
+
+    display: block;
+
+    font-size: 11px;
+
+}
+
+
+.producto span {
+
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 9px;
+
+    color: #777777;
+
+}
+
+
+.gestionar {
+
+    display: block;
+
+    margin-top: 20px;
+
+    color: #2E8B57;
+
+    font-size: 11px;
+
+    text-decoration: none;
+
+}
+
+
+/* =====================================================
+   GESTION DE CLIENTES
+   ===================================================== */
+
+.gestion {
+
+    margin: 0 30px 30px;
+
+    background-color: white;
+
+    padding: 20px;
+
+    border-radius: 4px;
+
+}
+
+
+.titulo-gestion {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+.titulo-gestion h2 {
+
+    margin: 0;
+
+    font-size: 14px;
+
+}
+
+
+.titulo-gestion select {
+
+    border: 1px solid #cccccc;
+
+    padding: 6px 10px;
+
+    font-size: 10px;
+
+}
+
+
+/* =====================================================
+   TABLA
+   ===================================================== */
+
+.tabla-contenedor {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+}
+
+
+.tabla-clientes {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 10px;
+
+}
+
+
+.tabla-clientes th {
+
+    background-color: #F5F5F5;
+
+    text-align: left;
+
+    padding: 10px;
+
+    border: 1px solid #BBBBBB;
+
+    font-weight: bold;
+
+}
+
+
+.tabla-clientes td {
+
+    padding: 12px 10px;
+
+    border: 1px solid #CCCCCC;
+
+    color: #444444;
+
+}
+
+
+.tabla-clientes tbody tr:hover {
+
+    background-color: #F5FAF5;
+
+}
+
+
+/* =====================================================
+   SECCIÓN: MENÚ LATERAL DESPLEGABLE (OVERLAY Y ANIMACIÓN)
+   ===================================================== */
+
+/* Fondo oscuro (Overlay) cuando se abre el menú */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+}
+
+.sidebar-overlay.activo {
+    display: block;
+}
+
+
+/* =====================================================
+   SECCIÓN: AGREGAR NUEVO ADMINISTRADOR EN DASHBOARD
+   ===================================================== */
+.seccion-agregar-admin {
+    margin: 0 30px 30px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+}
+
+.seccion-agregar-admin h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #196B24;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 15px;
+    align-items: end;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .form-admin-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.campo-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.campo-admin label {
+    font-size: 11px;
+    font-weight: bold;
+    color: #444444;
+}
+
+.campo-admin input {
+    padding: 8px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.btn-agregar-admin {
+    background-color: #2E8B57;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    height: 34px;
+    transition: background-color 0.2s;
+}
+
+.btn-agregar-admin:hover {
+    background-color: #196B24;
+}
+
+.alerta-mensaje-admin {
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.alerta-mensaje-admin.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alerta-mensaje-admin.exito {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
