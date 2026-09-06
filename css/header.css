@@ -1,0 +1,105 @@
+/* ENCABEZADO */
+
+header {
+    /* Fondo blanco del encabezado */
+    background-color: #ffffff;
+
+    /* Sombra suave debajo del encabezado */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+    /* Ocupa todo el ancho de la pantalla */
+    width: 100%;
+}
+
+
+/* CONTENEDOR DEL LOGO, MENÚ E ICONOS */
+
+.header-container {
+    width: 100%;
+    max-width: none;
+    min-height: 105px;
+
+    /* Espacio interior */
+    padding: 15px 5%;
+
+    /* Coloca el logo, menú e iconos en una fila */
+    display: flex;
+
+    /* Centra verticalmente los elementos */
+    align-items: center;
+
+    /* Espacio entre los elementos */
+    gap: 30px;
+}
+
+
+/* LOGO */
+
+.logo {
+    /* Evita que el logo se achique */
+    flex-shrink: 0;
+}
+
+.logo img {
+    height: 45px;
+    width: auto;
+    display: block;
+}
+
+
+/* MENÚ */
+
+.nav-menu {
+    /* Separa el menú del logo */
+    margin-left: 30px;
+}
+
+
+/* ICONOS */
+
+.header-icons {
+    display: flex;
+    align-items: center;
+
+    /* Separación entre lupa, usuario y carrito */
+    gap: 20px;
+
+    /*
+    Esta propiedad empuja los iconos
+    completamente hacia la derecha
+    */
+    margin-left: auto;
+
+    color: #444;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    /* Evita que los iconos se achiquen */
+    flex-shrink: 0;
+}
+
+
+/* CARRITO */
+
+.cart-icon {
+    position: relative;
+}
+
+
+/* NÚMERO DEL CARRITO */
+
+.cart-badge {
+    position: absolute;
+
+    top: -8px;
+    right: -10px;
+
+    background-color: #2e7d32;
+    color: white;
+
+    font-size: 0.7rem;
+    font-weight: bold;
+
+    border-radius: 50%;
+    padding: 2px 6px;
+}

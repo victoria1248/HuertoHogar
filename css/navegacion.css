@@ -1,0 +1,61 @@
+/* ========================================
+   MENÚ DE NAVEGACIÓN (navegacion.css)
+   ======================================== */
+
+.nav-menu {
+    /* Mueve el menú hacia el lado izquierdo, cerca del logo */
+    margin-left: 45px;
+    margin-right: auto;
+}
+
+/* Lista que contiene las opciones del menú */
+.nav-menu ul {
+    /* Activa Flexbox para colocar los enlaces uno al lado del otro */
+    display: flex;
+
+    /* Elimina los puntos de la lista */
+    list-style: none;
+
+    /* Deja 25px de separación entre las opciones */
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Enlaces del menú */
+.nav-menu a {
+    /* Elimina el subrayado de los enlaces */
+    text-decoration: none;
+
+    /* Color gris oscuro del texto */
+    color: #444;
+
+    /* Grosor medio de la letra: 400 es normal y 700 es negrita */
+    font-weight: 500;
+
+    /* Tamaño de la letra */
+    font-size: 0.95rem;
+
+    /* Hace que el cambio de color ocurra suavemente durante 0.3 segundos */
+    transition: color 0.3s;
+}
+
+/* Selecciona el enlace de la página actual y también el enlace sobre el que se pasa el mouse */
+.nav-menu a.active,
+.nav-menu a:hover {
+    /* Cambia el texto a color verde */
+    color: #2e7d32;
+}
+
+/* Adaptabilidad Responsive */
+@media (max-width: 850px) {
+  .nav-menu {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .nav-menu ul {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,898 @@
+/* Importa los estilos del encabezado */
+@import url("header.css");
+
+/* Importa los estilos del menú de navegación */
+@import url("menu.css");
+
+
+/* ========================================
+   CONFIGURACIÓN GENERAL
+======================================== */
+
+/* Selecciona todos los elementos de la página */
+* {
+    /* Elimina los márgenes externos predeterminados */
+    margin: 0;
+
+    /* Elimina los espacios internos predeterminados */
+    padding: 0;
+
+    /*
+    Hace que el padding y el borde estén incluidos
+    dentro del ancho y alto asignados
+    */
+    box-sizing: border-box;
+}
+
+
+/* Configuración general de la página */
+html,
+body {
+    /* Ocupa todo el ancho disponible */
+    width: 100%;
+
+    /* La página tendrá como mínimo todo el alto disponible */
+    min-height: 100%;
+}
+
+
+/* Estilos generales del cuerpo */
+body {
+    /* Color de fondo gris claro */
+    background: #f3f5f1;
+
+    /* Color general de los textos */
+    color: #171717;
+
+    /* Tipo de letra utilizado */
+    font-family: Arial, sans-serif;
+
+    /* Elimina los espacios alrededor de la página */
+    padding: 0;
+}
+
+
+/* ========================================
+   CONTENEDOR PRINCIPAL
+======================================== */
+
+/* Contenedor que envuelve toda la página */
+.pagina {
+    /* Ocupa todo el ancho de la pantalla */
+    width: 100%;
+
+    /* Elimina el límite máximo de ancho */
+    max-width: none;
+
+    /* Ocupa como mínimo todo el alto de la pantalla */
+    min-height: 100vh;
+
+    /* Elimina los márgenes externos */
+    margin: 0;
+
+    /* Color de fondo blanco */
+    background: white;
+
+    /* Elimina el borde exterior */
+    border: none;
+}
+
+
+/* ========================================
+   ENCABEZADO
+======================================== */
+
+/* Encabezado principal de la página */
+header {
+    /* Ocupa todo el ancho disponible */
+    width: 100%;
+
+    /* Color de fondo blanco */
+    background-color: white;
+
+    /* Línea inferior del encabezado */
+    border-bottom: 1px solid #999;
+
+    /* Elimina cualquier sombra */
+    box-shadow: none;
+}
+
+
+/* Contenedor del logo, menú e iconos */
+.header-container {
+    /* Ocupa todo el ancho disponible */
+    width: 100%;
+
+    /* No limita el ancho máximo */
+    max-width: none;
+
+    /* Altura mínima del encabezado */
+    min-height: 105px;
+
+    /* Espacio interior: 15px vertical y 5% horizontal */
+    padding: 15px 5%;
+
+    /* Activa Flexbox */
+    display: flex;
+
+    /* Centra verticalmente sus elementos */
+    align-items: center;
+
+    /* Separa el logo, el menú y los iconos */
+    justify-content: space-between;
+}
+
+
+/* Imagen del logo */
+.logo img {
+    /* Altura del logo */
+    height: 72px;
+
+    /* Calcula automáticamente el ancho */
+    width: auto;
+}
+
+
+/* Lista del menú de navegación */
+.nav-menu ul {
+    /* Coloca los enlaces en una misma fila */
+    display: flex;
+
+    /* Centra los enlaces verticalmente */
+    align-items: center;
+
+    /* Separación entre los enlaces */
+    gap: 23px;
+}
+
+
+/* Enlaces del menú */
+.nav-menu a {
+    /* Tamaño de letra de los enlaces */
+    font-size: 14px;
+}
+
+
+/* Contenedor de los iconos del encabezado */
+.header-icons {
+    /* Tamaño de los iconos */
+    font-size: 25px;
+}
+
+
+/* Contenedor del carrito */
+.cart-icon {
+    /*
+    Permite colocar el número del carrito
+    encima del icono
+    */
+    position: relative;
+}
+
+
+/* Número que aparece sobre el carrito */
+.cart-icon b {
+    /* Posiciona el número sobre el carrito */
+    position: absolute;
+
+    /* Mueve el número hacia arriba */
+    top: -13px;
+
+    /* Mueve el número hacia la derecha */
+    right: -13px;
+
+    /* Ancho del círculo */
+    width: 21px;
+
+    /* Alto del círculo */
+    height: 21px;
+
+    /* Convierte el elemento en un círculo */
+    border-radius: 50%;
+
+    /* Activa Grid para centrar el número */
+    display: grid;
+
+    /* Centra el número horizontal y verticalmente */
+    place-items: center;
+
+    /* Color verde del círculo */
+    background: #299457;
+
+    /* Color blanco del número */
+    color: white;
+
+    /* Tamaño del número */
+    font-size: 11px;
+}
+
+
+/* ========================================
+   CABECERA DE CATEGORÍAS
+======================================== */
+
+/* Sección donde aparece el título Categorías */
+.cabecera-categorias {
+    /* Ocupa todo el ancho disponible */
+    width: 100%;
+
+    /* Altura mínima de la sección */
+    min-height: 230px;
+
+    /* Espacio interior vertical y horizontal */
+    padding: 25px 5%;
+
+    /* Activa Flexbox */
+    display: flex;
+
+    /* Centra los elementos verticalmente */
+    align-items: center;
+
+    /* Coloca el texto a la izquierda y la imagen a la derecha */
+    justify-content: space-between;
+
+    /* Oculta las partes que sobresalgan */
+    overflow: hidden;
+
+    /* Línea inferior de separación */
+    border-bottom: 1px solid #999;
+
+    /* Color de fondo de la sección */
+    background: #fcfdfb;
+}
+
+
+/* Contenedor del texto de la cabecera */
+.cabecera-categorias > div {
+    /*
+    Permite controlar la posición del texto
+    respecto a la imagen
+    */
+    position: relative;
+
+    /* Coloca el texto delante de la imagen */
+    z-index: 1;
+}
+
+
+/* Ruta Inicio > Categorías */
+.ruta {
+    /* Espacio debajo de la ruta */
+    margin-bottom: 27px;
+
+    /* Tamaño del texto */
+    font-size: 12px;
+
+    /* Texto en negrita */
+    font-weight: bold;
+}
+
+
+/* Enlace de la ruta */
+.ruta a {
+    /* Color oscuro */
+    color: #222;
+
+    /* Elimina el subrayado */
+    text-decoration: none;
+}
+
+
+/* Título Categorías */
+.cabecera-categorias h1 {
+    /* Espacio debajo del título */
+    margin-bottom: 10px;
+
+    /* Tamaño del título */
+    font-size: 40px;
+}
+
+
+/* Último párrafo de la cabecera */
+.cabecera-categorias p:last-child {
+    /* Tamaño del texto */
+    font-size: 15px;
+
+    /* Separación entre líneas */
+    line-height: 1.3;
+}
+
+
+/* Imagen de la cabecera */
+.cabecera-categorias img {
+    /* Alinea la imagen en la parte inferior */
+    align-self: flex-end;
+
+    /* Ocupa el 45% del ancho de la sección */
+    width: 45%;
+
+    /* Limita el ancho máximo de la imagen */
+    max-width: 650px;
+
+    /* Alto de la imagen */
+    height: 220px;
+
+    /*
+    Hace que la imagen cubra el espacio.
+    Puede recortar una pequeña parte
+    */
+    object-fit: cover;
+
+    /* Centra la imagen dentro de su espacio */
+    object-position: center;
+}
+
+
+/* ========================================
+   CONTENEDOR DE CATEGORÍAS
+======================================== */
+
+/* Contenedor de todas las tarjetas */
+.categorias {
+    /* Ocupa todo el ancho disponible */
+    width: 100%;
+
+    /* Espacio interior vertical y horizontal */
+    padding: 45px 5%;
+
+    /* Activa CSS Grid */
+    display: grid;
+
+    /* Crea seis columnas del mismo tamaño */
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+
+    /* Separación entre las tarjetas */
+    gap: 25px;
+
+    /* Línea inferior */
+    border-bottom: 1px solid #aaa;
+}
+
+
+/* ========================================
+   TARJETAS
+======================================== */
+
+/* Cada tarjeta de categoría */
+.tarjeta {
+    /* Permite que la tarjeta pueda reducir su ancho */
+    min-width: 20;
+
+    /* Altura mínima de la tarjeta */
+    min-height: 320px;
+
+    /* Espacio interno */
+    padding: 7px 10px 15px;
+
+    /* Borde de la tarjeta */
+    border: 1px solid #999;
+
+    /* Esquinas redondeadas */
+    border-radius: 11px;
+
+    /* Color de fondo */
+    background: #fafcf9;
+
+    /* Centra los textos */
+    text-align: center;
+
+    /* Activa Flexbox */
+    display: flex;
+
+    /* Coloca los elementos uno debajo del otro */
+    flex-direction: column;
+
+    /* Centra horizontalmente los elementos */
+    align-items: center;
+
+    /* Suaviza el movimiento y la sombra */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+/* Efecto al pasar el mouse por una tarjeta */
+.tarjeta:hover {
+    /* Mueve la tarjeta 4px hacia arriba */
+    transform: translateY(-4px);
+
+    /* Agrega una sombra suave */
+    box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ========================================
+   IMÁGENES DE LAS TARJETAS
+======================================== */
+
+/* Contenedor de cada imagen */
+.foto {
+    /* Ocupa todo el ancho de la tarjeta */
+    width: 100%;
+
+    /* Alto del espacio de la imagen */
+    height: 180px;
+
+    /* Borde del contenedor */
+    border: 1px solid #aaa;
+
+    /* Esquinas redondeadas */
+    border-radius: 9px;
+
+    /* Oculta lo que sobresalga */
+    overflow: hidden;
+
+    /* Activa Flexbox */
+    display: flex;
+
+    /* Centra la imagen verticalmente */
+    align-items: center;
+
+    /* Centra la imagen horizontalmente */
+    justify-content: center;
+
+    /* Fondo blanco */
+    background-color: white;
+}
+
+
+/* Imagen dentro de cada tarjeta */
+.foto img {
+    /* Ocupa todo el ancho del contenedor */
+    width: 100%;
+
+    /* Ocupa todo el alto del contenedor */
+    height: 100%;
+
+    /* Elimina el pequeño espacio inferior de las imágenes */
+    display: block;
+
+    /*
+    Muestra la imagen completa sin deformarla.
+    Puede dejar pequeños espacios vacíos
+    */
+    object-fit: contain;
+}
+
+
+/* Color de fondo para la categoría Frutas */
+.frutas {
+    background-color:transparent;
+}
+
+
+/* Color de fondo para Verduras */
+.verduras {
+    background-color: #eef8e8;
+}
+
+
+/* Color de fondo para productos Orgánicos */
+.organicos {
+    background-color: #e8f5dc;
+}
+
+
+/* Color de fondo para Lácteos */
+.lacteos {
+    background-color: #fffdf0;
+}
+
+
+/* Color de fondo para Despensa */
+.despensa {
+    background-color: #f6ead9;
+}
+
+
+/* Color de fondo para Hierbas */
+.hierbas {
+    background-color: #e5f2dd;
+}
+
+
+/* ========================================
+   INFORMACIÓN DE LAS TARJETAS
+======================================== */
+
+/* Títulos de las tarjetas */
+.tarjeta h3 {
+    /* Espacio superior e inferior */
+    margin: 12px 0 8px;
+
+    /* Tamaño del título */
+    font-size: 15px;
+}
+
+
+/* Descripción de las tarjetas */
+.tarjeta p {
+    /* Tamaño del texto */
+    font-size: 12px;
+
+    /* Espacio entre las líneas */
+    line-height: 1.4;
+}
+
+
+/* Enlace Ver productos */
+.tarjeta a {
+    /*
+    Empuja el enlace hacia la parte inferior
+    de la tarjeta
+    */
+    margin-top: auto;
+
+    /* Color verde */
+    color: #1e8b4b;
+
+    /* Tamaño del enlace */
+    font-size: 13px;
+
+    /* Texto inclinado */
+    font-style: italic;
+
+    /* Texto en negrita */
+    font-weight: bold;
+
+    /* Elimina el subrayado */
+    text-decoration: none;
+}
+
+
+/* Efecto al pasar el mouse por Ver productos */
+.tarjeta a:hover {
+    /* Muestra el subrayado */
+    text-decoration: underline;
+}
+
+
+/* ========================================
+   SECCIÓN DEL CAMPO A TU HOGAR
+======================================== */
+
+/* Contenedor de la sección */
+.campo-hogar {
+    /* Ocupa todo el ancho disponible */
+    width: 100%;
+
+    /* Altura mínima */
+    min-height: 140px;
+
+    /* Espacio interior */
+    padding: 20px 5%;
+
+    /* Activa Flexbox */
+    display: flex;
+
+    /* Centra los elementos verticalmente */
+    align-items: center;
+
+    /* Espacio entre los elementos */
+    gap: 18px;
+
+    /*
+    Fondo degradado desde blanco
+    hasta verde claro
+    */
+    background: linear-gradient(
+        90deg,
+        #ffffff 55%,
+        #eff8ed
+    );
+}
+
+
+/* Círculo que contiene el icono de la hoja */
+.hoja {
+    /*
+    Mantiene el ancho del círculo en 55px
+    y evita que se reduzca
+    */
+    flex: 0 0 55px;
+
+    /* Ancho del círculo */
+    width: 55px;
+
+    /* Alto del círculo */
+    height: 55px;
+
+    /* Activa Grid */
+    display: grid;
+
+    /* Centra el icono */
+    place-items: center;
+
+    /* Borde del círculo */
+    border: 1px solid #bbb;
+
+    /* Convierte el elemento en círculo */
+    border-radius: 50%;
+
+    /* Color verde del icono */
+    color: #2a9751;
+
+    /* Tamaño del icono */
+    font-size: 27px;
+}
+
+
+/* Título Del campo a tu hogar */
+.campo-hogar h2 {
+    /* Espacio debajo del título */
+    margin-bottom: 4px;
+
+    /* Tamaño del título */
+    font-size: 27px;
+
+    /* Texto inclinado */
+    font-style: italic;
+}
+
+
+/* Descripción de la sección */
+.campo-hogar p {
+    /* Color gris del texto */
+    color: #666;
+
+    /* Tamaño del texto */
+    font-size: 14px;
+
+    /* Separación entre líneas */
+    line-height: 1.3;
+}
+
+
+/* ========================================
+   BOTÓN CONOCE MÁS
+======================================== */
+
+/* Botón de la sección Del campo a tu hogar */
+.boton {
+    /* Envía el botón hacia el lado derecho */
+    margin-left: auto;
+
+    /* Espacio interno */
+    padding: 14px 20px;
+
+    /* Esquinas redondeadas */
+    border-radius: 8px;
+
+    /* Fondo verde */
+    background: #299457;
+
+    /* Texto blanco */
+    color: white;
+
+    /* Elimina el subrayado */
+    text-decoration: none;
+
+    /* Tamaño del texto */
+    font-size: 14px;
+
+    /* Texto en negrita */
+    font-weight: bold;
+
+    /* Evita que el texto se divida en dos líneas */
+    white-space: nowrap;
+}
+
+
+/* Efecto al pasar el mouse por el botón */
+.boton:hover {
+    /* Cambia el fondo a un verde más oscuro */
+    background: #1f783f;
+}
+
+
+/* ========================================
+   BENEFICIOS
+======================================== */
+
+/* Contenedor de todos los beneficios */
+.beneficios {
+    /* Ocupa todo el ancho disponible */
+    width: 100%;
+
+    /* Espacio interior */
+    padding: 40px 5%;
+
+    /* Activa CSS Grid */
+    display: grid;
+
+    /* Crea cuatro columnas iguales */
+    grid-template-columns: repeat(4, 1fr);
+
+    /* Separación entre beneficios */
+    gap: 35px;
+}
+
+
+/* Cada cuadro de beneficio */
+.beneficios article {
+    /* Altura mínima */
+    min-height: 95px;
+
+    /* Espacio interior */
+    padding: 16px 20px;
+
+    /* Esquinas redondeadas */
+    border-radius: 14px;
+
+    /* Color de fondo */
+    background: #f3f5f1;
+
+    /* Activa Flexbox */
+    display: flex;
+
+    /* Centra verticalmente los elementos */
+    align-items: center;
+
+    /* Espacio entre el icono y el texto */
+    gap: 14px;
+}
+
+
+/* Iconos de los beneficios */
+.beneficios i {
+    /* Color verde */
+    color: #24964e;
+
+    /* Tamaño del icono */
+    font-size: 38px;
+}
+
+
+/* Títulos de los beneficios */
+.beneficios h3 {
+    /* Espacio debajo del título */
+    margin-bottom: 5px;
+
+    /* Tamaño del título */
+    font-size: 16px;
+}
+
+
+/* Descripción de los beneficios */
+.beneficios p {
+    /* Color gris */
+    color: #555;
+
+    /* Tamaño del texto */
+    font-size: 13px;
+}
+
+
+/* ========================================
+   PANTALLAS MEDIANAS
+======================================== */
+
+/*
+Estos estilos se aplican cuando la pantalla
+tiene 1150px de ancho o menos
+*/
+@media (max-width: 1150px) {
+
+    /* Reduce la separación del menú */
+    .nav-menu ul {
+        gap: 12px;
+    }
+
+    /* Muestra tres tarjetas por fila */
+    .categorias {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Muestra dos beneficios por fila */
+    .beneficios {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+/*
+Estos estilos se aplican cuando la pantalla
+tiene 780px de ancho o menos
+*/
+@media (max-width: 780px) {
+
+    /* Permite que el encabezado use varias filas */
+    .header-container {
+        flex-wrap: wrap;
+
+        /* Centra sus elementos */
+        justify-content: center;
+
+        /* Espacio entre los elementos */
+        gap: 15px;
+    }
+
+    /* Permite que los enlaces bajen de fila */
+    .nav-menu ul {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Ajusta la imagen de la cabecera */
+    .cabecera-categorias img {
+        width: 48%;
+
+        /* Hace la imagen parcialmente transparente */
+        opacity: 0.45;
+    }
+
+    /* Muestra dos categorías por fila */
+    .categorias {
+        grid-template-columns: repeat(2, 1fr);
+
+        /* Reduce el espacio interior */
+        padding: 25px;
+    }
+
+    /* Permite que los elementos bajen de fila */
+    .campo-hogar {
+        flex-wrap: wrap;
+
+        /* Reduce el espacio interior */
+        padding: 20px;
+    }
+
+    /* Acomoda la posición del botón */
+    .boton {
+        margin-left: 68px;
+    }
+
+    /* Reduce los espacios de los beneficios */
+    .beneficios {
+        padding: 25px;
+        gap: 18px;
+    }
+}
+
+
+/* ========================================
+   CELULAR
+======================================== */
+
+/*Estos estilos se aplican cuando la pantalla 
+tiene 500px de ancho o menos
+*/
+@media (max-width: 500px) {
+
+    /*
+    Muestra una categoría y un beneficio
+    por cada fila
+    */
+    .categorias,
+    .beneficios {
+        grid-template-columns: 1fr;
+    }
+
+    /* Reduce el espacio de la cabecera */
+    .cabecera-categorias {
+        padding: 20px;
+    }
+
+    /* Oculta la imagen de la cabecera */
+    .cabecera-categorias img {
+        display: none;
+    }
+
+    /* Reduce el tamaño del título */
+    .cabecera-categorias h1 {
+        font-size: 30px;
+    }
+
+    /* Alinea el botón correctamente */
+    .boton {
+        margin-left: 0;
+    }
+
+    /*Ignora los saltos de línea manualesdentro del texto*/
+    .campo-hogar br {
+        display: none;
+    }
+}
