@@ -50,16 +50,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!esValido) return;
 
-      // Credenciales de administración
+      // ==========================================================================
+      // VERIFICACIÓN DE CREDENCIALES DE ADMINISTRACIÓN
+      // ==========================================================================
+      // VERIFICACIÓN DE CREDENCIALES Y ESTADO DE SUSPENSIÓN DE ADMINISTRACIÓN
+      // ==========================================================================
+      
+      // 1. Cargar administradores registrados en localStorage
+      let adminsGuardados = [];
+      try {
+        const datos = localStorage.getItem('administradores_huerto');
+        if (datos) adminsGuardados = JSON.parse(datos);
+      } catch (e) {
+        adminsGuardados = [];
+      }
+
+      // Buscar si existe la cuenta ingresada
+      const adminRegistrado = adminsGuardados.find(a => a.correo.toLowerCase() === correo.toLowerCase());
+
+      // Si la cuenta existe pero se encuentra suspendida
+      if (adminRegistrado && adminRegistrado.estado === 'suspendido') {
+        if (alertaError) {
+          alertaError.classList.remove('oculto');
+          alertaError.textContent = "Cuenta actualmente suspendida por revisión corporativa.";
+        }
+        return;
+      }
+
+      // 2. Credenciales por defecto
       const esAdminPrincipal = (correo.toLowerCase() === 'admin@huertohogar.cl' && password === 'Admin123!');
       const esAdminSecundario = (correo.toLowerCase() === 'admin@gmail.com' && password === 'Admin123!');
 
-      if (esAdminPrincipal || esAdminSecundario) {
-        alert('Credenciales de demostración correctas. El archivo original no incluye un panel de administración.');
+      // 3. Credenciales de administradores registrados (solo si la contraseña coincide y no está suspendida)
+      const esClaveValida = adminRegistrado && adminRegistrado.clave === password;
+
+      // Si las credenciales son válidas (por defecto o registradas activas)
+      if (esAdminPrincipal || esAdminSecundario || esClaveValida) {
+        // Guardar sesión del administrador
+        try {
+          sessionStorage.setItem('sesion_admin_huerto', JSON.stringify({ correo: correo, rol: 'admin' }));
+        } catch (e) {}
+
+        // Redirigir al dashboard de administración
+        window.location.href = 'dashbord.html';
       } else {
         if (alertaError) {
           alertaError.classList.remove('oculto');
-          alertaError.textContent = "Credenciales de administración incorrectas o no autorizadas.";
+          alertaError.textContent = "Correo o contraseña de administrador incorrectos o no autorizados.";
         }
       }
     });
