@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Huerto Hogar</title>
+    <link rel="stylesheet" href="../css/pago_envio.css">
+    <link rel="stylesheet" href="../css/comun.css">
+    <link rel="stylesheet" href="../css/integracion.css">
+    <link rel="stylesheet" href="../css/producto.css">
+</head>
+</head>
+
+<body>
+
+    <!-- BARRA VERDE SUPERIOR -->
+
+    <div class="barra-superior"></div>
+
+    <!-- =========================
+         ENCABEZADO
+    ========================== -->
+
+    <header>
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="../img/Logo_1.png" alt="Huerto Hogar">
+        </div>
+        <!-- MENÚ -->
+        <nav>
+
+            <a href="index.html">Inicio</a>
+
+            <a href="#" class="activo">
+                Producto
+            </a>
+
+            <a href="categoria.html">Categoría</a>
+
+            <a href="nosotros.html">Nosotros</a>
+
+            <a href="blog.html">Blog</a>
+
+            <a href="contactos.html">Contacto</a>
+
+            <a href="resenas.html">Reseñas</a>
+
+        </nav>
+
+        <!-- ICONOS -->
+        <div class="header-icons">
+
+            <span>⌕</span>
+
+            <span><a href="login.html" title="Mi cuenta"><img src="../img/icon_perfil.png" alt="Mi cuenta"></a></span>
+
+            <span class="carrito">
+                <a href="pago_envio.html" title="Pago y envío">
+                    <img src="../img/icon_carrito.png" alt="Pago y envío">
+                </a>
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         CONTENIDO
+    ========================== -->
+
+    <main>
+
+        <h1>Producto</h1>
+
+        <!-- PRODUCTOS -->
+
+        <section class="productos">
+
+            <!-- NARANJA -->
+
+            <div class="producto">
+                <div class="imagen-producto">
+                    <img src="../img/naranja.png" alt="Naranja">
+                </div>
+
+                <h3>Naranja</h3>
+                <span class="precio">$1,000</span>
+
+                <p>
+                    Naranjas frescas y naturales,
+                    ideales para consumir durante
+                    todo el día.
+                </p>
+
+                <button class="boton-carrito" data-producto="Naranja" data-precio="1000">
+                    Agregar al carrito
+                </button>
+            </div>
+
+            <!-- PLÁTANO -->
+
+            <article class="producto" data-categoria="Frutas">
+
+                <div class="imagen-producto">
+
+                    <img src="../img/platano.png" alt="Plátano">
+                </div>
+
+                <h2>
+                    Plátano
+                </h2>
+
+                <p class="precio">
+                    $800
+                </p>
+
+                <p class="descripcion">
+
+                    Plátanos frescos, ricos en
+                    nutrientes y perfectos para
+                    una alimentación saludable.
+
+                </p>
+
+                <button class="boton-carrito" data-producto="Plátano" data-precio="800">
+                    Agregar al carrito
+                </button>
+
+            </article>
+
+            <!-- MANZANA -->
+
+            <article class="producto" data-categoria="Frutas">
+
+                <div class="imagen-producto">
+
+                    <img src="../img/manzana.png" alt="Manzana">
+
+                </div>
+
+                <h2>
+                    Manzana
+                </h2>
+
+                <p class="precio">
+                    $1,200
+                </p>
+
+                <p class="descripcion">
+
+                    Manzanas seleccionadas,
+                    frescas y de excelente
+                    calidad.
+
+                </p>
+
+                <button class="boton-carrito" data-producto="Manzana" data-precio="1200">
+                    Agregar al carrito
+                </button>
+
+            </article>
+
+            <!-- PRODUCTO 4 -->
+
+            <article class="producto" data-categoria="Frutas">
+
+                <div class="imagen-producto">
+
+                    <img src="../img/pera.png" alt="Pera">
+
+                </div>
+
+                <h2>
+                    Pera
+                </h2>
+
+                <p class="precio">
+                    $1,000
+                </p>
+
+                <p class="descripcion">
+
+                    Peras frescas y naturales,
+                    ideales para disfrutar
+                    en cualquier momento.
+
+                </p>
+
+                <button class="boton-carrito" data-producto="Pera" data-precio="1000">
+                    Agregar al carrito
+                </button>
+
+            </article>
+
+            <!-- PRODUCTO 5 -->
+
+            <article class="producto" data-categoria="Frutas">
+
+                <div class="imagen-producto">
+
+                    <img src="../img/kiwi.png" alt="Kiwi">
+
+                </div>
+
+                <h2>
+                    Kiwi
+                </h2>
+
+                <p class="precio">
+                    $1,500
+                </p>
+
+
+                <p class="descripcion">
+
+                    Kiwi fresco de excelente
+                    calidad y rico en vitaminas.
+
+                </p>
+
+                <button class="boton-carrito" data-producto="Kiwi" data-precio="1500">
+                    Agregar al carrito
+                </button>
+            </article>
+
+            <!-- PRODUCTO 6 -->
+
+            <article class="producto" data-categoria="Frutas">
+
+                <div class="imagen-producto">
+                    <img src="../img/frutilla.png" alt="Frutilla">
+                </div>
+
+                <h2>
+                    Frutilla
+                </h2>
+
+                <p class="precio">
+                    $2,000
+                </p>
+
+                <p class="descripcion">
+
+                    Frutillas frescas,
+                    dulces y seleccionadas.
+
+                </p>
+
+                <button class="boton-carrito" data-producto="Frutilla" data-precio="2000">
+                    Agregar al carrito
+                </button>
+            </article>
+        </section>
+    </main>
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-logo">
+
+            <img src="../img/Logo_1.png" alt="Huerto Hogar">
+
+        </div>
+
+        <div class="footer-columna">
+
+            <a href="contactos.html">
+                CONTACTO
+            </a>
+
+            <a href="nosotros.html">
+                Nosotros
+            </a>
+
+            <a href="blog.html">
+                Blog
+            </a>
+
+            <a href="preguntas_frecuentes.html">
+                Preguntas Frecuentes
+            </a>
+
+            <a href="envios_entregas.html">
+                Envíos y Entregas
+            </a>
+
+        </div>
+
+        <div class="footer-columna">
+
+            <a href="informacion.html">
+                INFORMACIÓN
+            </a>
+
+            <a href="#">
+                Preguntas frecuentes
+            </a>
+
+            <a href="#">
+                Políticas de envío
+            </a>
+
+            <a href="#">
+                Términos y condiciones
+            </a>
+
+            <a href="#">
+                Política de privacidad
+            </a>
+
+        </div>
+
+        <div class="footer-columna redes">
+
+            <h3>
+                REDES SOCIALES
+            </h3>
+
+            <div class="redes-iconos">
+
+                <img src="../img/facebook.png" alt="Facebook">
+
+                <img src="../img/twitter.png" alt="Twitter">
+
+                <img src="../img/instagram.png" alt="Instagram">
+            </div>
+
+            <p>
+                @HuertoHogar
+                (Región de Valparaiso,chile)
+            </p>
+
+            <p>
+                info@huertohogar.cl
+            </p>
+
+            <p>
+                +5687654321
+            </p>
+
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script src="../js/producto.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
