@@ -1,21 +1,118 @@
-// Comportamiento compartido de la maqueta local.
-window.Huerto = { leerUsuarios() { try { const lista = JSON.parse(localStorage.getItem('usuarios_huerto') || '[]'); return Array.isArray(lista) ? lista.filter(u => u && typeof u.correo === 'string' && typeof u.clave === 'string') : []; } catch { return []; } } };
+/* ==========================================================================
+   HUERTO HOGAR - FUNCIONALIDADES GENERALES (js/main.js)
+   ========================================================================== */
+
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); alert('Este contenido no está incluido en esta versión del proyecto.'); }));
-  document.querySelectorAll('.btn-google').forEach(b => b.addEventListener('click', () => alert('El inicio con Google no está configurado. Usa el formulario de inicio de sesión.')));
-  try {
-    const sesion = JSON.parse(sessionStorage.getItem('sesion_huerto') || 'null');
-    const perfil = document.querySelector('.header-icons a[href="login.html"]');
-    if (sesion && perfil) {
-      perfil.title = 'Sesión de ' + sesion.nombre + '. Pulsa para cerrar sesión';
-      perfil.querySelector('img').alt = 'Cerrar sesión';
-      perfil.addEventListener('click', e => { e.preventDefault(); sessionStorage.removeItem('sesion_huerto'); window.location.href = 'login.html'; });
+
+    /* ----------------------------------------------------------------------
+       1. INVENTARIO / INSIGNIA DEL CARRITO EN EL ENCABEZADO
+       ---------------------------------------------------------------------- */
+    function actualizarInsigniaCarrito() {
+        try {
+            const carrito = JSON.parse(localStorage.getItem('carrito_huerto') || '[]');
+            const totalCantidad = carrito.reduce((total, prod) => total + (Number(prod.cantidad) || 1), 0);
+
+            const enlacesCarrito = document.querySelectorAll('.header-icons a[href="pago_envio.html"], .carrito a, a[title="Pago y envío"]');
+
+            enlacesCarrito.forEach(enlace => {
+                let contador = enlace.querySelector('.cart-badge');
+
+                if (totalCantidad > 0) {
+                    if (!contador) {
+                        contador = document.createElement('span');
+                        contador.className = 'cart-badge';
+                        contador.style.position = 'absolute';
+                        contador.style.top = '-6px';
+                        contador.style.right = '-8px';
+                        contador.style.backgroundColor = '#e74c3c';
+                        contador.style.color = '#ffffff';
+                        contador.style.borderRadius = '50%';
+                        contador.style.padding = '2px 6px';
+                        contador.style.fontSize = '11px';
+                        contador.style.fontWeight = 'bold';
+                        contador.style.border = '1.5px solid #ffffff';
+                        contador.style.lineHeight = '1';
+
+                        enlace.style.position = 'relative';
+                        enlace.style.display = 'inline-block';
+                        enlace.appendChild(contador);
+                    }
+                    contador.textContent = totalCantidad;
+                } else if (contador) {
+                    contador.remove();
+                }
+            });
+        } catch (error) {
+            console.error('Error al actualizar el contador del carrito:', error);
+        }
     }
-  } catch { /* Sin sesión guardada. */ }
-  const form = document.querySelector('.formulario-contacto form');
-  if (form) form.addEventListener('submit', e => { e.preventDefault(); if (!form.reportValidity()) return; const asunto = document.getElementById('asunto').value; const cuerpo = document.getElementById('mensaje').value + '\n\nNombre: ' + document.getElementById('nombre').value + '\nCorreo: ' + document.getElementById('correo').value; window.location.href = 'mailto:info@huertohogar.cl?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo); });
-  const detalle = document.querySelector('.btn-details');
-  if (detalle) detalle.addEventListener('click', () => { window.location.href = 'contactos.html'; });
-  const cerrar = document.querySelector('.close-btn');
-  if (cerrar) cerrar.remove();
+
+    // Ejecutar al cargar la página
+    actualizarInsigniaCarrito();
+
+    // Escuchar eventos de actualización del carrito
+    window.addEventListener('carritoActualizado', actualizarInsigniaCarrito);
+
+
+    /* ----------------------------------------------------------------------
+       2. CONTROL DE SESIÓN DE USUARIO
+       ---------------------------------------------------------------------- */
+    try {
+        const sesion = JSON.parse(sessionStorage.getItem('sesion_huerto') || 'null');
+        const enlacePerfil = document.querySelector('.header-icons a[href="login.html"]');
+
+        if (sesion && enlacePerfil) {
+            enlacePerfil.title = `Sesión activa de ${sesion.nombre}. Clic para cerrar sesión`;
+            const imagenPerfil = enlacePerfil.querySelector('img');
+            if (imagenPerfil) imagenPerfil.alt = 'Cerrar sesión';
+
+            enlacePerfil.addEventListener('click', (e) => {
+                e.preventDefault();
+                sessionStorage.removeItem('sesion_huerto');
+                window.location.href = 'login.html';
+            });
+        }
+    } catch (error) {
+        console.error('Error al verificar la sesión:', error);
+    }
+
+
+    /* ----------------------------------------------------------------------
+       3. ENLACES Y BOTONES VACÍOS DE LA MAQUETA
+       ---------------------------------------------------------------------- */
+    // Enlaces sin destino
+    document.querySelectorAll('a[href="#"]').forEach(enlace => {
+        enlace.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Esta sección estará disponible próximamente.');
+        });
+    });
+
+    // Botón de inicio con Google
+    document.querySelectorAll('.btn-google').forEach(boton => {
+        boton.addEventListener('click', () => {
+            alert('El inicio de sesión con Google aún no está configurado. Por favor utiliza el formulario.');
+        });
+    });
+
+
+    /* ----------------------------------------------------------------------
+       4. FORMULARIO DE CONTACTO
+       ---------------------------------------------------------------------- */
+    const formContacto = document.querySelector('.formulario-contacto form');
+    if (formContacto) {
+        formContacto.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!formContacto.reportValidity()) return;
+
+            const nombre = document.getElementById('nombre')?.value || '';
+            const correo = document.getElementById('correo')?.value || '';
+            const asunto = document.getElementById('asunto')?.value || '';
+            const mensaje = document.getElementById('mensaje')?.value || '';
+
+            const cuerpo = `${mensaje}\n\nDe: ${nombre}\nCorreo: ${correo}`;
+            window.location.href = `mailto:info@huertohogar.cl?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+        });
+    }
+
 });
