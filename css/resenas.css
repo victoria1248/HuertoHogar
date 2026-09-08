@@ -8,137 +8,108 @@
     box-sizing: border-box;
 }
 
-
 body {
     font-family: Arial, sans-serif;
-
     background-color: white;
-
     color: #222;
-
     min-height: 100vh;
-
     display: flex;
     flex-direction: column;
 }
-main
+
+
 /* =====================================
    BARRA SUPERIOR
 ===================================== */
 
 .barra-superior {
-
-    height: 22px;
-
+    height: 8px;
     background-color: #176522;
 }
+
 
 /* =====================================
    HEADER
 ===================================== */
 
 header {
-
-    height: 55px;
-
+    min-height: 85px;
     display: flex;
-
     align-items: center;
-
-    padding: 0 25px;
-
+    padding: 0 5%;
     background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* LOGO */
 
 .logo {
-    width: 90px;
+    width: 110px;
+    flex-shrink: 0;
 }
 
 .logo img {
-
-    width: 75px;
-
+    width: 90px;
     height: auto;
+    display: block;
 }
+
 
 /* MENU */
 
 nav {
-
     display: flex;
-
     align-items: center;
-
+    justify-content: center;
     gap: 28px;
-
     margin-left: 25px;
 }
 
 nav a {
-
     color: #333;
-
     text-decoration: none;
-
-    font-size: 11px;
+    font-size: 15px;
 }
 
 nav a:hover {
-
     color: #238044;
 }
 
 nav .activo {
-
     color: #238044;
+    font-weight: bold;
 }
+
 
 /* ICONOS */
 
 .iconos {
-
     margin-left: auto;
-
     display: flex;
-
     align-items: center;
-
-    gap: 13px;
+    gap: 20px;
 }
 
 .icono {
-
-    font-size: 18px;
-
+    font-size: 23px;
     position: relative;
+    cursor: pointer;
 }
 
 .carrito small {
-
     position: absolute;
-
-    top: -7px;
-
-    right: -7px;
-
-    width: 12px;
-
-    height: 12px;
-
+    top: -8px;
+    right: -9px;
+    width: 17px;
+    height: 17px;
     background-color: #16852b;
-
     color: white;
-
     border-radius: 50%;
-
-    font-size: 7px;
-
+    font-size: 10px;
     text-align: center;
-
-    line-height: 12px;
+    line-height: 17px;
 }
+
 
 /* =====================================
    CONTENIDO
@@ -146,140 +117,113 @@ nav .activo {
 
 main {
     flex: 1;
-
     background-color: #f7f7f7;
-
-    padding: 8px 25px 20px;
+    padding: 35px 6% 50px;
 }
 
-/* TITULO */
 
-main>h1 {
+/* =====================================
+   TITULO
+===================================== */
 
+main > h1 {
     text-align: center;
-
     color: #28723c;
-
-    font-size: 14px;
-
-    font-weight: normal;
-
-    margin-bottom: 10px;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 30px;
 }
+
 
 /* =====================================
    ZONA SUPERIOR
 ===================================== */
 
 .zona-superior {
-
     display: flex;
-
+    flex-direction: column;
     align-items: center;
-
-    justify-content: space-between;
-
-    gap: 30px;
-
-    margin-bottom: 15px;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 40px;
 }
+
 
 /* =====================================
    FORMULARIO
 ===================================== */
 
 .formulario-resena {
-
-    width: 70%;
-
-    min-height: 105px;
-
+    width: 80%;
+    max-width: 900px;
+    min-height: 230px;
     background-color: #d9d9d9;
-
-    padding: 7px;
-
+    padding: 22px;
     position: relative;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
 
 /* CABECERA */
 
 .cabecera-formulario {
-
     display: flex;
-
     align-items: center;
-
-    gap: 5px;
+    gap: 10px;
 }
+
 
 /* ICONO USUARIO */
 
 .usuario-icono {
-
-    font-size: 12px;
+    font-size: 24px;
 }
+
 
 /* NOMBRE */
 
 .datos-usuario {
-
     flex: 1;
 }
 
 .datos-usuario input {
-
-    width: 180px;
-
-    height: 17px;
-
+    width: 280px;
+    height: 38px;
     border: none;
-
     outline: none;
-
-    padding: 3px 5px;
-
-    font-size: 8px;
-
+    padding: 8px 12px;
+    font-size: 15px;
     background-color: #eeeeee;
+    border-radius: 5px;
 }
 
 .datos-usuario input:focus {
-
-    outline: 1px solid #28723c;
+    outline: 2px solid #28723c;
 }
+
 
 /* =====================================
    ESTRELLAS SELECCIONABLES
 ===================================== */
 
 .seleccion-estrellas {
-
     position: absolute;
-
-    top: 5px;
-
-    right: 7px;
-
+    top: 20px;
+    right: 22px;
     display: flex;
-
-    gap: 1px;
+    gap: 5px;
 }
 
 .seleccion-estrellas span {
-
-    font-size: 13px;
-
+    font-size: 25px;
     color: #cfcfcf;
-
     cursor: pointer;
-
     transition: 0.15s;
 }
 
 .seleccion-estrellas span:hover {
-
     color: #f4c400;
-
     transform: scale(1.1);
 }
 
@@ -287,261 +231,232 @@ main>h1 {
     color: #f4c400;
 }
 
+
 /* =====================================
    TEXTAREA
 ===================================== */
 
 .formulario-resena textarea {
-
     width: 100%;
-
-    height: 40px;
-
-    margin-top: 5px;
-
-    padding: 5px;
-
+    height: 100px;
+    margin-top: 18px;
+    padding: 12px;
     border: none;
-
     outline: none;
-
     resize: none;
-
     background-color: #eeeeee;
-
     font-family: Arial, sans-serif;
-
-    font-size: 8px;
+    font-size: 15px;
+    border-radius: 5px;
 }
 
 .formulario-resena textarea:focus {
-    outline: 1px solid #28723c;
+    outline: 2px solid #28723c;
 }
+
 
 /* =====================================
    CONTADOR
 ===================================== */
 
 .contador {
-
     text-align: right;
-
-    font-size: 7px;
-
+    font-size: 12px;
     color: #666;
-
-    margin-top: 2px;
+    margin-top: 5px;
 }
+
 
 /* =====================================
    BOTÓN PUBLICAR
 ===================================== */
 
 #boton-publicar {
-
     position: absolute;
-
-    right: 7px;
-
-    bottom: 5px;
-
+    right: 22px;
+    bottom: 15px;
     border: none;
-
     background-color: #28723c;
-
     color: white;
-
-    padding: 4px 10px;
-
-    border-radius: 3px;
-
-    font-size: 8px;
-
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
     cursor: pointer;
 }
 
 #boton-publicar:hover {
-
     background-color: #1d5c2e;
 }
+
 
 /* =====================================
    CALIFICACIÓN GENERAL
 ===================================== */
 
 .calificacion {
-
     display: flex;
-
     align-items: center;
-
-    gap: 10px;
-
-    padding-right: 25px;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px 25px;
+    background-color: white;
+    border-radius: 10px;
+    min-width: 280px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .numero {
-
     color: #e5bd00;
-
-    font-size: 28px;
-
-    font-weight: normal;
+    font-size: 42px;
+    font-weight: bold;
 }
 
 .estrellas-promedio {
-
     background-color: white;
-
     border-radius: 15px;
-
     padding: 2px 6px;
-
     color: #f4c400;
-
-    font-size: 18px;
-
-    letter-spacing: -3px;
+    font-size: 27px;
+    letter-spacing: 1px;
 }
 
 #cantidad-resenas {
-
     text-align: center;
-
-    font-size: 8px;
-
+    font-size: 14px;
     color: #555;
-
-    margin-top: 3px;
+    margin-top: 5px;
 }
+
 
 /* =====================================
    TITULO DE LA LISTA
 ===================================== */
 
 .titulo-lista {
-
-    margin-bottom: 7px;
+    max-width: 1200px;
+    margin: 0 auto 20px;
 }
 
 .titulo-lista h2 {
-
-    font-size: 11px;
-
-    font-weight: normal;
-
+    font-size: 22px;
+    font-weight: 600;
     color: #28723c;
+    text-align: left;
 }
+
 
 /* =====================================
    LISTA DE RESEÑAS
 ===================================== */
 
 .lista-resenas {
+    max-width: 1200px;
+    margin: 0 auto;
 
     display: grid;
 
     grid-template-columns:
-        repeat(5, 1fr);
+        repeat(3, 1fr);
 
-    gap: 10px;
+    gap: 25px;
 }
+
 
 /* =====================================
    TARJETA
 ===================================== */
 
 .tarjeta-resena {
+    min-height: 190px;
 
-    min-height: 90px;
+    background-color: white;
 
-    background-color: #d9d9d9;
+    border: 1px solid #ddd;
 
-    border: 3px solid white;
-
-    padding: 5px;
+    padding: 20px;
 
     position: relative;
+
+    border-radius: 10px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* CABECERA TARJETA */
+.tarjeta-resena:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =====================================
+   CABECERA TARJETA
+===================================== */
 
 .cabecera-tarjeta {
-
     display: flex;
-
     align-items: center;
-
-    gap: 4px;
-
-    margin-bottom: 5px;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .icono-tarjeta {
-
-    font-size: 10px;
+    font-size: 24px;
 }
 
 .nombre-tarjeta {
-
-    font-size: 8px;
-
-    font-weight: normal;
-
-    max-width: 70px;
-
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 130px;
     overflow: hidden;
-
     white-space: nowrap;
-
     text-overflow: ellipsis;
 }
 
-/* ESTRELLAS TARJETA */
+
+/* =====================================
+   ESTRELLAS TARJETA
+===================================== */
 
 .estrellas-tarjeta {
-
     margin-left: auto;
-
     color: #f4c400;
-
-    font-size: 8px;
-
-    letter-spacing: -2px;
-
+    font-size: 17px;
+    letter-spacing: 1px;
     white-space: nowrap;
 }
 
-/* TEXTO RESEÑA */
+
+/* =====================================
+   TEXTO RESEÑA
+===================================== */
 
 .texto-tarjeta {
-
-    font-size: 8px;
-
-    line-height: 12px;
-
+    font-size: 15px;
+    line-height: 1.6;
     color: #333;
-
     word-wrap: break-word;
 }
 
-/* BOTÓN ELIMINAR */
+
+/* =====================================
+   BOTÓN ELIMINAR
+===================================== */
 
 .eliminar-resena {
-
     position: absolute;
-
-    bottom: 4px;
-
-    right: 5px;
+    bottom: 12px;
+    right: 15px;
 
     border: none;
-
     background: transparent;
 
     color: #777;
 
-    font-size: 8px;
+    font-size: 12px;
 
     cursor: pointer;
 }
@@ -550,29 +465,30 @@ main>h1 {
     color: red;
 }
 
+
 /* =====================================
    CUANDO NO HAY RESEÑAS
 ===================================== */
 
 .sin-resenas {
-
     display: none;
 
     text-align: center;
 
     color: #777;
 
-    font-size: 10px;
+    font-size: 16px;
 
-    padding: 20px;
+    padding: 30px;
 }
+
 
 /* =====================================
    FOOTER
 ===================================== */
 
 footer {
-    min-height: 100px;
+    min-height: 180px;
 
     background-color: #176522;
 
@@ -585,7 +501,7 @@ footer {
 
     align-items: center;
 
-    padding: 10px 40px;
+    padding: 35px 8%;
 
     width: 100%;
 
@@ -596,146 +512,169 @@ footer {
     margin-top: auto;
 }
 
+
 /* LOGO FOOTER */
 
 .footer-logo img {
-
-    width: 115px;
+    width: 160px;
 }
+
 
 /* COLUMNAS */
 
 .footer-columna {
-
     display: flex;
 
     flex-direction: column;
 
-    gap: 4px;
+    gap: 8px;
 }
 
 .footer-columna h3 {
-
-    font-size: 14px;
-
-    margin-bottom: 2px;
+    font-size: 17px;
+    margin-bottom: 5px;
 }
 
 .footer-columna a {
-
     color: white;
-
     text-decoration: none;
-
-    font-size: 7px;
+    font-size: 14px;
 }
+
+.footer-columna a:hover {
+    text-decoration: underline;
+}
+
 
 /* REDES */
 
 .redes-iconos {
-
     display: flex;
 
-    gap: 8px;
+    gap: 12px;
 
-    margin-bottom: 3px;
+    margin-bottom: 5px;
 }
 
 .redes-iconos img {
-
-    width: 13px;
-
-    height: 13px;
-
+    width: 25px;
+    height: 25px;
     object-fit: contain;
 }
 
 .redes p {
-
-    font-size: 7px;
-
-    line-height: 10px;
+    font-size: 13px;
+    line-height: 18px;
 }
 
+
 /* =====================================
-   RESPONSIVE
+   TABLET
 ===================================== */
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
 
-    nav {
-
-        gap: 12px;
+    header {
+        padding: 15px 3%;
     }
 
-    .zona-superior {
+    nav {
+        gap: 15px;
+        margin-left: 10px;
+    }
 
-        flex-direction: column;
-
-        align-items: stretch;
+    nav a {
+        font-size: 13px;
     }
 
     .formulario-resena {
-
-        width: 100%;
-    }
-
-    .calificacion {
-
-        justify-content: center;
-
-        padding: 0;
+        width: 95%;
     }
 
     .lista-resenas {
-
-        grid-template-columns:
-            repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
-@media (max-width: 500px) {
+
+/* =====================================
+   CELULAR
+===================================== */
+
+@media (max-width: 600px) {
 
     header {
-
-        height: auto;
-
+        min-height: auto;
         flex-wrap: wrap;
-
-        padding: 10px;
+        padding: 15px;
     }
 
     nav {
-
         order: 3;
-
         width: 100%;
-
         justify-content: center;
-
         flex-wrap: wrap;
+        margin: 15px 0 0;
+        gap: 15px;
+    }
 
-        margin: 10px 0 0;
+    nav a {
+        font-size: 13px;
+    }
+
+    .iconos {
+        margin-left: auto;
+    }
+
+    main {
+        padding: 25px 15px 40px;
+    }
+
+    main > h1 {
+        font-size: 26px;
+    }
+
+    .formulario-resena {
+        width: 100%;
+        min-height: 250px;
+    }
+
+    .datos-usuario input {
+        width: 200px;
+    }
+
+    .seleccion-estrellas {
+        position: static;
+        margin-top: 15px;
+    }
+
+    .formulario-resena textarea {
+        height: 90px;
+    }
+
+    .calificacion {
+        width: 100%;
     }
 
     .lista-resenas {
-
         grid-template-columns: 1fr;
     }
 
+    .titulo-lista h2 {
+        font-size: 20px;
+    }
+
     footer {
-
         grid-template-columns: 1fr;
-
-        gap: 15px;
-
+        gap: 25px;
         text-align: center;
     }
 
     .footer-columna {
-
         align-items: center;
     }
 
+    .redes-iconos {
+        justify-content: center;
+    }
 }
