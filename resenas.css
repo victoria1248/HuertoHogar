@@ -1,0 +1,741 @@
+/* =====================================
+   CONFIGURACIÓN GENERAL
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+
+    background-color: white;
+
+    color: #222;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+main
+/* =====================================
+   BARRA SUPERIOR
+===================================== */
+
+.barra-superior {
+
+    height: 22px;
+
+    background-color: #176522;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+header {
+
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 25px;
+
+    background-color: white;
+}
+
+/* LOGO */
+
+.logo {
+    width: 90px;
+}
+
+.logo img {
+
+    width: 75px;
+
+    height: auto;
+}
+
+/* MENU */
+
+nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 28px;
+
+    margin-left: 25px;
+}
+
+nav a {
+
+    color: #333;
+
+    text-decoration: none;
+
+    font-size: 11px;
+}
+
+nav a:hover {
+
+    color: #238044;
+}
+
+nav .activo {
+
+    color: #238044;
+}
+
+/* ICONOS */
+
+.iconos {
+
+    margin-left: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+.icono {
+
+    font-size: 18px;
+
+    position: relative;
+}
+
+.carrito small {
+
+    position: absolute;
+
+    top: -7px;
+
+    right: -7px;
+
+    width: 12px;
+
+    height: 12px;
+
+    background-color: #16852b;
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-size: 7px;
+
+    text-align: center;
+
+    line-height: 12px;
+}
+
+/* =====================================
+   CONTENIDO
+===================================== */
+
+main {
+    flex: 1;
+
+    background-color: #f7f7f7;
+
+    padding: 8px 25px 20px;
+}
+
+/* TITULO */
+
+main>h1 {
+
+    text-align: center;
+
+    color: #28723c;
+
+    font-size: 14px;
+
+    font-weight: normal;
+
+    margin-bottom: 10px;
+}
+
+/* =====================================
+   ZONA SUPERIOR
+===================================== */
+
+.zona-superior {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 15px;
+}
+
+/* =====================================
+   FORMULARIO
+===================================== */
+
+.formulario-resena {
+
+    width: 70%;
+
+    min-height: 105px;
+
+    background-color: #d9d9d9;
+
+    padding: 7px;
+
+    position: relative;
+}
+
+/* CABECERA */
+
+.cabecera-formulario {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+/* ICONO USUARIO */
+
+.usuario-icono {
+
+    font-size: 12px;
+}
+
+/* NOMBRE */
+
+.datos-usuario {
+
+    flex: 1;
+}
+
+.datos-usuario input {
+
+    width: 180px;
+
+    height: 17px;
+
+    border: none;
+
+    outline: none;
+
+    padding: 3px 5px;
+
+    font-size: 8px;
+
+    background-color: #eeeeee;
+}
+
+.datos-usuario input:focus {
+
+    outline: 1px solid #28723c;
+}
+
+/* =====================================
+   ESTRELLAS SELECCIONABLES
+===================================== */
+
+.seleccion-estrellas {
+
+    position: absolute;
+
+    top: 5px;
+
+    right: 7px;
+
+    display: flex;
+
+    gap: 1px;
+}
+
+.seleccion-estrellas span {
+
+    font-size: 13px;
+
+    color: #cfcfcf;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+}
+
+.seleccion-estrellas span:hover {
+
+    color: #f4c400;
+
+    transform: scale(1.1);
+}
+
+.seleccion-estrellas span.seleccionada {
+    color: #f4c400;
+}
+
+/* =====================================
+   TEXTAREA
+===================================== */
+
+.formulario-resena textarea {
+
+    width: 100%;
+
+    height: 40px;
+
+    margin-top: 5px;
+
+    padding: 5px;
+
+    border: none;
+
+    outline: none;
+
+    resize: none;
+
+    background-color: #eeeeee;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+}
+
+.formulario-resena textarea:focus {
+    outline: 1px solid #28723c;
+}
+
+/* =====================================
+   CONTADOR
+===================================== */
+
+.contador {
+
+    text-align: right;
+
+    font-size: 7px;
+
+    color: #666;
+
+    margin-top: 2px;
+}
+
+/* =====================================
+   BOTÓN PUBLICAR
+===================================== */
+
+#boton-publicar {
+
+    position: absolute;
+
+    right: 7px;
+
+    bottom: 5px;
+
+    border: none;
+
+    background-color: #28723c;
+
+    color: white;
+
+    padding: 4px 10px;
+
+    border-radius: 3px;
+
+    font-size: 8px;
+
+    cursor: pointer;
+}
+
+#boton-publicar:hover {
+
+    background-color: #1d5c2e;
+}
+
+/* =====================================
+   CALIFICACIÓN GENERAL
+===================================== */
+
+.calificacion {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding-right: 25px;
+}
+
+.numero {
+
+    color: #e5bd00;
+
+    font-size: 28px;
+
+    font-weight: normal;
+}
+
+.estrellas-promedio {
+
+    background-color: white;
+
+    border-radius: 15px;
+
+    padding: 2px 6px;
+
+    color: #f4c400;
+
+    font-size: 18px;
+
+    letter-spacing: -3px;
+}
+
+#cantidad-resenas {
+
+    text-align: center;
+
+    font-size: 8px;
+
+    color: #555;
+
+    margin-top: 3px;
+}
+
+/* =====================================
+   TITULO DE LA LISTA
+===================================== */
+
+.titulo-lista {
+
+    margin-bottom: 7px;
+}
+
+.titulo-lista h2 {
+
+    font-size: 11px;
+
+    font-weight: normal;
+
+    color: #28723c;
+}
+
+/* =====================================
+   LISTA DE RESEÑAS
+===================================== */
+
+.lista-resenas {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 10px;
+}
+
+/* =====================================
+   TARJETA
+===================================== */
+
+.tarjeta-resena {
+
+    min-height: 90px;
+
+    background-color: #d9d9d9;
+
+    border: 3px solid white;
+
+    padding: 5px;
+
+    position: relative;
+}
+
+/* CABECERA TARJETA */
+
+.cabecera-tarjeta {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    margin-bottom: 5px;
+}
+
+.icono-tarjeta {
+
+    font-size: 10px;
+}
+
+.nombre-tarjeta {
+
+    font-size: 8px;
+
+    font-weight: normal;
+
+    max-width: 70px;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+/* ESTRELLAS TARJETA */
+
+.estrellas-tarjeta {
+
+    margin-left: auto;
+
+    color: #f4c400;
+
+    font-size: 8px;
+
+    letter-spacing: -2px;
+
+    white-space: nowrap;
+}
+
+/* TEXTO RESEÑA */
+
+.texto-tarjeta {
+
+    font-size: 8px;
+
+    line-height: 12px;
+
+    color: #333;
+
+    word-wrap: break-word;
+}
+
+/* BOTÓN ELIMINAR */
+
+.eliminar-resena {
+
+    position: absolute;
+
+    bottom: 4px;
+
+    right: 5px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #777;
+
+    font-size: 8px;
+
+    cursor: pointer;
+}
+
+.eliminar-resena:hover {
+    color: red;
+}
+
+/* =====================================
+   CUANDO NO HAY RESEÑAS
+===================================== */
+
+.sin-resenas {
+
+    display: none;
+
+    text-align: center;
+
+    color: #777;
+
+    font-size: 10px;
+
+    padding: 20px;
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+footer {
+    min-height: 100px;
+
+    background-color: #176522;
+
+    color: white;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    align-items: center;
+
+    padding: 10px 40px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    flex-shrink: 0;
+
+    margin-top: auto;
+}
+
+/* LOGO FOOTER */
+
+.footer-logo img {
+
+    width: 115px;
+}
+
+/* COLUMNAS */
+
+.footer-columna {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.footer-columna h3 {
+
+    font-size: 14px;
+
+    margin-bottom: 2px;
+}
+
+.footer-columna a {
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 7px;
+}
+
+/* REDES */
+
+.redes-iconos {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-bottom: 3px;
+}
+
+.redes-iconos img {
+
+    width: 13px;
+
+    height: 13px;
+
+    object-fit: contain;
+}
+
+.redes p {
+
+    font-size: 7px;
+
+    line-height: 10px;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 800px) {
+
+    nav {
+
+        gap: 12px;
+    }
+
+    .zona-superior {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .formulario-resena {
+
+        width: 100%;
+    }
+
+    .calificacion {
+
+        justify-content: center;
+
+        padding: 0;
+    }
+
+    .lista-resenas {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    header {
+
+        height: auto;
+
+        flex-wrap: wrap;
+
+        padding: 10px;
+    }
+
+    nav {
+
+        order: 3;
+
+        width: 100%;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        margin: 10px 0 0;
+    }
+
+    .lista-resenas {
+
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+
+        text-align: center;
+    }
+
+    .footer-columna {
+
+        align-items: center;
+    }
+
+}

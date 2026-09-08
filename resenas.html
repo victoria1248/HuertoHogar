@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reseñas - Huerto Hogar</title>
+
+    <link rel="stylesheet" href="../css/resenas.css">
+
+</head>
+
+<body>
+
+    <!-- ==========================
+         BARRA VERDE SUPERIOR
+    =========================== -->
+
+    <div class="barra-superior"></div>
+
+    <!-- ==========================
+         HEADER
+    =========================== -->
+
+    <header>
+
+        <div class="logo">
+
+            <img src="../img/Logo_1.png" alt="Huerto Hogar">
+
+        </div>
+
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Producto</a>
+            <a href="#">Categoría</a>
+            <a href="../html/nosotros.html">Nosotros</a>
+            <a href="#">Blog</a>
+            <a href="../html/contacto.html">Contacto</a>
+            <a href="../html/resenas.html" class="activo">Reseñas</a>
+        </nav>
+
+        <div class="iconos">
+
+            <span class="icono">⌕</span>
+
+            <span class="icono">♙</span>
+
+            <span class="icono carrito">
+                🛒
+                <small>0</small>
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- ==========================
+         CONTENIDO
+    =========================== -->
+    <main>
+        <h1>Reseñas</h1>
+
+        <!-- ==========================
+             PARTE SUPERIOR
+        =========================== -->
+
+        <section class="zona-superior">
+
+            <!-- FORMULARIO -->
+
+            <div class="formulario-resena">
+
+                <div class="cabecera-formulario">
+
+                    <div class="usuario-icono">
+                        ♙
+                    </div>
+
+                    <div class="datos-usuario">
+
+                        <input type="text" id="nombre" placeholder="Nombre del usuario" maxlength="30">
+
+                    </div>
+                </div>
+
+                <!-- ESTRELLAS -->
+
+                <div class="seleccion-estrellas">
+
+                    <span data-valor="1">★</span>
+
+                    <span data-valor="2">★</span>
+
+                    <span data-valor="3">★</span>
+
+                    <span data-valor="4">★</span>
+
+                    <span data-valor="5">★</span>
+
+                </div>
+
+                <!-- RESEÑA -->
+
+                <textarea id="reseña" placeholder="Escribe su reseña" maxlength="200"></textarea>
+
+                <!-- CONTADOR -->
+
+                <div class="contador">
+
+                    <span id="contador">
+                        0 / 200
+                    </span>
+
+                </div>
+
+                <!-- BOTÓN -->
+
+                <button type="button" id="boton-publicar">
+                    Publicar reseña
+                </button>
+
+            </div>
+
+            <!-- ==========================
+                 PROMEDIO
+            =========================== -->
+
+            <div class="calificacion">
+
+                <div id="promedio" class="numero">
+                    4.9
+                </div>
+
+                <div>
+
+                    <div id="estrellas-promedio" class="estrellas-promedio">
+                        ★★★★★
+                    </div>
+
+                    <p id="cantidad-resenas">
+                        10 reseñas
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================
+             TITULO RESEÑAS
+        =========================== -->
+
+        <div class="titulo-lista">
+            <h2>
+                Opiniones de nuestros clientes
+            </h2>
+        </div>
+
+        <!-- ==========================
+             LISTA DE RESEÑAS
+        =========================== -->
+
+        <section id="lista-resenas" class="lista-resenas">
+        </section>
+
+        <!-- MENSAJE CUANDO NO HAY RESEÑAS -->
+
+        <p id="sin-resenas" class="sin-resenas">
+            Todavía no hay reseñas.
+        </p>
+    </main>
+
+    <!-- ==========================
+         FOOTER
+    =========================== -->
+
+    <footer>
+        <div class="footer-logo">
+
+            <img src="../img/Logo_1.png" alt="Huerto Hogar">
+
+        </div>
+
+        <div class="footer-columna">
+
+            <h3>CONTACTO</h3>
+
+            <a href="../html/nosotros.html">
+                Nosotros
+            </a>
+
+            <a href="#">
+                Blog
+            </a>
+
+            <a href="#">
+                Preguntas Frecuentes
+            </a>
+
+            <a href="#">
+                Envíos y Entregas
+            </a>
+
+        </div>
+
+        <div class="footer-columna redes">
+
+            <h3>REDES SOCIALES</h3>
+
+            <div class="redes-iconos">
+
+                <img src="../img/facebook.png" alt="Facebook">
+
+                <img src="../img/twitter.png" alt="Twitter">
+
+                <img src="../img/instagram.png" alt="Instagram">
+
+            </div>
+
+            <p>
+                @HuertoHogar
+                (Región de valparaiso,chile)
+            </p>
+            <p>
+                info@huertohogar.cl
+            </p>
+            <p>
+                +5687654321
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script src="../js/resenas.js"></script>
+</body>
+
+</html>
