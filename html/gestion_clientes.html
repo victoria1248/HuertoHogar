@@ -143,7 +143,7 @@
 
                     <div>
                         <span>Clientes registrados</span>
-                        <strong>326</strong>
+                        <strong id="contador-clientes-registrados">0</strong>
                     </div>
                 </div>
 
@@ -158,60 +158,32 @@
                 </div>
             </section>
 
-            <!-- ================= GESTIÓN DE CLIENTES ================= -->
-            <section class="gestion">
+            <!-- ==========================================================================
+                 SECCIÓN: GESTIÓN DE USUARIOS / CLIENTES REGISTRADOS
+                 ¿Para qué sirve?: Proporciona la estructura HTML (título, mensajes de alerta
+                 y tabla dinámica) para visualizar nombre completo, correo y el botón de eliminar.
+                 ========================================================================== -->
+            <section id="seccion-gestion-usuarios" class="seccion-agregar-admin" style="margin-top: 10px;">
+                <h2>👥 Usuarios Registrados</h2>
+                <p style="font-size: 11px; color: #666; margin-bottom: 15px;">
+                    Visualización de usuarios clientes registrados en la plataforma. Puedes revisar su nombre completo, correo electrónico y eliminar sus cuentas de ser necesario.
+                </p>
 
-                <!-- Título y opciones de orden -->
-                <div class="titulo-gestion">
-                    <h2>Gestión de Clientes</h2>
+                <div id="mensaje-error-gestion-usuarios" class="alerta-mensaje-admin error" style="display: none;"></div>
+                <div id="mensaje-exito-gestion-usuarios" class="alerta-mensaje-admin exito" style="display: none;"></div>
 
-                    <select>
-                        <option>Más recientes</option>
-                        <option>Más antiguos</option>
-                        <option>Nombre A-Z</option>
-                    </select>
-                </div>
-
-                <!-- Tabla de clientes -->
                 <div class="tabla-contenedor">
                     <table class="tabla-clientes">
                         <thead>
                             <tr>
-                                <th>Usuario</th>
-                                <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Contraseña</th>
-                                <th>Teléfono</th>
+                                <th>Nombre Completo</th>
+                                <th>Correo Electrónico</th>
+                                <th>Estado</th>
+                                <th style="text-align: center;">Acciones</th>
                             </tr>
                         </thead>
-
-                        <tbody>
-                            <!-- Benja -->
-                            <tr>
-                                <td>Benja</td>
-                                <td>Benjamín</td>
-                                <td>benja@gmail.com</td>
-                                <td>********</td>
-                                <td>+56912345678</td>
-                            </tr>
-
-                            <!-- Matías -->
-                            <tr>
-                                <td>Matias</td>
-                                <td>Matías Maldonado</td>
-                                <td>matias@gmail.com</td>
-                                <td>********</td>
-                                <td>+56987654321</td>
-                            </tr>
-
-                            <!-- Vicki -->
-                            <tr>
-                                <td>Vicki</td>
-                                <td>Victoria Gonzalez</td>
-                                <td>vicki@gmail.com</td>
-                                <td>********</td>
-                                <td>+56998765432</td>
-                            </tr>
+                        <tbody id="tabla-usuarios-body">
+                            <!-- Se llena dinámicamente con JS -->
                         </tbody>
                     </table>
                 </div>
