@@ -20,8 +20,8 @@ En este link encuentra el mockup
 
 ## Accesos
 ### Administrador
- admin@huertohogar.cl
- Admin123!
+ Usuario:admin@huertohogar.cl
+ Contraseña: Admin123!
 ### Usuario 
  Usuario: estudiante@gmail.com
  Contraseña: Clave123!
