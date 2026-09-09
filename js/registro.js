@@ -1,196 +1,138 @@
 /* ==========================================================================
-   📝 LÓGICA DE REGISTRO DE USUARIOS (js/registro.js)
+   🛡️ LÓGICA DE ACCESO ADMINISTRATIVO
+   Archivo: js/admin.js
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+(function () {
+  'use strict';
 
-  // 1. Mostrar y ocultar contraseña (ojo 👁)
-  const togglePass = document.getElementById('toggle-reg-pass');
-  const passInput = document.getElementById('reg-password');
+  document.addEventListener('DOMContentLoaded', () => {
 
-  if (togglePass && passInput) {
-    togglePass.addEventListener('click', () => {
-      if (passInput.type === 'password') {
-        passInput.type = 'text';
-        togglePass.textContent = '🙈';
-      } else {
-        passInput.type = 'password';
-        togglePass.textContent = '👁';
-      }
-    });
-  }
+    /* ==========================================================================
+       SECCIÓN 1: CONFIGURACIÓN Y DOMINIOS PERMITIDOS
+       ========================================================================== */
+    const DOMINIOS_PERMITIDOS = [
+      '@duocuc.cl',
+      '@gmail.com',
+      '@hotmail.com',
+      '@yahoo.com',
+      '@outlook.com',
+      '@outlook.cl',
+      '@icloud.com'
+    ];
 
-  const toggleConfirm = document.getElementById('toggle-reg-confirm-pass');
-  const confirmInput = document.getElementById('reg-confirm-password');
+    /* ==========================================================================
+       SECCIÓN 2: MOSTRAR / OCULTAR CONTRASEÑA
+       ========================================================================== */
+    const togglePass = document.getElementById('toggle-admin-pass');
+    const passInput = document.getElementById('admin-password');
 
-  if (toggleConfirm && confirmInput) {
-    toggleConfirm.addEventListener('click', () => {
-      if (confirmInput.type === 'password') {
-        confirmInput.type = 'text';
-        toggleConfirm.textContent = '🙈';
-      } else {
-        confirmInput.type = 'password';
-        toggleConfirm.textContent = '👁';
-      }
-    });
-  }
+    if (togglePass && passInput) {
+      togglePass.addEventListener('click', () => {
+        if (passInput.type === 'password') {
+          passInput.type = 'text';
+          togglePass.textContent = '🙈';
+        } else {
+          passInput.type = 'password';
+          togglePass.textContent = '👁';
+        }
+      });
+    }
 
-  // 2. Medidor simple de fuerza de contraseña
-  const barraFuerza = document.getElementById('barra-fuerza');
-  const nivelTexto = document.getElementById('nivel-fuerza');
+    /* ==========================================================================
+       SECCIÓN 3: FORMULARIO DE LOGIN DE ADMINISTRADOR
+       ========================================================================== */
+    const formAdminLogin = document.getElementById('form-admin-login');
 
-  if (passInput && barraFuerza && nivelTexto) {
-    passInput.addEventListener('input', () => {
-      const clave = passInput.value;
+    if (formAdminLogin) {
+      formAdminLogin.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-      if (clave.length === 0) {
-        barraFuerza.style.width = '0%';
-        nivelTexto.textContent = 'Débil';
-        nivelTexto.style.color = '#e74c3c';
-      } else if (clave.length < 6) {
-        barraFuerza.style.width = '30%';
-        barraFuerza.style.backgroundColor = '#e74c3c';
-        nivelTexto.textContent = 'Débil';
-        nivelTexto.style.color = '#e74c3c';
-      } else if (clave.length < 8) {
-        barraFuerza.style.width = '65%';
-        barraFuerza.style.backgroundColor = '#f39c12';
-        nivelTexto.textContent = 'Aceptable';
-        nivelTexto.style.color = '#f39c12';
-      } else {
-        barraFuerza.style.width = '100%';
-        barraFuerza.style.backgroundColor = '#2ecc71';
-        nivelTexto.textContent = 'Fuerte';
-        nivelTexto.style.color = '#2ecc71';
-      }
-    });
-  }
+        // 3.1 Limpiar mensajes de error
+        const errCorreo = document.getElementById('err-admin-correo');
+        const errPass = document.getElementById('err-admin-password');
+        const alertaError = document.getElementById('admin-error-general');
 
-  // 3. Formulario de Registro
-  const formRegistro = document.getElementById('form-registro');
+        if (errCorreo) errCorreo.textContent = '';
+        if (errPass) errPass.textContent = '';
+        if (alertaError) alertaError.classList.add('oculto');
 
-  if (formRegistro) {
-    formRegistro.addEventListener('submit', (e) => {
-      e.preventDefault();
+        // 3.2 Obtener datos del formulario
+        const inputCorreo = document.getElementById('admin-correo');
+        const correo = inputCorreo ? inputCorreo.value.trim() : '';
+        const password = passInput ? passInput.value : '';
 
-      // Limpiar errores
-      document.getElementById('err-nombre').textContent = '';
-      document.getElementById('err-edad').textContent = '';
-      document.getElementById('err-correo').textContent = '';
-      document.getElementById('err-password').textContent = '';
-      document.getElementById('err-confirm-pass').textContent = '';
+        let esValido = true;
 
-      const nombre = document.getElementById('reg-nombre').value.trim();
-      const edad = document.getElementById('reg-edad').value;
-      const correo = document.getElementById('reg-correo').value.trim();
-      const password = passInput.value;
-      const confirmPassword = confirmInput.value;
+        // 3.3 Validación de correo requerido y dominio permitido
+        if (correo === '') {
+          if (errCorreo) errCorreo.textContent = 'Ingrese su correo de administración.';
+          esValido = false;
+        } else {
+          const correoValido = DOMINIOS_PERMITIDOS.some(dominio =>
+            correo.toLowerCase().endsWith(dominio)
+          );
 
-      let esValido = true;
+          if (!correoValido) {
+            if (errCorreo) errCorreo.textContent = 'El correo debe utilizar un dominio válido (@gmail.com, @duocuc.cl, etc.).';
+            esValido = false;
+          }
+        }
 
-      // Validar Nombre
-      if (nombre === '') {
-        document.getElementById('err-nombre').textContent = 'El nombre es obligatorio.';
-        esValido = false;
-      }
+        // 3.4 Validación de contraseña
+        if (password === '') {
+          if (errPass) errPass.textContent = 'Ingrese su contraseña de administración.';
+          esValido = false;
+        }
 
-      // ==========================================
-      // VALIDAR EDAD
-      // ==========================================
+        if (!esValido) return;
 
-      const edadNumero = Number(edad);
+        // 3.5 Cargar administradores registrados en localStorage
+        let adminsGuardados = [];
+        try {
+          const datos = localStorage.getItem('administradores_huerto');
+          if (datos) {
+            adminsGuardados = JSON.parse(datos);
+          }
+        } catch (err) {
+          adminsGuardados = [];
+        }
 
-      if (edad === '') {
+        // 3.6 Buscar cuenta registrada
+        const adminRegistrado = adminsGuardados.find(
+          admin => admin.correo.toLowerCase() === correo.toLowerCase()
+        );
 
-        document.getElementById('err-edad').textContent =
-          'La edad es obligatoria.';
-
-        esValido = false;
-
-      } else if (edadNumero < 18) {
-
-        document.getElementById('err-edad').textContent =
-          'Debes ser mayor de edad para registrarte.';
-
-        esValido = false;
-
-      } else if (edadNumero > 100) {
-
-        document.getElementById('err-edad').textContent =
-          'Ingresa una edad válida.';
-
-        esValido = false;
-      }
-
-      // Validar Correo @gmail.com
-      if (correo === '') {
-        document.getElementById('err-correo').textContent = 'El correo es obligatorio.';
-        esValido = false;
-      } else if (!correo.toLowerCase().endsWith('@gmail.com')) {
-        document.getElementById('err-correo').textContent = 'El correo debe ser @gmail.com';
-        esValido = false;
-      }
-
-      // Validar Contraseña
-      if (password === '') {
-        document.getElementById('err-password').textContent = 'La contraseña es obligatoria.';
-        esValido = false;
-      } else if (password.length < 8) {
-        document.getElementById('err-password').textContent = 'Debe tener al menos 8 caracteres.';
-        esValido = false;
-      }
-
-      // Validar Confirmación
-      if (confirmPassword !== password) {
-        document.getElementById('err-confirm-pass').textContent = 'Las contraseñas no coinciden.';
-        esValido = false;
-      }
-
-      /* ----------------------------------------------------------------------
-         3.1 GUARDAR USUARIO E INICIAR SESIÓN AUTOMÁTICAMENTE
-         ¿Para qué sirve?: Al pasar las validaciones, guarda los datos del nuevo usuario
-         en el arreglo de localStorage ('usuarios_huerto'), establece la sesión activa 
-         ('sesion_huerto') y redirige a la página principal con el usuario logueado.
-         ---------------------------------------------------------------------- */
-      if (esValido) {
-        // Leer la lista de usuarios ya registrados en localStorage
-        let usuarios = JSON.parse(localStorage.getItem('usuarios_huerto') || '[]');
-
-        // Verificar si ya existe un usuario registrado con el mismo correo
-        const existe = usuarios.some(u => u.correo.toLowerCase() === correo.toLowerCase());
-        if (existe) {
-          document.getElementById('err-correo').textContent = 'Este correo ya está registrado.';
+        // 3.7 Validar estado de la cuenta
+        if (adminRegistrado && adminRegistrado.estado === 'suspendido') {
+          if (alertaError) {
+            alertaError.classList.remove('oculto');
+            alertaError.textContent = 'Cuenta actualmente suspendida por revisión corporativa.';
+          }
           return;
         }
 
-        // Agregar el nuevo usuario al arreglo y guardarlo en localStorage
-        usuarios.push({
-          nombre,
-          edad: edadNumero,
-          correo,
-          clave: password
-        });
+        // 3.8 Validar credenciales (principales por defecto o registradas)
+        const esAdminPrincipal = (correo.toLowerCase() === 'admin@huertohogar.cl' && password === 'Admin123!');
+        const esAdminSecundario = (correo.toLowerCase() === 'admin@gmail.com' && password === 'Admin123!');
+        const esClaveValida = adminRegistrado && adminRegistrado.clave === password;
 
-        try {
-          localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
-        } catch {
-          document.getElementById('err-correo').textContent = 'El navegador no permite guardar datos. Abre el proyecto con Live Server.';
-          return;
+        if (esAdminPrincipal || esAdminSecundario || esClaveValida) {
+          try {
+            sessionStorage.setItem(
+              'sesion_admin_huerto',
+              JSON.stringify({ correo: correo, rol: 'admin' })
+            );
+          } catch (err) {}
+
+          window.location.href = 'dashbord.html';
+        } else {
+          if (alertaError) {
+            alertaError.classList.remove('oculto');
+            alertaError.textContent = 'Correo o contraseña de administrador incorrectos o no autorizados.';
+          }
         }
-
-        // Iniciar sesión automáticamente guardando los datos del usuario en sessionStorage y localStorage
-        const sesionData = JSON.stringify({ nombre: nombre, correo: correo });
-        try {
-          sessionStorage.setItem('sesion_huerto', sesionData);
-          localStorage.setItem('sesion_huerto', sesionData);
-        } catch (e) {
-          console.error('Error guardando la sesión:', e);
-        }
-
-        alert(`¡Cuenta creada exitosamente! Bienvenido(a), ${nombre}.`);
-        window.location.href = 'index.html';
-      }
-    });
-  }
-
-});
+      });
+    }
+  });
+})();
