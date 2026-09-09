@@ -54,3 +54,50 @@ main, .noticias, .pagina-pago { flex:1; min-width:0; }
 .fa-star::before { content:"★"; }
 .fa-star-half-stroke::before { content:"☆"; }
 .fa-square-check::before { content:"☑"; }
+
+/* ==========================================================================
+   SECCIÓN: USUARIO AUTENTICADO Y BOTÓN CERRAR SESIÓN EN EL ENCABEZADO
+   ¿Para qué sirve?: Proporciona estilos visuales para mostrar el nombre del
+   usuario activo y el botón de cerrar sesión inyectados desde js/main.js.
+   ========================================================================== */
+.sitio-header .header-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.sitio-header .user-session-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f0f7f0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #c8e6c9;
+}
+.sitio-header .user-greeting {
+    font-size: 14px;
+    color: #196b24;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.sitio-header .user-greeting strong {
+    color: #114b19;
+    font-weight: 700;
+}
+.sitio-header .btn-logout {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    line-height: 1.2;
+}
+.sitio-header .btn-logout:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px);
+}
+
