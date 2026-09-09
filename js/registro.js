@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Limpiar errores
       document.getElementById('err-nombre').textContent = '';
+      document.getElementById('err-edad').textContent = '';
       document.getElementById('err-correo').textContent = '';
       document.getElementById('err-password').textContent = '';
       document.getElementById('err-confirm-pass').textContent = '';
@@ -89,6 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Validar Nombre
       if (nombre === '') {
         document.getElementById('err-nombre').textContent = 'El nombre es obligatorio.';
+        esValido = false;
+      }
+
+      if (edad === '') {
+        document.getElementById('err-edad').textContent = 'la edad es obligatorio.';
         esValido = false;
       }
 
