@@ -19,12 +19,12 @@ En este link encuentra el mockup
 
 
 ## Accesos
-Administrador
-admin@huertohogar.cl
-Admin123!
-Usuario 
-Usuario: estudiante@gmail.com
-Contraseña: Clave123!
+-Administrador
+ admin@huertohogar.cl
+ Admin123!
+-Usuario 
+ Usuario: estudiante@gmail.com
+ Contraseña: Clave123!
 ## 📁 Estructura del proyecto
 
 ```text
