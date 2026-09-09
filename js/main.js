@@ -55,22 +55,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ----------------------------------------------------------------------
-       2. CONTROL DE SESIÓN DE USUARIO
+       2. CONTROL DE SESIÓN DE USUARIO EN EL ENCABEZADO
+       ¿Para qué sirve?: Revisa si hay un usuario logueado en sessionStorage/localStorage.
+       Si existe sesión, reemplaza el icono de perfil por el saludo "👤 Nombre"
+       y un botón de "Cerrar sesión" que limpia los datos de la sesión.
        ---------------------------------------------------------------------- */
     try {
-        const sesion = JSON.parse(sessionStorage.getItem('sesion_huerto') || 'null');
-        const enlacePerfil = document.querySelector('.header-icons a[href="login.html"]');
+        // Leer los datos de sesión activa guardados en el navegador
+        const datosSesion = sessionStorage.getItem('sesion_huerto') || localStorage.getItem('sesion_huerto');
+        const sesion = datosSesion ? JSON.parse(datosSesion) : null;
+        const enlacePerfil = document.querySelector('.header-icons a[href="login.html"], .header-icons a[title="Mi cuenta"]');
 
-        if (sesion && enlacePerfil) {
-            enlacePerfil.title = `Sesión activa de ${sesion.nombre}. Clic para cerrar sesión`;
-            const imagenPerfil = enlacePerfil.querySelector('img');
-            if (imagenPerfil) imagenPerfil.alt = 'Cerrar sesión';
+        // Si hay usuario autenticado, renderizar nombre y botón de cerrar sesión
+        if (sesion && sesion.nombre && enlacePerfil) {
+            const contenedorUsuario = document.createElement('div');
+            contenedorUsuario.className = 'user-session-info';
+            contenedorUsuario.innerHTML = `
+                <span class="user-greeting">👤 <strong>${sesion.nombre}</strong></span>
+                <button type="button" id="btn-cerrar-sesion" class="btn-logout" title="Cerrar sesión">Cerrar sesión</button>
+            `;
 
-            enlacePerfil.addEventListener('click', (e) => {
-                e.preventDefault();
-                sessionStorage.removeItem('sesion_huerto');
-                window.location.href = 'login.html';
-            });
+            enlacePerfil.replaceWith(contenedorUsuario);
+
+            // Evento para cerrar la sesión al pulsar el botón
+            const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
+            if (btnCerrarSesion) {
+                btnCerrarSesion.addEventListener('click', () => {
+                    sessionStorage.removeItem('sesion_huerto');
+                    localStorage.removeItem('sesion_huerto');
+                    alert('Has cerrado sesión correctamente.');
+                    window.location.reload();
+                });
+            }
         }
     } catch (error) {
         console.error('Error al verificar la sesión:', error);
