@@ -116,22 +116,43 @@ document.addEventListener('DOMContentLoaded', () => {
         esValido = false;
       }
 
-      // Guardar usuario si todo está correcto
+      /* ----------------------------------------------------------------------
+         3.1 GUARDAR USUARIO E INICIAR SESIÓN AUTOMÁTICAMENTE
+         ¿Para qué sirve?: Al pasar las validaciones, guarda los datos del nuevo usuario
+         en el arreglo de localStorage ('usuarios_huerto'), establece la sesión activa 
+         ('sesion_huerto') y redirige a la página principal con el usuario logueado.
+         ---------------------------------------------------------------------- */
       if (esValido) {
-        let usuarios = Huerto.leerUsuarios();
+        // Leer la lista de usuarios ya registrados en localStorage
+        let usuarios = JSON.parse(localStorage.getItem('usuarios_huerto') || '[]');
 
-        // Verificar si ya existe el correo
+        // Verificar si ya existe un usuario registrado con el mismo correo
         const existe = usuarios.some(u => u.correo.toLowerCase() === correo.toLowerCase());
         if (existe) {
           document.getElementById('err-correo').textContent = 'Este correo ya está registrado.';
           return;
         }
 
+        // Agregar el nuevo usuario al arreglo y guardarlo en localStorage
         usuarios.push({ nombre, correo, clave: password });
-        try { localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios)); } catch { document.getElementById('err-correo').textContent = 'El navegador no permite guardar datos. Abre el proyecto con Live Server.'; return; }
+        try { 
+          localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios)); 
+        } catch { 
+          document.getElementById('err-correo').textContent = 'El navegador no permite guardar datos. Abre el proyecto con Live Server.'; 
+          return; 
+        }
 
-        alert('¡Cuenta creada exitosamente! Redirigiendo al inicio de sesión...');
-        window.location.href = 'login.html';
+        // Iniciar sesión automáticamente guardando los datos del usuario en sessionStorage y localStorage
+        const sesionData = JSON.stringify({ nombre: nombre, correo: correo });
+        try {
+          sessionStorage.setItem('sesion_huerto', sesionData);
+          localStorage.setItem('sesion_huerto', sesionData);
+        } catch (e) {
+          console.error('Error guardando la sesión:', e);
+        }
+
+        alert(`¡Cuenta creada exitosamente! Bienvenido(a), ${nombre}.`);
+        window.location.href = 'index.html';
       }
     });
   }
