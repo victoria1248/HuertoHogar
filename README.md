@@ -16,6 +16,15 @@ En este link encuentra el mockup
 1. Victoria del Pilar González González
 2. Benjamín Ignacio Pérez Pizarro
 3. Matías Maximiliano Maldonado Alarcón
+
+
+## Accesos
+Administrador
+admin@huertohogar.cl
+Admin123!
+Usuario 
+Usuario: estudiante@gmail.com
+Contraseña: Clave123!
 ## 📁 Estructura del proyecto
 
 ```text
@@ -40,4 +49,4 @@ HUERTOHOGAR/
 │
 └── 📄 README.md
 
- 
+
