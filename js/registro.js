@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Mostrar y ocultar contraseña (ojo 👁)
   const togglePass = document.getElementById('toggle-reg-pass');
   const passInput = document.getElementById('reg-password');
-  
+
   if (togglePass && passInput) {
     togglePass.addEventListener('click', () => {
       if (passInput.type === 'password') {
@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('err-confirm-pass').textContent = '';
 
       const nombre = document.getElementById('reg-nombre').value.trim();
+      const edad = document.getElementById('reg-edad').value;
       const correo = document.getElementById('reg-correo').value.trim();
       const password = passInput.value;
       const confirmPassword = confirmInput.value;
@@ -93,8 +94,31 @@ document.addEventListener('DOMContentLoaded', () => {
         esValido = false;
       }
 
+      // ==========================================
+      // VALIDAR EDAD
+      // ==========================================
+
+      const edadNumero = Number(edad);
+
       if (edad === '') {
-        document.getElementById('err-edad').textContent = 'la edad es obligatorio.';
+
+        document.getElementById('err-edad').textContent =
+          'La edad es obligatoria.';
+
+        esValido = false;
+
+      } else if (edadNumero < 18) {
+
+        document.getElementById('err-edad').textContent =
+          'Debes ser mayor de edad para registrarte.';
+
+        esValido = false;
+
+      } else if (edadNumero > 100) {
+
+        document.getElementById('err-edad').textContent =
+          'Ingresa una edad válida.';
+
         esValido = false;
       }
 
@@ -140,12 +164,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Agregar el nuevo usuario al arreglo y guardarlo en localStorage
-        usuarios.push({ nombre, correo, clave: password });
-        try { 
-          localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios)); 
-        } catch { 
-          document.getElementById('err-correo').textContent = 'El navegador no permite guardar datos. Abre el proyecto con Live Server.'; 
-          return; 
+        usuarios.push({
+          nombre,
+          edad: edadNumero,
+          correo,
+          clave: password
+        });
+
+        try {
+          localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
+        } catch {
+          document.getElementById('err-correo').textContent = 'El navegador no permite guardar datos. Abre el proyecto con Live Server.';
+          return;
         }
 
         // Iniciar sesión automáticamente guardando los datos del usuario en sessionStorage y localStorage
