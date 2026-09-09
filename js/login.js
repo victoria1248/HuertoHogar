@@ -50,8 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!esValido) return;
 
+      /* ----------------------------------------------------------------------
+         2.1 VERIFICACIÓN DE CREDENCIALES E INICIO DE SESIÓN
+         ¿Para qué sirve?: Carga los usuarios registrados en localStorage, los compara
+         con los datos ingresados y, si coinciden, guarda la sesión en el navegador
+         ('sesion_huerto') y redirige a la página principal.
+         ---------------------------------------------------------------------- */
       // Cargar lista de usuarios guardados en el navegador
-      let usuarios = Huerto.leerUsuarios();
+      let usuarios = JSON.parse(localStorage.getItem('usuarios_huerto') || '[]');
       const demo = [
         {
           nombre: "Estudiante Demo",
@@ -61,13 +67,22 @@ document.addEventListener('DOMContentLoaded', () => {
       ];
 
       usuarios = usuarios.concat(demo);
-      // Buscar si coinciden correo y clave
+      
+      // Buscar si coinciden el correo y la contraseña ingresada
       const usuarioEncontrado = usuarios.find(u => 
         u.correo.toLowerCase() === correo.toLowerCase() && u.clave === password
       );
 
+      // Si las credenciales son válidas, guardar la sesión activa
       if (usuarioEncontrado) {
-        try { sessionStorage.setItem("sesion_huerto", JSON.stringify({nombre: usuarioEncontrado.nombre, correo: usuarioEncontrado.correo})); } catch { alert("El navegador no permite guardar la sesión. Abre el proyecto con Live Server."); return; }
+        const sesionData = JSON.stringify({ nombre: usuarioEncontrado.nombre, correo: usuarioEncontrado.correo });
+        try { 
+          sessionStorage.setItem("sesion_huerto", sesionData); 
+          localStorage.setItem("sesion_huerto", sesionData); 
+        } catch { 
+          alert("El navegador no permite guardar la sesión. Abre el proyecto con Live Server."); 
+          return; 
+        }
         window.location.href = "index.html";
       } else {
         if (alertaError) {
