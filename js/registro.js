@@ -1,295 +1,115 @@
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-
-    <!-- ==========================================
-         CONFIGURACIÓN DEL DOCUMENTO
-    =========================================== -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>HuertoHogar - Registro</title>
-
-
-    <!-- ==========================================
-         ARCHIVOS CSS
-    =========================================== -->
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/izquierda.css">
-    <link rel="stylesheet" href="../css/formulario.css">
-    <link rel="stylesheet" href="../css/botones.css">
-    <link rel="stylesheet" href="../css/responsive.css">
-
-</head>
-
-
-<body>
-
-    <!-- ==========================================
-         CONTENEDOR PRINCIPAL
-    =========================================== -->
-    <div class="contenedor-pantalla">
-
-
-        <!-- ======================================
-             SECCIÓN IZQUIERDA
-        ======================================= -->
-        <div class="seccion-izquierda">
-
-            <!-- Gradiente sobre la imagen/fondo -->
-            <div class="superposicion-gradiente"></div>
-
-        </div>
-
-
-        <!-- ======================================
-             SECCIÓN DERECHA
-        ======================================= -->
-        <div class="seccion-derecha">
-
-            <!-- ==================================
-                 TARJETA DEL FORMULARIO
-            =================================== -->
-            <div class="tarjeta-formulario">
-
-
-                <!-- ==================================
-                     ENLACE PARA VOLVER
-                =================================== -->
-                <p class="texto-cambiar-form">
-
-                    <a href="index.html">
-                        ← Volver al inicio
-                    </a>
-
-                </p>
-
-
-                <!-- ==================================
-                     FORMULARIO DE REGISTRO
-                =================================== -->
-                <form
-                    id="form-registro"
-                    class="formulario activo"
-                >
-
-
-                    <!-- ==================================
-                         ENCABEZADO DEL FORMULARIO
-                    =================================== -->
-                    <div class="encabezado-form">
-
-                        <h2 class="titulo-form">
-                            Crear cuenta
-                        </h2>
-
-                        <p class="descripcion-form">
-                            Registro de demostración:
-                            utiliza una clave ficticia.
-                            Los datos se guardan en este navegador.
-                        </p>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: NOMBRE COMPLETO
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-nombre"
-                        >
-                            Nombre completo
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-nombre"
-                                type="text"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-nombre"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: EDAD
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-edad"
-                        >
-                            Edad
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-edad"
-                                type="number"
-                                min="18"
-                                max="100"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-edad"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: CORREO
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-correo"
-                        >
-                            Correo Gmail
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-correo"
-                                type="email"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-correo"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: CONTRASEÑA
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-password"
-                        >
-                            Contraseña (mínimo 8 caracteres)
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-password"
-                                type="password"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-password"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: CONFIRMAR CONTRASEÑA
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-confirm-password"
-                        >
-                            Confirmar contraseña
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-confirm-password"
-                                type="password"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-confirm-pass"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         BOTÓN CREAR CUENTA
-                    =================================== -->
-                    <button
-                        type="submit"
-                        class="btn-verde"
-                    >
-                        Crear cuenta
-                    </button>
-
-
-                    <!-- ==================================
-                         ENLACE PARA INICIAR SESIÓN
-                    =================================== -->
-                    <p class="texto-cambiar-form">
-
-                        <a href="login.html">
-                            Ya tengo una cuenta
-                        </a>
-
-                    </p>
-
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ==========================================
-         ARCHIVOS JAVASCRIPT
-    =========================================== -->
-    <script src="../js/registro.js"></script>
-
-    <script src="../js/main.js" defer></script>
-
-</body>
-
-</html>
+/* Registro de usuarios HuertoHogar */
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("form-registro");
+  if (!form) return;
+
+  const nombre = document.getElementById("reg-nombre");
+  const edad = document.getElementById("reg-edad");
+  const correo = document.getElementById("reg-correo");
+  const password = document.getElementById("reg-password");
+  const confirmar = document.getElementById("reg-confirm-password");
+
+  const error = (id, texto) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = texto;
+  };
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    [
+      "err-nombre",
+      "err-edad",
+      "err-correo",
+      "err-password",
+      "err-confirm-pass",
+    ].forEach((id) => error(id, ""));
+
+    let valido = true;
+    const nombreValor = nombre.value.trim();
+    const edadValor = Number(edad.value);
+    const correoValor = correo.value.trim().toLowerCase();
+    const passwordValor = password.value;
+    const confirmarValor = confirmar.value;
+
+    if (nombreValor.length < 3) {
+      error("err-nombre", "Ingrese un nombre válido de al menos 3 caracteres.");
+      valido = false;
+    }
+
+    // ==========================================================
+    // VALIDAR EDAD - MÍNIMO 18 AÑOS
+    // ==========================================================
+
+    if (edad.value === "") {
+      error("err-edad", "Ingrese su edad.");
+      valido = false;
+    } else if (!Number.isInteger(edadValor)) {
+      error("err-edad", "La edad debe ser un número entero.");
+      valido = false;
+    } else if (edadValor < 18) {
+      error("err-edad", "Debes tener 18 años o más para registrarte.");
+      valido = false;
+    }
+
+    // ==========================================================
+    // VALIDAR EDAD - MÁXIMO 100 AÑOS
+    // ==========================================================
+
+    if (edad.value !== "" && Number.isInteger(edadValor) && edadValor > 100) {
+      error("err-edad", "La edad máxima permitida es de 100 años.");
+      valido = false;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correoValor)) {
+      error("err-correo", "Ingrese un correo electrónico válido.");
+      valido = false;
+    }
+
+    if (passwordValor.length < 8) {
+      error("err-password", "La contraseña debe tener al menos 8 caracteres.");
+      valido = false;
+    }
+
+    if (confirmarValor === "" || passwordValor !== confirmarValor) {
+      error("err-confirm-pass", "Las contraseñas no coinciden.");
+      valido = false;
+    }
+
+    if (!valido) return;
+
+    let usuarios = [];
+    try {
+      usuarios = JSON.parse(localStorage.getItem("usuarios_huerto") || "[]");
+      if (!Array.isArray(usuarios)) usuarios = [];
+    } catch (e) {
+      usuarios = [];
+    }
+
+    if (
+      usuarios.some((u) => String(u.correo || "").toLowerCase() === correoValor)
+    ) {
+      error("err-correo", "Este correo ya está registrado.");
+      return;
+    }
+
+    usuarios.push({
+      id: Date.now(),
+      nombre: nombreValor,
+      edad: edadValor,
+      correo: correoValor,
+      clave: passwordValor,
+      estado: "activo",
+      fechaRegistro: new Date().toISOString(),
+    });
+
+    try {
+      localStorage.setItem("usuarios_huerto", JSON.stringify(usuarios));
+      alert("Cuenta creada correctamente.");
+      window.location.href = "login.html";
+    } catch (e) {
+      alert("No se pudo guardar la cuenta en este navegador.");
+      console.error(e);
+    }
+  });
+});
