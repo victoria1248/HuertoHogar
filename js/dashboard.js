@@ -178,61 +178,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Manejar el formulario para agregar nuevo admin
-  const formNuevoAdmin = document.getElementById('form-agregar-admin');
-  const mensajeErrorAdmin = document.getElementById('mensaje-error-agregar-admin');
-  const mensajeExitoAdmin = document.getElementById('mensaje-exito-agregar-admin');
+  /* ================================================================
+     El registro de administradores se maneja exclusivamente en
+     js/agregar_admin.js.
 
-  if (formNuevoAdmin) {
-    formNuevoAdmin.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      if (mensajeErrorAdmin) mensajeErrorAdmin.style.display = 'none';
-      if (mensajeExitoAdmin) mensajeExitoAdmin.style.display = 'none';
-
-      const inputCorreo = document.getElementById('nuevo-admin-correo');
-      const inputClave = document.getElementById('nuevo-admin-clave');
-
-      const correo = inputCorreo.value.trim();
-      const clave = inputClave.value;
-
-      if (!correo || !clave) {
-        if (mensajeErrorAdmin) {
-          mensajeErrorAdmin.textContent = 'Por favor complete todos los campos.';
-          mensajeErrorAdmin.style.display = 'block';
-        }
-        return;
-      }
-
-      // Validar que no exista ya ese correo
-      const admins = obtenerAdminsGuardados();
-      const correoExistente = admins.some(a => a.correo.toLowerCase() === correo.toLowerCase()) ||
-                              correo.toLowerCase() === 'admin@huertohogar.cl' ||
-                              correo.toLowerCase() === 'admin@gmail.com';
-
-      if (correoExistente) {
-        if (mensajeErrorAdmin) {
-          mensajeErrorAdmin.textContent = 'Este correo ya tiene permisos de administrador.';
-          mensajeErrorAdmin.style.display = 'block';
-        }
-        return;
-      }
-
-      // Guardar el nuevo administrador (por defecto activo)
-      admins.push({ correo: correo, clave: clave, estado: 'activo' });
-      guardarAdmins(admins);
-
-      // Limpiar formulario y mostrar éxito
-      inputCorreo.value = '';
-      inputClave.value = '';
-
-      if (mensajeExitoAdmin) {
-        mensajeExitoAdmin.textContent = `Administrador (${correo}) agregado correctamente. Ahora puede iniciar sesión.`;
-        mensajeExitoAdmin.style.display = 'block';
-      }
-
-      renderizarListaAdmins();
-    });
-  }
+     IMPORTANTE: no agregar aquí otro evento 'submit' para
+     #form-agregar-admin, porque provocaría un doble registro y podría
+     saltarse la validación de dominios permitidos.
+     ================================================================ */
 
   /* ==========================================================================
      SECCIÓN 3: VISUALIZACIÓN Y ELIMINACIÓN DE USUARIOS REGISTRADOS
