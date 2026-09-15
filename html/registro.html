@@ -1,293 +1,280 @@
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-
-    <!-- ==========================================
-         CONFIGURACIÓN DEL DOCUMENTO
-    =========================================== -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>HuertoHogar - Registro</title>
-
-
-    <!-- ==========================================
-         ARCHIVOS CSS
-    =========================================== -->
-    <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/izquierda.css">
-    <link rel="stylesheet" href="../css/formulario.css">
-    <link rel="stylesheet" href="../css/botones.css">
-    <link rel="stylesheet" href="../css/responsive.css">
-
-</head>
-
-
-<body>
-
-    <!-- ==========================================
-         CONTENEDOR PRINCIPAL
-    =========================================== -->
-    <div class="contenedor-pantalla">
-
-
-        <!-- ======================================
-             SECCIÓN IZQUIERDA
-        ======================================= -->
-        <div class="seccion-izquierda">
-
-            <!-- Gradiente sobre la imagen/fondo -->
-            <div class="superposicion-gradiente"></div>
-
-        </div>
-
-
-        <!-- ======================================
-             SECCIÓN DERECHA
-        ======================================= -->
-        <div class="seccion-derecha">
-
-            <!-- ==================================
-                 TARJETA DEL FORMULARIO
-            =================================== -->
-            <div class="tarjeta-formulario">
-
-
-                <!-- ==================================
-                     ENLACE PARA VOLVER
-                =================================== -->
-                <p class="texto-cambiar-form">
-
-                    <a href="index.html">
-                        ← Volver al inicio
-                    </a>
-
-                </p>
-
-
-                <!-- ==================================
-                     FORMULARIO DE REGISTRO
-                =================================== -->
-                <form
-                    id="form-registro"
-                    class="formulario activo"
-                >
-
-
-                    <!-- ==================================
-                         ENCABEZADO DEL FORMULARIO
-                    =================================== -->
-                    <div class="encabezado-form">
-
-                        <h2 class="titulo-form">
-                            Crear cuenta
-                        </h2>
-
-                        <p class="descripcion-form">
-                            Registro de demostración:
-                            utiliza una clave ficticia.
-                            Los datos se guardan en este navegador.
-                        </p>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: NOMBRE COMPLETO
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-nombre"
-                        >
-                            Nombre completo
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-nombre"
-                                type="text"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-nombre"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: EDAD
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-edad"
-                        >
-                            Edad
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-edad"
-                                type="number"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-edad"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: CORREO
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-correo"
-                        >
-                            Correo Gmail
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-correo"
-                                type="email"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-correo"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: CONTRASEÑA
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-password"
-                        >
-                            Contraseña (mínimo 8 caracteres)
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-password"
-                                type="password"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-password"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         CAMPO: CONFIRMAR CONTRASEÑA
-                    =================================== -->
-                    <div class="grupo-campo">
-
-                        <label
-                            class="etiqueta"
-                            for="reg-confirm-password"
-                        >
-                            Confirmar contraseña
-                        </label>
-
-                        <div class="input-con-icono">
-
-                            <input
-                                id="reg-confirm-password"
-                                type="password"
-                                required
-                            >
-
-                        </div>
-
-                        <span
-                            class="mensaje-error"
-                            id="err-confirm-pass"
-                            aria-live="polite"
-                        ></span>
-
-                    </div>
-
-
-                    <!-- ==================================
-                         BOTÓN CREAR CUENTA
-                    =================================== -->
-                    <button
-                        type="submit"
-                        class="btn-verde"
-                    >
-                        Crear cuenta
-                    </button>
-
-
-                    <!-- ==================================
-                         ENLACE PARA INICIAR SESIÓN
-                    =================================== -->
-                    <p class="texto-cambiar-form">
-
-                        <a href="login.html">
-                            Ya tengo una cuenta
-                        </a>
-
-                    </p>
-
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ==========================================
-         ARCHIVOS JAVASCRIPT
-    =========================================== -->
-    <script src="../js/registro.js"></script>
-
-    <script src="../js/main.js" defer></script>
-
-</body>
-
-</html>
+/* ==========================================================================
+   📝 SECCIÓN 1: LÓGICA DE REGISTRO DE USUARIOS (js/registro.js)
+   ========================================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // 1. Mostrar y ocultar contraseña
+  const togglePass = document.getElementById('toggle-reg-pass');
+  const passInput = document.getElementById('reg-password');
+
+  if (togglePass && passInput) {
+    togglePass.addEventListener('click', () => {
+      const esPassword = passInput.type === 'password';
+      passInput.type = esPassword ? 'text' : 'password';
+      togglePass.textContent = esPassword ? '🙈' : '👁';
+    });
+  }
+
+  const toggleConfirm = document.getElementById('toggle-reg-confirm-pass');
+  const confirmInput = document.getElementById('reg-confirm-password');
+
+  if (toggleConfirm && confirmInput) {
+    toggleConfirm.addEventListener('click', () => {
+      const esPassword = confirmInput.type === 'password';
+      confirmInput.type = esPassword ? 'text' : 'password';
+      toggleConfirm.textContent = esPassword ? '🙈' : '👁';
+    });
+  }
+
+  // 2. Medidor de fuerza de contraseña
+  const barraFuerza = document.getElementById('barra-fuerza');
+  const nivelTexto = document.getElementById('nivel-fuerza');
+
+  if (passInput && barraFuerza && nivelTexto) {
+    passInput.addEventListener('input', () => {
+      const clave = passInput.value;
+
+      if (clave.length === 0) {
+        barraFuerza.style.width = '0%';
+        nivelTexto.textContent = 'Débil';
+        nivelTexto.style.color = '#e74c3c';
+      } else if (clave.length < 6) {
+        barraFuerza.style.width = '30%';
+        barraFuerza.style.backgroundColor = '#e74c3c';
+        nivelTexto.textContent = 'Débil';
+        nivelTexto.style.color = '#e74c3c';
+      } else if (clave.length < 8) {
+        barraFuerza.style.width = '65%';
+        barraFuerza.style.backgroundColor = '#f39c12';
+        nivelTexto.textContent = 'Aceptable';
+        nivelTexto.style.color = '#f39c12';
+      } else {
+        barraFuerza.style.width = '100%';
+        barraFuerza.style.backgroundColor = '#2ecc71';
+        nivelTexto.textContent = 'Fuerte';
+        nivelTexto.style.color = '#2ecc71';
+      }
+    });
+  }
+
+  // 3. Procesar Formulario de Registro
+  const formRegistro = document.getElementById('form-registro');
+
+  if (formRegistro) {
+    formRegistro.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Limpiar errores previos
+      const errNombre = document.getElementById('err-nombre');
+      const errEdad = document.getElementById('err-edad');
+      const errCorreo = document.getElementById('err-correo');
+      const errPassword = document.getElementById('err-password');
+      const errConfirm = document.getElementById('err-confirm-pass');
+
+      if (errNombre) errNombre.textContent = '';
+      if (errEdad) errEdad.textContent = '';
+      if (errCorreo) errCorreo.textContent = '';
+      if (errPassword) errPassword.textContent = '';
+      if (errConfirm) errConfirm.textContent = '';
+
+      const nombre = document.getElementById('reg-nombre').value.trim();
+      const edad = document.getElementById('reg-edad').value;
+      const correo = document.getElementById('reg-correo').value.trim();
+      const password = passInput ? passInput.value : '';
+      const confirmPassword = confirmInput ? confirmInput.value : '';
+
+      let esValido = true;
+
+      // Validar Nombre
+      if (nombre === '') {
+        if (errNombre) errNombre.textContent = 'El nombre es obligatorio.';
+        esValido = false;
+      }
+
+      // Validar Edad (Mínimo 18 años)
+      const edadNumero = Number(edad);
+      if (edad === '') {
+        if (errEdad) errEdad.textContent = 'La edad es obligatoria.';
+        esValido = false;
+      } else if (edadNumero < 18) {
+        if (errEdad) errEdad.textContent = 'Debes ser mayor de edad para registrarte.';
+        esValido = false;
+      } else if (edadNumero > 100) {
+        if (errEdad) errEdad.textContent = 'Ingresa una edad válida.';
+        esValido = false;
+      }
+
+      // Validar Correo @gmail.com
+      if (correo === '') {
+        if (errCorreo) errCorreo.textContent = 'El correo es obligatorio.';
+        esValido = false;
+      } else if (!correo.toLowerCase().endsWith('@gmail.com')) {
+        if (errCorreo) errCorreo.textContent = 'El correo debe ser @gmail.com';
+        esValido = false;
+      }
+
+      // Validar Contraseña
+      if (password === '') {
+        if (errPassword) errPassword.textContent = 'La contraseña es obligatoria.';
+        esValido = false;
+      } else if (password.length < 8) {
+        if (errPassword) errPassword.textContent = 'Debe tener al menos 8 caracteres.';
+        esValido = false;
+      }
+
+      // Validar Confirmación
+      if (confirmPassword !== password) {
+        if (errConfirm) errConfirm.textContent = 'Las contraseñas no coinciden.';
+        esValido = false;
+      }
+
+      if (!esValido) return;
+
+      // Guardar usuario en localStorage
+      let usuarios = JSON.parse(localStorage.getItem('usuarios_huerto') || '[]');
+
+      // Verificar si ya existe
+      const existe = usuarios.some(u => u.correo.toLowerCase() === correo.toLowerCase());
+      if (existe) {
+        if (errCorreo) errCorreo.textContent = 'Este correo ya está registrado.';
+        return;
+      }
+
+      usuarios.push({
+        nombre,
+        edad: edadNumero,
+        correo,
+        clave: password
+      });
+
+      try {
+        localStorage.setItem('usuarios_huerto', JSON.stringify(usuarios));
+        const sesionData = JSON.stringify({ nombre: nombre, correo: correo });
+        sessionStorage.setItem('sesion_huerto', sesionData);
+        localStorage.setItem('sesion_huerto', sesionData);
+
+        alert(`¡Cuenta creada exitosamente! Bienvenido(a), ${nombre}.`);
+        window.location.href = 'index.html';
+      } catch (e) {
+        if (errCorreo) errCorreo.textContent = 'No se pudo guardar la información en el navegador.';
+      }
+    });
+  }
+
+  /* ==========================================================================
+     🛡️ SECCIÓN 2: LÓGICA DE ACCESO ADMINISTRATIVO (js/admin.js)
+     ========================================================================== */
+
+  const DOMINIOS_PERMITIDOS = [
+    '@duocuc.cl',
+    '@gmail.com',
+    '@hotmail.com',
+    '@yahoo.com',
+    '@outlook.com',
+    '@outlook.cl',
+    '@icloud.com'
+  ];
+
+  // Mostrar / ocultar clave Admin
+  const toggleAdminPass = document.getElementById('toggle-admin-pass');
+  const adminPassInput = document.getElementById('admin-password');
+
+  if (toggleAdminPass && adminPassInput) {
+    toggleAdminPass.addEventListener('click', () => {
+      const esPassword = adminPassInput.type === 'password';
+      adminPassInput.type = esPassword ? 'text' : 'password';
+      toggleAdminPass.textContent = esPassword ? '🙈' : '👁';
+    });
+  }
+
+  // Procesar Login Admin
+  const formAdminLogin = document.getElementById('form-admin-login');
+
+  if (formAdminLogin) {
+    formAdminLogin.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const errCorreo = document.getElementById('err-admin-correo');
+      const errPass = document.getElementById('err-admin-password');
+      const alertaError = document.getElementById('admin-error-general');
+
+      if (errCorreo) errCorreo.textContent = '';
+      if (errPass) errPass.textContent = '';
+      if (alertaError) alertaError.classList.add('oculto');
+
+      const inputCorreo = document.getElementById('admin-correo');
+      const correo = inputCorreo ? inputCorreo.value.trim() : '';
+      const password = adminPassInput ? adminPassInput.value : '';
+
+      let esValido = true;
+
+      // Validar correo requerido y dominio
+      if (correo === '') {
+        if (errCorreo) errCorreo.textContent = 'Ingrese su correo de administración.';
+        esValido = false;
+      } else {
+        const correoValido = DOMINIOS_PERMITIDOS.some(dominio =>
+          correo.toLowerCase().endsWith(dominio)
+        );
+
+        if (!correoValido) {
+          if (errCorreo) errCorreo.textContent = 'El correo debe utilizar un dominio válido (@gmail.com, @duocuc.cl, etc.).';
+          esValido = false;
+        }
+      }
+
+      // Validar clave requerida
+      if (password === '') {
+        if (errPass) errPass.textContent = 'Ingrese su contraseña de administración.';
+        esValido = false;
+      }
+
+      if (!esValido) return;
+
+      // Cargar administradores de localStorage
+      let adminsGuardados = [];
+      try {
+        const datos = localStorage.getItem('administradores_huerto');
+        if (datos) adminsGuardados = JSON.parse(datos);
+      } catch (err) {
+        adminsGuardados = [];
+      }
+
+      const adminRegistrado = adminsGuardados.find(
+        admin => admin.correo.toLowerCase() === correo.toLowerCase()
+      );
+
+      // Cuenta suspendida
+      if (adminRegistrado && adminRegistrado.estado === 'suspendido') {
+        if (alertaError) {
+          alertaError.classList.remove('oculto');
+          alertaError.textContent = 'Cuenta actualmente suspendida por revisión corporativa.';
+        }
+        return;
+      }
+
+      // Credenciales por defecto o registradas
+      const esAdminPrincipal = (correo.toLowerCase() === 'admin@huertohogar.cl' && password === 'Admin123!');
+      const esAdminSecundario = (correo.toLowerCase() === 'admin@gmail.com' && password === 'Admin123!');
+      const esClaveValida = adminRegistrado && adminRegistrado.clave === password;
+
+      if (esAdminPrincipal || esAdminSecundario || esClaveValida) {
+        try {
+          sessionStorage.setItem(
+            'sesion_admin_huerto',
+            JSON.stringify({ correo: correo, rol: 'admin' })
+          );
+        } catch (err) {}
+
+        window.location.href = 'dashbord.html';
+      } else {
+        if (alertaError) {
+          alertaError.classList.remove('oculto');
+          alertaError.textContent = 'Correo o contraseña de administrador incorrectos o no autorizados.';
+        }
+      }
+    });
+  }
+
+});
