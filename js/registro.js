@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -141,6 +142,8 @@
                             <input
                                 id="reg-edad"
                                 type="number"
+                                min="18"
+                                max="100"
                                 required
                             >
 
