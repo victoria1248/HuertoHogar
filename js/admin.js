@@ -20,6 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Helper para calcular la edad exacta a partir de YYYY-MM-DD
+  const calcularEdad = (fechaNacimiento) => {
+    if (!fechaNacimiento) return 0;
+    const hoy = new Date();
+    const fechaNac = new Date(fechaNacimiento);
+    let edad = hoy.getFullYear() - fechaNac.getFullYear();
+    const mes = hoy.getMonth() - fechaNac.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+      edad--;
+    }
+    return edad;
+  };
+
   // 2. Formulario Login Admin
   const formAdminLogin = document.getElementById('form-admin-login');
 
@@ -30,11 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
       // Limpiar errores
       document.getElementById('err-admin-correo').textContent = '';
       document.getElementById('err-admin-password').textContent = '';
+      
+      const errFechaInput = document.getElementById('err-admin-fecha');
+      if (errFechaInput) errFechaInput.textContent = '';
+
       const alertaError = document.getElementById('admin-error-general');
       if (alertaError) alertaError.classList.add('oculto');
 
       const correo = document.getElementById('admin-correo').value.trim();
       const password = passInput.value;
+      const fechaNacInput = document.getElementById('admin-fecha-nacimiento'); // Campo de fecha opcional u obligatorio
 
       let esValido = true;
 
@@ -48,10 +67,22 @@ document.addEventListener('DOMContentLoaded', () => {
         esValido = false;
       }
 
+      // Validar edad si el input de fecha existe en el HTML
+      if (fechaNacInput) {
+        const fechaVal = fechaNacInput.value;
+        const edad = calcularEdad(fechaVal);
+
+        if (!fechaVal) {
+          if (errFechaInput) errFechaInput.textContent = 'Ingrese su fecha de nacimiento.';
+          esValido = false;
+        } else if (edad < 18) {
+          if (errFechaInput) errFechaInput.textContent = 'Debe ser mayor de 18 años para acceder.';
+          esValido = false;
+        }
+      }
+
       if (!esValido) return;
 
-      // ==========================================================================
-      // VERIFICACIÓN DE CREDENCIALES DE ADMINISTRACIÓN
       // ==========================================================================
       // VERIFICACIÓN DE CREDENCIALES Y ESTADO DE SUSPENSIÓN DE ADMINISTRACIÓN
       // ==========================================================================
@@ -67,6 +98,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Buscar si existe la cuenta ingresada
       const adminRegistrado = adminsGuardados.find(a => a.correo.toLowerCase() === correo.toLowerCase());
+
+      // Si la cuenta registrada requiere validación de edad desde BD / LocalStorage
+      if (adminRegistrado && adminRegistrado.fechaNacimiento) {
+        const edadRegistrada = calcularEdad(adminRegistrado.fechaNacimiento);
+        if (edadRegistrada < 18) {
+          if (alertaError) {
+            alertaError.classList.remove('oculto');
+            alertaError.textContent = "Acceso denegado: El perfil registrado no cumple la edad mínima legal (18 años).";
+          }
+          return;
+        }
+      }
 
       // Si la cuenta existe pero se encuentra suspendida
       if (adminRegistrado && adminRegistrado.estado === 'suspendido') {
