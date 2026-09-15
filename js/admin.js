@@ -1,148 +1,96 @@
-/* ==========================================================================
-   🛡️ LÓGICA EXCLUSIVA DE ACCESO ADMINISTRATIVO (js/admin.js)
-   ========================================================================== */
+<!DOCTYPE html>
+<html lang="es">
 
-document.addEventListener('DOMContentLoaded', () => {
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HuertoHogar - Acceso Administración</title>
 
-  // 1. Mostrar y ocultar contraseña (ojo 👁)
-  const togglePass = document.getElementById('toggle-admin-pass');
-  const passInput = document.getElementById('admin-password');
+  
+  
+  
 
-  if (togglePass && passInput) {
-    togglePass.addEventListener('click', () => {
-      if (passInput.type === 'password') {
-        passInput.type = 'text';
-        togglePass.textContent = '🙈';
-      } else {
-        passInput.type = 'password';
-        togglePass.textContent = '👁';
-      }
-    });
-  }
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/izquierda.css">
+  <link rel="stylesheet" href="../css/formulario.css">
+  <link rel="stylesheet" href="../css/botones.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
 
-  // Helper para calcular la edad exacta a partir de YYYY-MM-DD
-  const calcularEdad = (fechaNacimiento) => {
-    if (!fechaNacimiento) return 0;
-    const hoy = new Date();
-    const fechaNac = new Date(fechaNacimiento);
-    let edad = hoy.getFullYear() - fechaNac.getFullYear();
-    const mes = hoy.getMonth() - fechaNac.getMonth();
+<body>
 
-    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
-      edad--;
-    }
-    return edad;
-  };
+  <div class="contenedor-pantalla">
 
-  // 2. Formulario Login Admin
-  const formAdminLogin = document.getElementById('form-admin-login');
-
-  if (formAdminLogin) {
-    formAdminLogin.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Limpiar errores
-      document.getElementById('err-admin-correo').textContent = '';
-      document.getElementById('err-admin-password').textContent = '';
+    
+    <div class="seccion-izquierda">
       
-      const errFechaInput = document.getElementById('err-admin-fecha');
-      if (errFechaInput) errFechaInput.textContent = '';
+      <div class="cuadro-admin">
+        <span>🛡️</span> ADMIN
+      </div>
 
-      const alertaError = document.getElementById('admin-error-general');
-      if (alertaError) alertaError.classList.add('oculto');
+      <div class="superposicion-gradiente"></div>
 
-      const correo = document.getElementById('admin-correo').value.trim();
-      const password = passInput.value;
-      const fechaNacInput = document.getElementById('admin-fecha-nacimiento'); // Campo de fecha opcional u obligatorio
-
-      let esValido = true;
-
-      if (correo === '') {
-        document.getElementById('err-admin-correo').textContent = 'Ingrese su correo de administración.';
-        esValido = false;
-      }
-
-      if (password === '') {
-        document.getElementById('err-admin-password').textContent = 'Ingrese su contraseña de administración.';
-        esValido = false;
-      }
-
-      // Validar edad si el input de fecha existe en el HTML
-      if (fechaNacInput) {
-        const fechaVal = fechaNacInput.value;
-        const edad = calcularEdad(fechaVal);
-
-        if (!fechaVal) {
-          if (errFechaInput) errFechaInput.textContent = 'Ingrese su fecha de nacimiento.';
-          esValido = false;
-        } else if (edad < 18) {
-          if (errFechaInput) errFechaInput.textContent = 'Debe ser mayor de 18 años para acceder.';
-          esValido = false;
-        }
-      }
-
-      if (!esValido) return;
-
-      // ==========================================================================
-      // VERIFICACIÓN DE CREDENCIALES Y ESTADO DE SUSPENSIÓN DE ADMINISTRACIÓN
-      // ==========================================================================
       
-      // 1. Cargar administradores registrados en localStorage
-      let adminsGuardados = [];
-      try {
-        const datos = localStorage.getItem('administradores_huerto');
-        if (datos) adminsGuardados = JSON.parse(datos);
-      } catch (e) {
-        adminsGuardados = [];
-      }
+      <div class="contenedor-logo">
+        <h1 class="titulo-empresa"></h1>
+        <p class="subtitulo-empresa"></p>
+      </div>
 
-      // Buscar si existe la cuenta ingresada
-      const adminRegistrado = adminsGuardados.find(a => a.correo.toLowerCase() === correo.toLowerCase());
 
-      // Si la cuenta registrada requiere validación de edad desde BD / LocalStorage
-      if (adminRegistrado && adminRegistrado.fechaNacimiento) {
-        const edadRegistrada = calcularEdad(adminRegistrado.fechaNacimiento);
-        if (edadRegistrada < 18) {
-          if (alertaError) {
-            alertaError.classList.remove('oculto');
-            alertaError.textContent = "Acceso denegado: El perfil registrado no cumple la edad mínima legal (18 años).";
-          }
-          return;
-        }
-      }
+      <div class="etiqueta-fresco">
+        <span>Acceso Privado</span>
+        <span>Exclusivo para Personal Autorizado</span>
+      </div>
+    </div>
 
-      // Si la cuenta existe pero se encuentra suspendida
-      if (adminRegistrado && adminRegistrado.estado === 'suspendido') {
-        if (alertaError) {
-          alertaError.classList.remove('oculto');
-          alertaError.textContent = "Cuenta actualmente suspendida por revisión corporativa.";
-        }
-        return;
-      }
+    
+    <div class="seccion-derecha">
+      <div class="tarjeta-formulario"><p class="texto-cambiar-form"><a href="index.html">← Volver al inicio</a></p>
 
-      // 2. Credenciales por defecto
-      const esAdminPrincipal = (correo.toLowerCase() === 'admin@huertohogar.cl' && password === 'Admin123!');
-      const esAdminSecundario = (correo.toLowerCase() === 'admin@gmail.com' && password === 'Admin123!');
+        <form id="form-admin-login" class="formulario activo">
+          <div class="encabezado-form">
+            <h2 class="titulo-form">Acceso Administrativo</h2>
+            <p class="descripcion-form">Ingresa tus credenciales de administrador</p>
+          </div>
 
-      // 3. Credenciales de administradores registrados (solo si la contraseña coincide y no está suspendida)
-      const esClaveValida = adminRegistrado && adminRegistrado.clave === password;
+          
+          <div id="admin-error-general" class="alerta-error oculto">
+            Correo o contraseña de administrador incorrectos
+          </div>
 
-      // Si las credenciales son válidas (por defecto o registradas activas)
-      if (esAdminPrincipal || esAdminSecundario || esClaveValida) {
-        // Guardar sesión del administrador
-        try {
-          sessionStorage.setItem('sesion_admin_huerto', JSON.stringify({ correo: correo, rol: 'admin' }));
-        } catch (e) {}
+          
+          <div class="grupo-campo">
+            <label for="admin-correo" class="etiqueta">Correo Institucional / Admin</label>
+            <div class="input-con-icono">
+              <span class="icono-campo">✉</span>
+              <input type="email" id="admin-correo" placeholder="admin@huertohogar.cl">
+            </div>
+            <span class="mensaje-error" id="err-admin-correo"></span>
+          </div>
 
-        // Redirigir al dashboard de administración
-        window.location.href = 'dashbord.html';
-      } else {
-        if (alertaError) {
-          alertaError.classList.remove('oculto');
-          alertaError.textContent = "Correo o contraseña de administrador incorrectos o no autorizados.";
-        }
-      }
-    });
-  }
+          
+          <div class="grupo-campo">
+            <label for="admin-password" class="etiqueta">Contraseña de Administrador</label>
+            <div class="input-con-icono">
+              <span class="icono-campo">🔑</span>
+              <input type="password" id="admin-password" placeholder="Ingresar clave admin">
+              <button type="button" class="btn-toggle-password" id="toggle-admin-pass">👁</button>
+            </div>
+            <span class="mensaje-error" id="err-admin-password"></span>
+          </div>
 
-});
+          
+          <button type="submit" class="btn-verde" style="margin-top: 15px;">Ingresar como Admin</button>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/admin.js"></script>
+<script src="../js/main.js" defer></script>
+</body>
+
+</html>
