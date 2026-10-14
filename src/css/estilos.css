@@ -1,0 +1,243 @@
+/* ========================================
+   IMPORTACIÓN DE ESTILOS
+======================================== */
+
+@import url("base.css");
+@import url("header.css");
+@import url("menu.css");
+@import url("footer.css");
+
+/* ========================================
+   CONFIGURACIÓN GENERAL
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: block;
+    background-color: #EAEAEA;
+    color: #171717;
+    font-family: Arial, sans-serif;
+}
+
+/* Contenedor principal de React */
+#root {
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+/* ========================================
+   CONTENEDOR DE LA PÁGINA
+======================================== */
+
+.pagina {
+    width: 100%;
+    max-width: none;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+/* Encabezado y footer a todo el ancho */
+.pagina > .sitio-header,
+.pagina > .sitio-footer {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.top-bar {
+    width: 100%;
+    height: 8px;
+    flex-shrink: 0;
+    background-color: #1b5e20;
+}
+
+/* ========================================
+   CONTENIDO PRINCIPAL
+======================================== */
+
+.pagina > .hero {
+    width: 100%;
+    max-width: none;
+    min-height: 500px;
+    flex: 1;
+    margin: 0;
+    padding: 60px 8%;
+    background-color: #EAEAEA;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+/* ========================================
+   TEXTO PRINCIPAL
+======================================== */
+
+.hero .hero-text {
+    /* Reparte el espacio con la imagen */
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    max-width: 600px;
+    text-align: left;
+}
+
+.hero-text h1 {
+    margin-bottom: 25px;
+    color: #111;
+    font-size: 58px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.hero-text h1 span {
+    color: #2e7d32;
+}
+
+.hero-text p {
+    width: auto;
+    max-width: 550px;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* ========================================
+   BOTÓN PRINCIPAL
+======================================== */
+
+.hero-text .btn-primary {
+    display: inline-block;
+    width: auto;
+    margin-bottom: 30px;
+    padding: 15px 28px;
+    border-radius: 8px;
+    background-color: #2d6a4f;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.hero-text .btn-primary:hover {
+    background-color: #1b4332;
+}
+
+/* ========================================
+   IMAGEN PRINCIPAL
+======================================== */
+
+.hero .hero-image {
+    /* Elimina el ancho fijo de 2040px */
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    max-width: 800px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image img {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    max-height: 500px;
+    object-fit: contain;
+}
+
+/* ========================================
+   ICONOS DE LA CABECERA
+======================================== */
+
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-icons img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+/* ========================================
+   PANTALLAS MEDIANAS
+======================================== */
+
+@media (max-width: 900px) {
+    .pagina > .hero {
+        padding: 45px 5%;
+        gap: 30px;
+    }
+
+    .hero-text h1 {
+        font-size: 45px;
+    }
+
+    .hero-image img {
+        max-height: 350px;
+    }
+}
+
+/* ========================================
+   CELULARES
+======================================== */
+
+@media (max-width: 700px) {
+    .pagina > .hero {
+        min-height: auto;
+        padding: 40px 25px;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .hero .hero-text,
+    .hero .hero-image {
+        flex: none;
+        width: 100%;
+        max-width: none;
+    }
+
+    .hero .hero-text {
+        text-align: center;
+    }
+
+    .hero-text h1 {
+        font-size: 40px;
+    }
+
+    .hero-text p {
+        margin: 0 auto;
+    }
+
+    .hero-image img {
+        max-height: 350px;
+        height: auto;
+    }
+}
