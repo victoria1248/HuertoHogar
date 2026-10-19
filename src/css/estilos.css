@@ -1,243 +1,403 @@
 /* ========================================
-   IMPORTACIÓN DE ESTILOS
+   IMPORTACIÓN DE ARCHIVOS CSS
 ======================================== */
 
 @import url("base.css");
 @import url("header.css");
 @import url("menu.css");
 @import url("footer.css");
-
 /* ========================================
    CONFIGURACIÓN GENERAL
 ======================================== */
 
+/* Selecciona todos los elementos de la página */
 * {
+    /* Elimina los márgenes predeterminados */
     margin: 0;
+
+    /* Elimina los espacios interiores predeterminados */
     padding: 0;
+
+    /*
+    Hace que el padding y los bordes formen parte
+    del ancho y alto definidos
+    */
     box-sizing: border-box;
 }
 
+
+/* Configuración del documento y del cuerpo */
 html,
 body {
+    /* Ocupan todo el ancho disponible */
     width: 100%;
+
+    /* Ocupan como mínimo todo el alto disponible */
     min-height: 100%;
 }
 
+
+/* Cuerpo completo de la página */
 body {
+    /* Ocupa como mínimo toda la altura de la pantalla */
     min-height: 100vh;
-    display: block;
+
+    /* Color de fondo gris verdoso claro */
     background-color: #EAEAEA;
+
+    /* Color general de los textos */
     color: #171717;
+
+    /* Tipo de letra general */
     font-family: Arial, sans-serif;
+
+    /* Activa Flexbox */
+    display: flex;
+
+    /* Ordena las partes una debajo de la otra */
+    flex-direction: column;
 }
 
-/* Contenedor principal de React */
-#root {
-    width: 100%;
-    max-width: none;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-}
 
 /* ========================================
    CONTENEDOR DE LA PÁGINA
 ======================================== */
 
+/* Contenedor que envuelve toda la página */
 .pagina {
+    /* Ocupa todo el ancho de la pantalla */
     width: 100%;
+
+    /* Elimina el límite máximo de ancho */
     max-width: none;
+
+    /* Ocupa como mínimo toda la altura de la pantalla */
     min-height: 100vh;
+
+    /* Elimina los márgenes exteriores */
     margin: 0;
+
+    /* Activa Flexbox */
     display: flex;
+
+    /*
+    Ordena el encabezado, contenido y footer
+    uno debajo del otro
+    */
     flex-direction: column;
+
+    /* Fondo blanco de la página */
     background-color: white;
 }
 
-/* Encabezado y footer a todo el ancho */
-.pagina > .sitio-header,
-.pagina > .sitio-footer {
-    width: 100%;
-    max-width: none;
-    margin-left: 0;
-    margin-right: 0;
-}
 
+/* ========================================
+   BARRA VERDE SUPERIOR
+======================================== */
+
+/* Barra que aparece en la parte superior */
 .top-bar {
+    /* Ocupa todo el ancho */
     width: 100%;
+
+    /* Altura de la barra */
     height: 8px;
+
+    /* Evita que la barra reduzca su tamaño */
     flex-shrink: 0;
+
+    /* Color verde */
     background-color: #1b5e20;
 }
+
 
 /* ========================================
    CONTENIDO PRINCIPAL
 ======================================== */
 
-.pagina > .hero {
+/* Sección principal de la página de inicio */
+.hero {
+    /* Ocupa todo el ancho disponible */
     width: 100%;
-    max-width: none;
-    min-height: 500px;
-    flex: 1;
-    margin: 0;
-    padding: 60px 8%;
-    background-color: #EAEAEA;
 
+    /* Altura mínima de la sección */
+    min-height: 500px;
+
+    /*
+    Hace que esta sección ocupe el espacio libre
+    entre el encabezado y el footer
+    */
+    flex: 1;
+
+    /* Elimina los márgenes exteriores */
+    margin: 0;
+
+    /*
+    Espacio interior:
+    60px arriba y abajo
+    8% a la izquierda y derecha
+    */
+    padding: 0 8%;
+    box-sizing: border-box;
+
+    /* Color de fondo */
+    background-color: #EAEAEA; 
+    background-size: cover;      /* Cubre todo el área de la sección */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat;
+
+    /* Activa Flexbox */
     display: flex;
+
+    /* Centra verticalmente los elementos */
     align-items: center;
+
+    /*
+    Coloca el texto a la izquierda
+    y la imagen a la derecha
+    */
     justify-content: space-between;
+
+    /* Separación entre el texto y la imagen */
     gap: 60px;
 }
 
+
 /* ========================================
-   TEXTO PRINCIPAL
+   PARTE IZQUIERDA
 ======================================== */
 
-.hero .hero-text {
-    /* Reparte el espacio con la imagen */
-    flex: 1;
-    width: auto;
-    min-width: 0;
+/* Contenedor del título, botón y descripción */
+.hero-text {
+    /* Ocupa el 45% del ancho */
+    width: 50%;
+
+    /* Limita su ancho máximo */
     max-width: 600px;
-    text-align: left;
 }
 
+
+/* Título principal */
 .hero-text h1 {
+    /* Espacio debajo del título */
     margin-bottom: 25px;
+
+    /* Color negro */
     color: #111;
+
+    /* Tamaño grande del título */
     font-size: 58px;
+
+    /* Reduce la separación entre las líneas */
     line-height: 1.1;
+
+    /* Coloca el texto en negrita */
     font-weight: 700;
 }
 
+
+/* Palabra destacada dentro del título */
 .hero-text h1 span {
+    /* Coloca la palabra “hogar” en verde */
     color: #2e7d32;
 }
 
-.hero-text p {
-    width: auto;
-    max-width: 550px;
-    color: #555;
-    font-size: 16px;
-    line-height: 1.6;
-}
 
 /* ========================================
    BOTÓN PRINCIPAL
 ======================================== */
 
-.hero-text .btn-primary {
+/* Botón Comenzar a comprar */
+.btn-primary {
+    /*
+    Permite utilizar padding y márgenes
+    sin ocupar toda la fila
+    */
     display: inline-block;
-    width: auto;
+
+    /* Espacio debajo del botón */
     margin-bottom: 30px;
+
+    /* Espacio interior del botón */
     padding: 15px 28px;
+
+    /* Redondea las esquinas */
     border-radius: 8px;
+
+    /* Fondo verde */
     background-color: #2d6a4f;
+
+    /* Texto blanco */
     color: white;
+
+    /* Elimina el subrayado del enlace */
     text-decoration: none;
-    text-align: center;
+
+    /* Tamaño del texto */
     font-size: 16px;
+
+    /* Texto seminegrita */
     font-weight: 600;
 }
 
-.hero-text .btn-primary:hover {
+
+/* Efecto al pasar el mouse sobre el botón */
+.btn-primary:hover {
+    /* Cambia el fondo a un verde más oscuro */
     background-color: #1b4332;
 }
 
+
 /* ========================================
-   IMAGEN PRINCIPAL
+   DESCRIPCIÓN
 ======================================== */
 
-.hero .hero-image {
-    /* Elimina el ancho fijo de 2040px */
-    flex: 1;
-    width: auto;
-    min-width: 0;
-    max-width: 800px;
+/* Párrafo ubicado debajo del botón */
+.hero-text p {
+    /* Limita el ancho del texto */
+    max-width: 550px;
 
+    /* Color gris */
+    color: #555;
+
+    /* Tamaño del texto */
+    font-size: 16px;
+
+    /* Separación entre las líneas */
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   PARTE DERECHA: IMAGEN
+======================================== */
+
+/* Contenedor de la imagen principal */
+.hero-image {
+    /* Ocupa la mitad del ancho disponible */
+    width: 2040px;
+
+    /* Activa Flexbox */
     display: flex;
-    justify-content: center;
+
+    /* Centra la imagen horizontalmente */
+    justify-content: right;
+
+    /* Centra la imagen verticalmente */
     align-items: center;
 }
 
+
+/* Imagen de frutas y verduras */
 .hero-image img {
-    display: block;
+    /* La imagen ocupa todo el ancho del contenedor */
     width: 100%;
-    max-width: 800px;
-    height: auto;
-    max-height: 500px;
+
+    /* Limita su ancho máximo */
+    max-width: 900px;
+
+    /* Alto de la imagen */
+    height: 430px;
+
+    /*
+    Evita el pequeño espacio inferior
+    que agregan las imágenes
+    */
+    display: block;
+
+    /*
+    Muestra toda la imagen sin cortarla
+    ni deformarla
+    */
     object-fit: contain;
 }
 
-/* ========================================
-   ICONOS DE LA CABECERA
-======================================== */
-
-.header-icons {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.header-icons img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
 
 /* ========================================
    PANTALLAS MEDIANAS
 ======================================== */
 
+/*
+Estos estilos se aplican cuando la pantalla
+mide 900px de ancho o menos
+*/
 @media (max-width: 900px) {
-    .pagina > .hero {
+
+    /* Ajusta el contenido principal */
+    .hero {
+        /* Reduce los espacios laterales */
         padding: 45px 5%;
+
+        /* Reduce la separación entre texto e imagen */
         gap: 30px;
     }
 
+    /* Reduce el tamaño del título */
     .hero-text h1 {
         font-size: 45px;
     }
 
+    /* Reduce la altura de la imagen */
     .hero-image img {
-        max-height: 350px;
+        height: 350px;
     }
 }
 
+
 /* ========================================
-   CELULARES
+   CELULAR
 ======================================== */
 
+/*
+Estos estilos se aplican cuando la pantalla
+mide 700px de ancho o menos
+*/
 @media (max-width: 700px) {
-    .pagina > .hero {
+
+    /* Modifica el contenido principal */
+    .hero {
+        /* La altura depende de su contenido */
         min-height: auto;
+
+        /* Reduce los espacios interiores */
         padding: 40px 25px;
+
+        /*
+        Coloca el texto y la imagen
+        uno debajo del otro
+        */
         flex-direction: column;
-        gap: 30px;
-    }
 
-    .hero .hero-text,
-    .hero .hero-image {
-        flex: none;
-        width: 100%;
-        max-width: none;
-    }
-
-    .hero .hero-text {
+        /* Centra el texto */
         text-align: center;
     }
 
+    /* Contenedor del texto y de la imagen */
+    .hero-text,
+    .hero-image {
+        /* Ocupan todo el ancho */
+        width: 100%;
+
+        /* Eliminan el límite máximo */
+        max-width: none;
+    }
+
+    /* Reduce el título en celular */
     .hero-text h1 {
         font-size: 40px;
     }
 
+    /* Centra el párrafo horizontalmente */
     .hero-text p {
-        margin: 0 auto;
+        margin: auto;
     }
 
+    /* Ajusta la imagen en celular */
     .hero-image img {
+        /* Limita la altura máxima */
         max-height: 350px;
+
+        /* Mantiene la proporción original */
         height: auto;
     }
 }

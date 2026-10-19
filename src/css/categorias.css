@@ -356,7 +356,7 @@ header {
 /* Cada tarjeta de categoría */
 .tarjeta {
     /* Permite que la tarjeta pueda reducir su ancho */
-    min-width: 20;
+    min-width: 0;
 
     /* Altura mínima de la tarjeta */
     min-height: 320px;
@@ -893,6 +893,94 @@ tiene 500px de ancho o menos
 
     /*Ignora los saltos de línea manualesdentro del texto*/
     .campo-hogar br {
+        display: none;
+    }
+}
+
+/* =====================================================
+   AJUSTES DE ENCUADRE Y LEGIBILIDAD - HUERTOHOGAR
+   Se mantienen las clases y estructura originales.
+   ===================================================== */
+
+.cabecera-categorias {
+    gap: 35px;
+    padding: 35px 6%;
+}
+
+.cabecera-categorias > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.cabecera-categorias > img {
+    display: block;
+    width: 40%;
+    max-width: 520px;
+    height: 240px;
+    object-fit: contain;
+    object-position: center;
+    align-self: center;
+    flex-shrink: 0;
+}
+
+.cabecera-categorias h1,
+.campo-hogar h2 {
+    color: #205c3b;
+    opacity: 1;
+}
+
+.categorias {
+    gap: 18px;
+    padding: 35px 5%;
+}
+
+.tarjeta {
+    min-width: 0;
+    min-height: 330px;
+    padding: 10px 10px 18px;
+}
+
+.foto {
+    height: 175px;
+}
+
+.foto img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+@media (max-width: 1150px) {
+    .categorias {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 780px) {
+    .categorias {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cabecera-categorias > img {
+        display: block;
+        width: 42%;
+        height: 190px;
+        opacity: 1;
+    }
+}
+
+@media (max-width: 500px) {
+    .categorias {
+        grid-template-columns: 1fr;
+    }
+
+    .cabecera-categorias {
+        padding: 20px;
+    }
+
+    .cabecera-categorias > img {
         display: none;
     }
 }

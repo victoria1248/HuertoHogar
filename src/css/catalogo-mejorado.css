@@ -1,0 +1,34 @@
+/* Estilos exclusivos del catálogo: no afectan las otras páginas. */
+.hh-catalogo{--verde:#204c35;--suave:#edf2e9;--naranja:#cb602d;max-width:1240px!important;margin:0 auto!important;padding:30px 28px 72px!important;background:#fbfaf6;color:#243e30;text-align:left;font-family:Arial,sans-serif;box-sizing:border-box}
+.hh-catalogo *{box-sizing:border-box}.hh-migas{display:flex;gap:12px;font-size:13px;color:#758172;margin-bottom:24px}.hh-migas a{color:#36583e;text-decoration:none}
+.hh-presentacion{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;background:#e9efdf;border-radius:26px;padding:42px 46px;overflow:hidden;position:relative}.hh-etiqueta{font-size:11px;font-weight:700;letter-spacing:2px;color:#637458}.hh-presentacion h1{font-family:Georgia,serif;font-size:clamp(32px,4vw,53px);line-height:1.12;letter-spacing:-1.5px;font-weight:400;color:#234632;margin:18px 0}.hh-presentacion h1 em{font-weight:400;color:#688048}.hh-presentacion p{font-size:15px;line-height:1.7;max-width:390px;color:#54604d;margin:0 0 24px}.hh-explorar{display:inline-flex;gap:24px;align-items:center;background:#254d36;color:white!important;padding:13px 20px;border-radius:30px;text-decoration:none;font-size:13px;font-weight:600;transition:background .2s,transform .2s}.hh-explorar:hover{background:#346747;transform:translateY(-2px)}
+.hh-hero-imagen{position:relative;padding:20px;display:grid;place-items:center}.hh-hero-imagen img{width:100%;max-width:310px;height:235px;object-fit:contain;border-radius:50%;mix-blend-mode:multiply;transform:rotate(-8deg)}.hh-hero-imagen>span{position:absolute;bottom:0;right:0;background:#fffdf5;border-radius:14px;padding:17px 24px;box-shadow:0 12px 30px #23463212;transform:rotate(4deg);font-size:14px;line-height:1.6;color:#6b705c}.hh-hero-imagen strong{font-family:Georgia,serif;font-size:23px;color:#2c513b}
+.hh-titulo-lista{display:flex;justify-content:space-between;align-items:end;margin:44px 0 22px;gap:20px;scroll-margin-top:24px}.hh-titulo-lista h2{font:32px Georgia,serif;color:#254331;margin:9px 0 0}.hh-titulo-lista>span{font-size:13px;color:#758172;white-space:nowrap}
+.hh-rejilla{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.hh-tarjeta{background:white;border:1px solid #e5e8de;border-radius:20px;overflow:hidden;box-shadow:0 4px 16px #25433105;transition:transform .25s,box-shadow .25s,border-color .25s;animation:hh-aparecer .5s ease both;display:flex;flex-direction:column}.hh-tarjeta:hover{transform:translateY(-6px);box-shadow:0 16px 34px #25433115;border-color:#b9c9ac}.hh-foto{position:relative;background:#f1f4ec;height:215px;display:grid;place-items:center;padding:26px}.hh-foto img{height:170px;width:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .4s}.hh-tarjeta:hover .hh-foto img{transform:scale(1.07)}.hh-categoria{position:absolute;left:16px;top:16px;z-index:1;background:#fffdf7e8;border:1px solid #e2e8d8;padding:6px 10px;border-radius:20px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#58704a}.hh-contenido{padding:23px;display:flex;flex-direction:column;flex:1}.hh-contenido h2{font:28px Georgia,serif;color:#254331;margin:0 0 10px}.hh-precio{font-size:25px;color:#bf5b2d;font-weight:700;margin:0 0 13px;display:flex;flex-wrap:wrap;align-items:center;gap:9px}.hh-precio small{font:11px Arial,sans-serif;color:#7c8175}.hh-descripcion{font-size:14px;line-height:1.65;color:#687060;margin:0 0 22px;flex:1}.hh-compra{border-top:1px solid #eceee6;padding-top:17px;display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:18px}.hh-label{display:block;font-size:11px;color:#7c8175;margin-bottom:8px}.hh-cantidad{display:flex;align-items:center;border:1px solid #dce3d5;border-radius:10px;overflow:hidden;background:#fafbf7}.hh-cantidad button{width:36px;height:36px;border:0;background:transparent;color:#234632;font-size:22px;cursor:pointer;transition:background .2s}.hh-cantidad button:hover:not(:disabled){background:#dfebd6}.hh-cantidad button:disabled{opacity:.3;cursor:not-allowed}.hh-cantidad output{min-width:30px;text-align:center;font-size:14px;font-weight:700}.hh-subtotal{text-align:right}.hh-subtotal strong{font-size:20px;color:#274a34}.hh-agregar{width:100%;border:0;border-radius:10px;background:#254d36;color:#fff;font:600 14px Arial,sans-serif;padding:14px;cursor:pointer;transition:background .2s,transform .15s;display:flex;justify-content:center;align-items:center;gap:10px}.hh-agregar span{font-size:20px;line-height:1}.hh-agregar:hover{background:#3c6947}.hh-agregar:active{transform:scale(.97)}.hh-catalogo button:focus-visible,.hh-catalogo a:focus-visible{outline:3px solid #ce833a;outline-offset:3px}
+@keyframes hh-aparecer{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:900px){.hh-rejilla{grid-template-columns:repeat(2,minmax(0,1fr))}.hh-presentacion{padding:30px}.hh-hero-imagen img{height:180px}}
+@media(max-width:580px){.hh-catalogo{padding:20px 16px 45px!important}.hh-rejilla{grid-template-columns:1fr}.hh-presentacion{grid-template-columns:1fr;padding:26px;gap:8px}.hh-hero-imagen{display:none}.hh-presentacion h1{font-size:37px}.hh-titulo-lista h2{font-size:27px}.hh-foto{height:220px}}
+@media(prefers-reduced-motion:reduce){.hh-catalogo *{animation:none!important;transition:none!important;transform:none!important}}
+
+.hh-filtros{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 24px}.hh-filtros button{padding:10px 17px;border:1px solid #dce3d5;border-radius:25px;background:white;color:#36583e;cursor:pointer;font-size:12px}.hh-filtros button[aria-pressed="true"]{background:#254d36;color:white;border-color:#254d36}.hh-stock{font-size:12px;color:#53734b;margin:0 0 16px}.hh-stock small{color:#7c8175}.hh-sin-foto{color:#728265;font-size:14px}.hh-agregar:disabled{background:#e8ece2;color:#798471;cursor:not-allowed}.hh-agregar:disabled:active{transform:none}
+
+/* Etiquetas y precios promocionales configurados desde el dashboard */
+.hh-etiqueta-descuento {
+  display: inline-block;
+  margin: 8px 0 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #fff0e8;
+  color: #a52d2d;
+  font-size: .78rem;
+  font-weight: 800;
+}
+.hh-precio del {
+  margin-right: 7px;
+  color: #777;
+  font-size: .9em;
+  font-weight: 500;
+}
+.hh-precio .hh-precio-oferta {
+  color: #a52d2d;
+}
