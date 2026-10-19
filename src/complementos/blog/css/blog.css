@@ -1,0 +1,359 @@
+/* ========================================
+   CONFIGURACIÓN GENERAL
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    background-color: #f3f5f1;
+    color: #171717;
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* Contenedor de toda la página */
+
+.pagina {
+    width: 100%;
+    min-height: 100vh;
+
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Barra verde superior */
+
+.top-bar {
+    width: 100%;
+    height: 8px;
+
+    background-color: #1b5e20;
+}
+
+
+/* ========================================
+   CONTENIDO DEL BLOG
+======================================== */
+
+.blog {
+    width: 100%;
+
+    padding: 50px 8% 70px;
+
+    background-color: #f2f5df;
+}
+
+
+/* ========================================
+   PRESENTACIÓN
+======================================== */
+
+.presentacion-blog {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+
+/* Logo que aparece dentro del Blog */
+
+.blog-logo {
+    width: 190px;
+    height: auto;
+
+    margin-bottom: 15px;
+}
+
+
+/* Título principal */
+
+.presentacion-blog h1 {
+    margin-bottom: 10px;
+
+    color: #17652c;
+
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+
+/* Descripción bajo el título */
+
+.presentacion-blog p {
+    margin-bottom: 40px;
+
+    color: #555;
+
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+
+/* Imagen principal */
+
+.imagen-principal {
+    width: 100%;
+    max-width: 850px;
+    height: 390px;
+    border:1px solid #2F3025; 
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* ========================================
+   HISTORIA DE HUERTOHOGAR
+======================================== */
+
+.historia-blog {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 100px auto 0;
+}
+
+
+/* Título de la historia */
+
+.historia-blog h2 {
+    margin-bottom: 30px;
+
+    color: #17652c;
+
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+
+/* Contenedor de imagen y texto */
+
+.historia-contenido {
+    display: grid;
+
+    grid-template-columns: 380px 1fr;
+
+    align-items: center;
+
+    gap: 70px;
+}
+
+
+/* Imagen del agricultor */
+
+.historia-imagen img {
+    width: 100%;
+    height: 380px;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* Parte derecha de la historia */
+
+.historia-informacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Cuadro blanco del texto */
+
+.historia-texto {
+    width: 100%;
+
+    padding: 25px;
+
+    border: 1px solid #999;
+    border-radius: 8px;
+
+    background-color: white;
+    color: #247439;
+
+    font-size: 17px;
+    line-height: 1.35;
+}
+
+
+/* Espacio entre los párrafos */
+
+.historia-texto p + p {
+    margin-top: 8px;
+}
+
+
+/* Botón de asesoría */
+
+.boton-asesoria {
+    margin-top: 15px;
+    padding: 15px 55px;
+
+    border-radius: 4px;
+
+    background-color: #237b46;
+    color: white;
+
+    font-size: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+
+/* Efecto del botón */
+
+.boton-asesoria:hover {
+    background-color: #195f35;
+}
+
+
+/* ========================================
+   TARJETAS INFERIORES
+======================================== */
+
+.opciones-blog {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 100px auto 0;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 70px;
+}
+
+
+/* Cada opción del Blog */
+
+.opcion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Imagen de cada opción */
+
+.opcion img {
+    width: 100%;
+    height: 230px;
+    border:1px solid #2F3025; 
+    display: block;
+
+    object-fit: cover;
+}
+
+
+/* Botones inferiores */
+
+.opcion a {
+    min-width: 170px;
+
+    margin-top: 18px;
+    padding: 13px 20px;
+
+    border-radius: 3px;
+
+    background-color: #237b46;
+    color: white;
+
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+
+/* Efecto de los botones */
+
+.opcion a:hover {
+    background-color: #195f35;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
+
+    .historia-contenido {
+        grid-template-columns: 300px 1fr;
+        gap: 30px;
+    }
+
+    .opciones-blog {
+        gap: 25px;
+    }
+}
+
+
+/* ========================================
+   CELULAR
+======================================== */
+
+@media (max-width: 700px) {
+
+    .blog {
+        padding: 40px 25px;
+    }
+
+    .presentacion-blog h1 {
+        font-size: 18px;
+    }
+
+    .imagen-principal {
+        height: 260px;
+    }
+
+    .historia-blog {
+        margin-top: 60px;
+    }
+
+    .historia-contenido {
+        grid-template-columns: 1fr;
+    }
+
+    .historia-imagen img {
+        height: 300px;
+    }
+
+    .historia-texto {
+        font-size: 15px;
+    }
+
+    .opciones-blog {
+        margin-top: 60px;
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+    .opcion img {
+        height: 280px;
+    }
+}

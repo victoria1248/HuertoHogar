@@ -1,0 +1,53 @@
+/* ==========================================================================
+   🎨 BASE Y VARIABLES GLOBALES DE COLOR (base.css)
+   ========================================================================== */
+
+/* 1. VARIABLES DE COLORES */
+:root {
+  --color-verde-principal: #2d8a56; 
+  --color-verde-hover: #237446;
+  --color-fondo-gris: #e3e7ea; 
+  --color-blanco: #ffffff;
+  --color-texto-oscuro: #2c3e50;
+  --color-texto-gris: #6c757d;
+  --color-error: #d9534f;
+  --color-error-fondo: #fdf2f2;
+  --color-exito: #28a745;
+  --color-exito-fondo: #edf7ed;
+  --color-fuerza-debil: #e74c3c;
+  --color-fuerza-aceptable: #f39c12;
+  --color-fuerza-fuerte: #2ecc71;
+}
+
+/* 2. RESETEO BÁSICO DE NAVEGADOR */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif, system-ui;
+}
+
+body, html {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  background-color: var(--color-fondo-gris);
+}
+
+/* 3. CONTENEDOR PRINCIPAL QUE ENCAJA EN 1 SOLA PANTALLA EN PC */
+.contenedor-pantalla {
+  display: flex;
+  width: 100vw;
+  min-height: 100vh; /* Ocupa exactamente el alto de la pantalla */
+  overflow: visible; /* Evita barras de desplazamiento en PC */
+}
+
+/* ADAPTABILIDAD PARA CELULARES Y TABLETS (RESPONSIVE) */
+@media (max-width: 850px) {
+  .contenedor-pantalla {
+    flex-direction: column;
+    height: auto;
+    min-min-height: 100vh;
+    overflow-y: auto; /* Permite scroll vertical solo en celulares si es necesario */
+  }
+}
