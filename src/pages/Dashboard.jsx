@@ -1,34 +1,13 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import '../css/administrador.css'
+import '../css/agregar-producto.css'
+import imagenVerduras from '../img/verduras.png'
+import imagenOrganico from '../img/Organico.png'
+import imagenHerbas from '../img/Herbas.png'
 
-// Datos iniciales de demostración.
-const productosIniciales = [
-    {
-        id: 1,
-        nombre: 'Zanahoria Orgánica',
-        categoria: 'Verduras',
-        precio: 1990,
-        stock: 8,
-        imagen: '/img/verduras.png',
-    },
-    {
-        id: 2,
-        nombre: 'Miel Orgánica',
-        categoria: 'Orgánicos',
-        precio: 5990,
-        stock: 5,
-        imagen: '/img/Organico.png',
-    },
-    {
-        id: 3,
-        nombre: 'Espinacas Frescas',
-        categoria: 'Verduras',
-        precio: 1490,
-        stock: 12,
-        imagen: '/img/Herbas.png',
-    },
-]
+import { CLAVE_INVENTARIO, leerInventario, guardarInventario } from '../servicios/inventario.js'
+
+// El dashboard y el catálogo usan el mismo inventario compartido.
 
 // Montos de ejemplo para el gráfico.
 const ventasEjemplo = {
@@ -42,7 +21,10 @@ const ventasEjemplo = {
     },
 }
 
-const claveInventario = 'huertohogar-inventario-demo-v1'
+const clavePedidos = 'pedidos_huerto'
+const claveInventario = CLAVE_INVENTARIO
+const imagenesAnteriores = { '/img/verduras.png': imagenVerduras, '/img/Organico.png': imagenOrganico, '/img/Herbas.png': imagenHerbas }
+function imagenCorrecta(ruta) { return imagenesAnteriores[ruta] || ruta || imagenVerduras }
 
 function formatoPrecio(valor) {
     return new Intl.NumberFormat('es-CL', {
@@ -53,32 +35,15 @@ function formatoPrecio(valor) {
 }
 
 function cargarProductos() {
-    try {
-        const guardados = JSON.parse(localStorage.getItem(claveInventario))
-
-        const sonValidos =
-            Array.isArray(guardados) &&
-            guardados.length > 0 &&
-            guardados.every((producto) =>
-                producto &&
-                typeof producto.id === 'number' &&
-                typeof producto.nombre === 'string' &&
-                typeof producto.categoria === 'string' &&
-                typeof producto.imagen === 'string' &&
-                Number.isFinite(producto.precio) &&
-                Number.isInteger(producto.stock) &&
-                producto.stock >= 0
-            )
-
-        return sonValidos ? guardados : productosIniciales
-    } catch {
-        return productosIniciales
-    }
+    return leerInventario().map(producto => ({
+        ...producto,
+        imagen: imagenCorrecta(producto.imagen)
+    }))
 }
 
 function Dashboard() {
     const [productos, setProductos] = useState(cargarProductos)
-    const [seccion, setSeccion] = useState('resumen')
+    const [seccion, setSeccion] = useState(() => ['inventario','agregar-producto','editar-producto','eliminar-producto','pedidos'].includes(new URLSearchParams(window.location.search).get('seccion')) ? new URLSearchParams(window.location.search).get('seccion') : 'resumen')
     const [menuAbierto, setMenuAbierto] = useState(false)
     const [busqueda, setBusqueda] = useState('')
     const [soloStockBajo, setSoloStockBajo] = useState(false)
@@ -86,6 +51,114 @@ function Dashboard() {
     const [productoSeleccionado, setProductoSeleccionado] = useState('')
     const [cantidad, setCantidad] = useState('1')
     const [mensaje, setMensaje] = useState('')
+    const [nuevo, setNuevo] = useState({nombre:'',categoria:'Verduras',precio:'',stock:'',unidad:'kilo',plural:'kilos',descuento:false,descuentoPorcentaje:'10',imagen:''})
+    const [productoAEditar, setProductoAEditar] = useState('')
+    const [edicion, setEdicion] = useState({nombre:'',categoria:'Frutas',precio:'',stock:'',unidad:'kilo',plural:'kilos',descuento:false,descuentoPorcentaje:'10',imagen:'',descripcion:''})
+    const [archivoImagen, setArchivoImagen] = useState(null)
+    const [pedidos, setPedidos] = useState(() => {
+        try { const datos = JSON.parse(localStorage.getItem(clavePedidos) || '[]'); return Array.isArray(datos) ? datos : [] } catch { return [] }
+    })
+    const [busquedaPedido, setBusquedaPedido] = useState('')
+    const [motivosSuspension, setMotivosSuspension] = useState({})
+    const [productoAEliminar, setProductoAEliminar] = useState('')
+    useEffect(() => {
+        const sincronizar = () => {
+            try { const datos = JSON.parse(localStorage.getItem(clavePedidos) || '[]'); setPedidos(Array.isArray(datos) ? datos : []) } catch { setPedidos([]) }
+        }
+        window.addEventListener('storage', sincronizar)
+        return () => window.removeEventListener('storage', sincronizar)
+    }, [])
+
+    function actualizarPedido(id, estado) {
+        const actual = pedidos.find(p => String(p.id) === String(id))
+        if (!actual) return
+        const motivo = (motivosSuspension[id] || '').trim()
+        if (estado === 'Suspendido' && motivo.length < 5) {
+            setMensaje('Para suspender el pedido escribe un motivo de al menos 5 caracteres.')
+            return
+        }
+        const nuevos = pedidos.map(p => String(p.id) === String(id) ? {
+            ...p, estado, motivoSuspension: estado === 'Suspendido' ? motivo : '',
+            fechaActualizacion: new Date().toISOString()
+        } : p)
+        try {
+            localStorage.setItem(clavePedidos, JSON.stringify(nuevos))
+            setPedidos(nuevos)
+            setMensaje(`Pedido ${id} actualizado a ${estado}.`)
+            window.dispatchEvent(new Event('pedidosActualizados'))
+        } catch { setMensaje('No se pudo guardar el estado del pedido.') }
+    }
+
+    function eliminarProducto(evento) {
+        evento.preventDefault()
+        const producto = productos.find(p => String(p.id) === String(productoAEliminar))
+        if (!producto) { setMensaje('Selecciona un producto.'); return }
+        if (!window.confirm(`¿Eliminar definitivamente «${producto.nombre}» del inventario?`)) return
+        const nuevos = productos.filter(p => String(p.id) !== String(productoAEliminar))
+        try {
+            guardarInventario(nuevos)
+            setProductos(nuevos)
+            setProductoAEliminar('')
+            setMensaje(`Producto «${producto.nombre}» eliminado.`)
+        } catch { setMensaje('No se pudo guardar la eliminación.') }
+    }
+
+    function seleccionarProductoEdicion(id) {
+        setProductoAEditar(String(id))
+        const producto = productos.find(item => String(item.id) === String(id))
+        if (!producto) return
+        setEdicion({
+            nombre: producto.nombre || '',
+            categoria: producto.categoria || 'Frutas',
+            precio: String(producto.precio ?? ''),
+            stock: String(producto.stock ?? 0),
+            unidad: producto.unidad || 'unidad',
+            plural: producto.plural || 'unidades',
+            descuento: Boolean(producto.descuento),
+            descuentoPorcentaje: String(producto.descuentoPorcentaje || 10),
+            imagen: producto.imagen || '',
+            descripcion: producto.descripcion || ''
+        })
+        setMensaje('')
+    }
+
+    function guardarEdicionProducto(evento) {
+        evento.preventDefault()
+        const producto = productos.find(item => String(item.id) === String(productoAEditar))
+        const nombre = edicion.nombre.trim()
+        const precio = Number(edicion.precio)
+        const stock = Number(edicion.stock)
+        const porcentaje = Number(edicion.descuentoPorcentaje)
+        if (!producto) { setMensaje('Selecciona el producto que deseas editar.'); return }
+        if (!nombre || !edicion.categoria || !Number.isFinite(precio) || precio <= 0 || !Number.isInteger(stock) || stock < 0) {
+            setMensaje('Revisa el nombre, categoría, precio y stock. El stock debe ser un número entero igual o mayor que cero.')
+            return
+        }
+        if (edicion.descuento && (!Number.isFinite(porcentaje) || porcentaje < 1 || porcentaje > 90)) {
+            setMensaje('El descuento debe estar entre 1% y 90%.')
+            return
+        }
+        const actualizados = productos.map(item => String(item.id) === String(productoAEditar) ? {
+            ...item,
+            nombre,
+            categoria: edicion.categoria,
+            precio,
+            stock,
+            unidad: edicion.unidad,
+            plural: edicion.plural,
+            descuento: Boolean(edicion.descuento),
+            descuentoPorcentaje: edicion.descuento ? porcentaje : 0,
+            imagen: edicion.imagen.trim() || item.imagen,
+            descripcion: edicion.descripcion.trim()
+        } : item)
+        try {
+            guardarInventario(actualizados)
+            setProductos(actualizados)
+            setMensaje(`Los cambios de «${nombre}» se guardaron. El catálogo mostrará el precio y la unidad actualizados.`)
+        } catch {
+            setMensaje('No se pudieron guardar los cambios en este navegador.')
+        }
+    }
 
     const productosBajos = productos.filter((producto) => producto.stock < 10)
 
@@ -145,13 +218,54 @@ function Dashboard() {
         setProductos(actualizados)
 
         try {
-            localStorage.setItem(claveInventario, JSON.stringify(actualizados))
+            guardarInventario(actualizados)
             setMensaje(`Se agregaron ${unidades} unidades a ${producto.nombre}.`)
         } catch {
             setMensaje('Stock actualizado en pantalla. No se pudo guardar en este navegador.')
         }
 
         setCantidad('1')
+    }
+
+    async function agregarProducto(evento) {
+        evento.preventDefault()
+        const nombre = nuevo.nombre.trim()
+        const precio = Number(nuevo.precio)
+        const stock = Number(nuevo.stock)
+        if (!nombre || !nuevo.categoria.trim() || !Number.isFinite(precio) || precio <= 0 || !Number.isInteger(stock) || stock < 0 || (nuevo.descuento && (!Number.isFinite(Number(nuevo.descuentoPorcentaje)) || Number(nuevo.descuentoPorcentaje) < 1 || Number(nuevo.descuentoPorcentaje) > 90))) {
+            setMensaje('Completa nombre, categoría, precio positivo y stock válido. Si activas descuento, debe ser de 1% a 90%.')
+            return
+        }
+        let imagen = nuevo.imagen.trim() || imagenVerduras
+        if (archivoImagen) {
+            if (!archivoImagen.type.startsWith('image/') || archivoImagen.size > 900000) {
+                setMensaje('Selecciona una imagen válida de menos de 900 KB.')
+                return
+            }
+            try {
+                imagen = await new Promise((resolve, reject) => {
+                    const lector = new FileReader()
+                    lector.onload = () => resolve(lector.result)
+                    lector.onerror = reject
+                    lector.readAsDataURL(archivoImagen)
+                })
+            } catch {
+                setMensaje('No se pudo leer la imagen.')
+                return
+            }
+        }
+        const agregado = {id: Math.max(0, ...productos.map(p => Number(p.id) || 0)) + 1, nombre, categoria: nuevo.categoria.trim(), precio, stock, unidad: nuevo.unidad, plural: nuevo.plural, descuento: Boolean(nuevo.descuento), descuentoPorcentaje: nuevo.descuento ? Number(nuevo.descuentoPorcentaje) || 10 : 0, imagen}
+        const actualizados = [...productos, agregado]
+        try {
+            guardarInventario(actualizados)
+            setProductos(actualizados)
+            setNuevo({nombre:'',categoria:'Verduras',precio:'',stock:'',unidad:'kilo',plural:'kilos',descuento:false,descuentoPorcentaje:'10',imagen:''})
+            setArchivoImagen(null)
+            evento.target.reset()
+            setMensaje(`Producto «${nombre}» agregado al inventario.`)
+        } catch {
+            setMensaje('No se pudo guardar. Prueba con una imagen más pequeña o libera espacio del navegador.')
+        }
     }
 
     return (
@@ -165,18 +279,18 @@ function Dashboard() {
                 />
             )}
 
-            {/* Menú lateral */}
+            {/* Menú lateral desplegable hacia la derecha */}
             <aside
                 id="menu-administrador"
                 className={`hh-sidebar ${menuAbierto ? 'abierto' : ''}`}
             >
-                <Link to="/" className="hh-marca">
+                <a href="/" className="hh-marca">
                     <span className="hh-marca-icono">🌱</span>
                     <span>
                         HuertoHogar
                         <small>Administración</small>
                     </span>
-                </Link>
+                </a>
 
                 <p className="hh-menu-titulo">MI NEGOCIO</p>
 
@@ -201,6 +315,18 @@ function Dashboard() {
                         Inventario
                         <span className="hh-contador">{productos.length}</span>
                     </button>
+                    <button
+                        type="button"
+                        className={`hh-menu-item ${seccion === 'editar-producto' ? 'activo' : ''}`}
+                        aria-current={seccion === 'editar-producto' ? 'page' : undefined}
+                        onClick={() => cambiarSeccion('editar-producto')}
+                    >
+                        <span aria-hidden="true">✏️</span>
+                        Editar productos
+                    </button>
+                <p className="hh-menu-titulo" style={{marginTop: 24}}>ADMINISTRACIÓN</p>
+                    <a href="/admin/usuarios" className="hh-menu-item">👥 Gestión de usuarios</a>
+                    <a href="/admin/agregar" className="hh-menu-item">➕ Agregar administrador</a>
                 </nav>
 
                 <div className="hh-sidebar-abajo">
@@ -210,9 +336,9 @@ function Dashboard() {
                         <p>Revisa tu stock para mantener tus productos disponibles.</p>
                     </div>
 
-                    <Link to="/" className="hh-volver">
+                    <a href="/" className="hh-volver">
                         ← Volver a la tienda
-                    </Link>
+                    </a>
                 </div>
             </aside>
 
@@ -250,12 +376,12 @@ function Dashboard() {
                             <h1>
                                 {seccion === 'resumen'
                                     ? '¡Hola, administrador!'
-                                    : 'Tu inventario'}
+                                    : seccion === 'agregar-producto' ? 'Agregar producto' : seccion === 'editar-producto' ? 'Editar productos' : seccion === 'eliminar-producto' ? 'Eliminar producto' : seccion === 'pedidos' ? 'Gestión de pedidos' : 'Tu inventario'}
                             </h1>
                             <p>
                                 {seccion === 'resumen'
                                     ? 'Un vistazo a tus ventas y productos disponibles.'
-                                    : 'Busca productos y actualiza sus existencias.'}
+                                    : seccion === 'agregar-producto' ? 'Registra un nuevo producto con precio, stock e imagen.' : seccion === 'editar-producto' ? 'Modifica la unidad de venta, precio, categoría y descuentos de los productos del catálogo.' : seccion === 'eliminar-producto' ? 'Retira productos que ya no estarán disponibles.' : seccion === 'pedidos' ? 'Revisa las compras y actualiza el estado de los envíos.' : 'Busca productos y actualiza sus existencias.'}
                             </p>
                         </div>
 
@@ -298,7 +424,82 @@ function Dashboard() {
                         </article>
                     </section>
 
-                    {seccion === 'resumen' ? (
+                    {seccion === 'agregar-producto' ? (
+                        <section className="hh-panel hh-agregar-producto">
+                            <h2>Nuevo producto</h2>
+                            <p>Los productos se guardan en el inventario de este navegador.</p>
+                            <form className="hh-nuevo-form" onSubmit={agregarProducto}>
+                                <label>Nombre del producto<input required maxLength={100} value={nuevo.nombre} onChange={e=>setNuevo({...nuevo,nombre:e.target.value})} placeholder="Ej. Manzanas rojas" /></label>
+                                <label>Categoría<select value={nuevo.categoria} onChange={e=>setNuevo({...nuevo,categoria:e.target.value})}><option>Verduras</option><option>Frutas</option><option>Orgánicos</option><option>Lácteos</option><option>Despensa</option><option>Hierbas</option><option>Otros</option></select></label>
+                                <label>Precio (CLP)<input required type="number" min="1" step="1" value={nuevo.precio} onChange={e=>setNuevo({...nuevo,precio:e.target.value})} /></label>
+                                <label>Stock inicial<input required type="number" min="0" step="1" value={nuevo.stock} onChange={e=>setNuevo({...nuevo,stock:e.target.value})} /></label>
+                                <label>Se vende por<select value={nuevo.unidad} onChange={e=>{const opciones={kilo:'kilos',unidad:'unidades','bolsa de 500 g':'bolsas','frasco de 500 g':'frascos',litro:'litros',paquete:'paquetes'};setNuevo({...nuevo,unidad:e.target.value,plural:opciones[e.target.value]||'unidades'})}}><option value="kilo">Kilo</option><option value="unidad">Unidad</option><option value="bolsa de 500 g">Bolsa de 500 g</option><option value="frasco de 500 g">Frasco de 500 g</option><option value="litro">Litro</option><option value="paquete">Paquete</option></select></label>
+                                <label className="hh-check-descuento"><input type="checkbox" checked={nuevo.descuento} onChange={e=>setNuevo({...nuevo,descuento:e.target.checked})} /> ¿Este producto tendrá descuento?</label>
+                                {nuevo.descuento && <label>Descuento (%)<input required type="number" min="1" max="90" step="1" value={nuevo.descuentoPorcentaje} onChange={e=>setNuevo({...nuevo,descuentoPorcentaje:e.target.value})} /></label>}
+                                <label className="hh-nuevo-ancho">URL de imagen (opcional)<input type="text" placeholder="https://..." value={nuevo.imagen} onChange={e=>setNuevo({...nuevo,imagen:e.target.value})} /></label>
+                                <div className="hh-nuevo-ancho hh-subida"><span>Imagen del producto (máximo 900 KB)</span><label className="hh-subida-boton" htmlFor="hh-archivo-producto">📷 Seleccionar imagen</label><input id="hh-archivo-producto" className="hh-archivo-oculto" type="file" accept="image/*" onChange={e=>setArchivoImagen(e.target.files?.[0] || null)} /><small>{archivoImagen ? `Seleccionada: ${archivoImagen.name}` : 'PNG, JPG o WebP. También puedes utilizar una URL.'}</small></div>
+                                <button className="hh-boton hh-boton-verde" type="submit">＋ Guardar producto</button>
+                            </form>
+                            <p className="hh-mensaje" role="status">{mensaje}</p>
+                        </section>
+                    ) : seccion === 'editar-producto' ? (
+                        <section className="hh-panel hh-agregar-producto">
+                            <h2>Editar productos del catálogo</h2>
+                            <p>Elige un producto para cambiar cómo se vende, su precio, stock o descuento. Los cambios se guardan en el inventario compartido.</p>
+                            <label className="hh-selector-edicion">Producto que deseas editar
+                                <select value={productoAEditar} onChange={e=>seleccionarProductoEdicion(e.target.value)}>
+                                    <option value="">Selecciona un producto</option>
+                                    {productos.map(p=><option key={p.id} value={p.id}>{p.nombre} — {formatoPrecio(p.precio)}</option>)}
+                                </select>
+                            </label>
+                            {productoAEditar && <form className="hh-nuevo-form" onSubmit={guardarEdicionProducto}>
+                                <label>Nombre del producto<input required maxLength={100} value={edicion.nombre} onChange={e=>setEdicion({...edicion,nombre:e.target.value})} /></label>
+                                <label>Categoría<select value={edicion.categoria} onChange={e=>setEdicion({...edicion,categoria:e.target.value})}><option>Verduras</option><option>Frutas</option><option>Orgánicos</option><option>Lácteos</option><option>Despensa</option><option>Hierbas</option><option>Otros</option></select></label>
+                                <label>Precio normal (CLP)<input required type="number" min="1" step="1" value={edicion.precio} onChange={e=>setEdicion({...edicion,precio:e.target.value})} /></label>
+                                <label>Stock disponible<input required type="number" min="0" step="1" value={edicion.stock} onChange={e=>setEdicion({...edicion,stock:e.target.value})} /></label>
+                                <label>Se vende por<select value={edicion.unidad} onChange={e=>{const opciones={kilo:'kilos',unidad:'unidades','bolsa de 500 g':'bolsas','frasco de 500 g':'frascos',litro:'litros',paquete:'paquetes'};setEdicion({...edicion,unidad:e.target.value,plural:opciones[e.target.value]||'unidades'})}}><option value="kilo">Kilo</option><option value="unidad">Unidad</option><option value="bolsa de 500 g">Bolsa de 500 g</option><option value="frasco de 500 g">Frasco de 500 g</option><option value="litro">Litro</option><option value="paquete">Paquete</option></select></label>
+                                <label className="hh-check-descuento"><input type="checkbox" checked={edicion.descuento} onChange={e=>setEdicion({...edicion,descuento:e.target.checked})} /> ¿Este producto tendrá descuento?</label>
+                                {edicion.descuento && <label>Descuento (%)<input required type="number" min="1" max="90" step="1" value={edicion.descuentoPorcentaje} onChange={e=>setEdicion({...edicion,descuentoPorcentaje:e.target.value})} /><small>El precio rebajado se calcula automáticamente.</small></label>}
+                                <label className="hh-nuevo-ancho">Descripción<input maxLength="400" value={edicion.descripcion} onChange={e=>setEdicion({...edicion,descripcion:e.target.value})} /></label>
+                                <label className="hh-nuevo-ancho">URL de imagen<input type="text" placeholder="https://... o deja la actual" value={edicion.imagen.startsWith('data:') ? '' : edicion.imagen} onChange={e=>setEdicion({...edicion,imagen:e.target.value})} /></label>
+                                <button className="hh-boton hh-boton-verde" type="submit">Guardar cambios</button>
+                            </form>}
+                            <p className="hh-mensaje" role="status">{mensaje}</p>
+                        </section>
+                    ) : seccion === 'eliminar-producto' ? (
+                        <section className="hh-panel hh-agregar-producto hh-eliminar-producto">
+                            <h2>Eliminar producto</h2>
+                            <p>Selecciona el producto que deseas retirar del inventario. Esta acción no puede deshacerse.</p>
+                            <form className="hh-nuevo-form" onSubmit={eliminarProducto}>
+                                <label className="hh-nuevo-ancho">Producto a eliminar
+                                    <select required value={productoAEliminar} onChange={e=>setProductoAEliminar(e.target.value)}>
+                                        <option value="">Selecciona un producto</option>
+                                        {productos.map(p=><option key={p.id} value={p.id}>{p.nombre} — {formatoPrecio(p.precio)} — {p.stock} uds.</option>)}
+                                    </select>
+                                </label>
+                                <button className="hh-boton hh-boton-verde" style={{background:'#a52d2d'}} type="submit">🗑 Eliminar producto</button>
+                            </form>
+                            <p className="hh-mensaje" role="status">{mensaje}</p>
+                        </section>
+                    ) : seccion === 'pedidos' ? (
+                        <section className="hh-panel hh-gestion-pedidos">
+                            <div className="hh-panel-header"><div><h2>Gestión de pedidos y envíos</h2><p>Consulta pedidos, cambia su estado o suspende un envío indicando el motivo.</p></div><strong>{pedidos.length} pedidos</strong></div>
+                            <input className="hh-buscar-pedidos" placeholder="Buscar por número, correo o cliente..." value={busquedaPedido} onChange={e=>setBusquedaPedido(e.target.value)} />
+                            <p className="hh-mensaje" role="status">{mensaje}</p>
+                            {pedidos.filter(p=>`${p.id} ${p.correoCuenta || ''} ${p.cliente?.nombre || ''}`.toLowerCase().includes(busquedaPedido.toLowerCase())).map(p=>(
+                                <article key={p.id} className="hh-pedido-admin">
+                                    <div className="hh-pedido-titulo"><div><strong>Pedido #{p.id}</strong><small>{p.fecha ? new Date(p.fecha).toLocaleString('es-CL') : 'Fecha no disponible'}</small></div><strong>{formatoPrecio(p.total)}</strong></div>
+                                    <p><b>Cliente:</b> {p.cliente?.nombre || p.correoCuenta || 'Sin nombre'} · {p.correoCuenta || p.cliente?.correo || 'Sin correo'}</p>
+                                    <p><b>Entrega:</b> {[p.entrega?.calle,p.entrega?.numero,p.entrega?.comuna,p.entrega?.region].filter(Boolean).join(', ') || 'No indicada'}</p>
+                                    <p><b>Productos:</b> {(p.productos || []).map(x=>`${x.nombre || 'Producto'} × ${x.cantidad || 1}`).join(', ') || 'No indicados'}</p>
+                                    <div className="hh-pedido-acciones"><label>Estado del envío<select value={p.estado || 'Preparando pedido'} onChange={e=>actualizarPedido(p.id,e.target.value)}><option>Pedido confirmado</option><option>Preparando pedido</option><option>En camino</option><option>Entregado</option><option>Suspendido</option></select></label></div>
+                                    <div className="hh-suspender"><label>Motivo de suspensión<input placeholder="Ej.: Falta de stock o dirección incompleta" value={motivosSuspension[p.id] ?? p.motivoSuspension ?? ''} onChange={e=>setMotivosSuspension(v=>({...v,[p.id]:e.target.value}))} /></label><button type="button" onClick={()=>actualizarPedido(p.id,'Suspendido')}>Suspender pedido</button></div>
+                                    {p.estado === 'Suspendido' && <p className="hh-aviso-suspension">⚠ Pedido suspendido. Motivo: {p.motivoSuspension || 'No especificado'}</p>}
+                                </article>
+                            ))}
+                            {pedidos.length === 0 && <p>Todavía no hay pedidos registrados en este navegador.</p>}
+                        </section>
+                    ) : seccion === 'resumen' ? (
                         <div className="hh-grid">
                             <section className="hh-panel">
                                 <div className="hh-panel-header">
@@ -357,7 +558,7 @@ function Dashboard() {
                                 ) : (
                                     productosBajos.map((producto) => (
                                         <div className="hh-producto" key={producto.id}>
-                                            <img src={producto.imagen} alt={producto.nombre} />
+                                            <img src={imagenCorrecta(producto.imagen)} alt={producto.nombre} />
                                             <div>
                                                 <strong>{producto.nombre}</strong>
                                                 <span>{producto.categoria}</span>
@@ -427,7 +628,7 @@ function Dashboard() {
                                                     <td>
                                                         <div className="hh-tabla-producto">
                                                             <img
-                                                                src={producto.imagen}
+                                                                src={imagenCorrecta(producto.imagen)}
                                                                 alt=""
                                                             />
                                                             <strong>{producto.nombre}</strong>
