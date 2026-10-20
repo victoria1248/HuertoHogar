@@ -1,3 +1,4 @@
+import EncabezadoUsuario from '../tienda/EncabezadoUsuario.jsx'
 import { Link } from 'react-router-dom'
 
 function Cabecera() {
@@ -52,12 +53,7 @@ function Cabecera() {
 
                 {/* Cuenta y carrito */}
                 <div className="header-icons">
-                    <a href="/login" title="Mi cuenta">
-                        <img
-                            src="/img/icon_perfil.png"
-                            alt="Mi cuenta"
-                        />
-                    </a>
+                    <EncabezadoUsuario />
 
                     <a href="/pago-envio" title="Pago y envío">
                         <img

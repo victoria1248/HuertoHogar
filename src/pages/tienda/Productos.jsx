@@ -1,3 +1,4 @@
+import { claveCarritoActual } from '../../datos/carritoPorCuenta.js'
 
 import React, { useEffect, useState } from 'react'
 import { leerInventario, guardarInventario } from '../../datos/inventario.js'
@@ -33,7 +34,7 @@ const instagram = '/img/instagram.png'
 // CONFIGURACIÓN DEL CARRITO
 // ========================================
 
-const CLAVE_CARRITO = 'carrito_huerto'
+const CLAVE_CARRITO = claveCarritoActual()
 
 function leerCarrito() {
   try {

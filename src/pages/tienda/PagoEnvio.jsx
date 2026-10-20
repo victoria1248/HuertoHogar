@@ -1,10 +1,11 @@
+import { claveCarritoActual } from '../../datos/carritoPorCuenta.js'
 
 import { useState } from 'react'
 const logoHuerto = '/img/Logo_2.png'
 import '../../css/tienda/pago_envio.css'
 import { leerInventario, guardarInventario } from '../../datos/inventario.js'
 
-const CLAVE_CARRITO = 'carrito_huerto'
+const CLAVE_CARRITO = claveCarritoActual()
 const TARJETA_PRUEBA = '4242424242424242'
 
 function leerCarrito() {

@@ -1,3 +1,4 @@
+import { leerCarritoActual } from '../datos/carritoPorCuenta.js'
 import { useState } from "react";
 import { Routes, Route, NavLink, Link, Navigate } from "react-router-dom";
 import Contacto from "../pages/informacion/contactos.jsx";
@@ -42,7 +43,7 @@ function Cabecera({ cantidad }) {
 
 function Aplicacion() {
   const [agregados] = useState(() => {
-    try { return JSON.parse(localStorage.getItem("carrito_huerto") || "[]"); }
+    try { return leerCarritoActual(); }
     catch { return []; }
   });
   const cantidad = agregados.reduce((total, producto) => total + producto.cantidad, 0);

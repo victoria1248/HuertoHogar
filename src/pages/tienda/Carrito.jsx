@@ -1,9 +1,11 @@
+import EncabezadoUsuario from '../../componentes/tienda/EncabezadoUsuario.jsx'
+import { claveCarritoActual } from '../../datos/carritoPorCuenta.js'
 
 import { useState } from 'react'
 const logoHuerto = '/img/Logo_2.png'
 import '../../css/tienda/carrito.css'
 
-const CLAVE_CARRITO = 'carrito_huerto'
+const CLAVE_CARRITO = claveCarritoActual()
 
 function leerCarrito() {
   try {
@@ -131,7 +133,7 @@ function Carrito() {
 
         <nav className="carrito-navegacion">
           <a href="/">Inicio</a>
-          <a href="/login">Mi cuenta</a>
+          <EncabezadoUsuario />
 
           <a
             href="/carrito"
