@@ -9,16 +9,39 @@ import { CLAVE_INVENTARIO, leerInventario, guardarInventario } from '../../datos
 
 // El dashboard y el catálogo usan el mismo inventario compartido.
 
-// Montos de ejemplo para el gráfico.
-const ventasEjemplo = {
-    semana: {
-        etiquetas: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-        valores: [420000, 580000, 490000, 670000, 760000, 920000, 700000],
-    },
-    mes: {
-        etiquetas: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-        valores: [3200000, 4100000, 3800000, 4540000],
-    },
+// Las ventas del gráfico se calculan desde los pedidos realmente guardados.
+function calcularVentas(pedidos, periodo) {
+    const ahora = new Date()
+    const inicioSemana = new Date(ahora)
+    const dia = (ahora.getDay() + 6) % 7
+    inicioSemana.setDate(ahora.getDate() - dia)
+    inicioSemana.setHours(0, 0, 0, 0)
+
+    if (periodo === 'semana') {
+        const etiquetas = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
+        const valores = Array(7).fill(0)
+        pedidos.forEach(pedido => {
+            if (pedido.estado === 'Suspendido' || pedido.estado === 'Cancelado') return
+            const fecha = new Date(pedido.fecha || pedido.fechaCreacion || '')
+            if (Number.isNaN(fecha.getTime()) || fecha < inicioSemana) return
+            const indice = (fecha.getDay() + 6) % 7
+            valores[indice] += Number(pedido.total ?? pedido.subtotal ?? 0) || 0
+        })
+        return { etiquetas, valores }
+    }
+
+    const año = ahora.getFullYear()
+    const mes = ahora.getMonth()
+    const etiquetas = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5']
+    const valores = Array(5).fill(0)
+    pedidos.forEach(pedido => {
+        if (pedido.estado === 'Suspendido' || pedido.estado === 'Cancelado') return
+        const fecha = new Date(pedido.fecha || pedido.fechaCreacion || '')
+        if (Number.isNaN(fecha.getTime()) || fecha.getFullYear() !== año || fecha.getMonth() !== mes) return
+        const indice = Math.min(4, Math.floor((fecha.getDate() - 1) / 7))
+        valores[indice] += Number(pedido.total ?? pedido.subtotal ?? 0) || 0
+    })
+    return { etiquetas, valores }
 }
 
 const clavePedidos = 'pedidos_huerto'
@@ -65,8 +88,15 @@ function Dashboard() {
         const sincronizar = () => {
             try { const datos = JSON.parse(localStorage.getItem(clavePedidos) || '[]'); setPedidos(Array.isArray(datos) ? datos : []) } catch { setPedidos([]) }
         }
+        const sincronizarInventario = () => setProductos(cargarProductos())
         window.addEventListener('storage', sincronizar)
-        return () => window.removeEventListener('storage', sincronizar)
+        window.addEventListener('pedidosActualizados', sincronizar)
+        window.addEventListener('inventarioActualizado', sincronizarInventario)
+        return () => {
+            window.removeEventListener('storage', sincronizar)
+            window.removeEventListener('pedidosActualizados', sincronizar)
+            window.removeEventListener('inventarioActualizado', sincronizarInventario)
+        }
     }, [])
 
     function actualizarPedido(id, estado) {
@@ -180,9 +210,10 @@ function Dashboard() {
         return coincideBusqueda && coincideStock
     })
 
-    const ventas = ventasEjemplo[periodo]
-    const ventaMaxima = Math.max(...ventas.valores)
+    const ventas = calcularVentas(pedidos, periodo)
+    const ventaMaxima = Math.max(1, ...ventas.valores)
     const totalVentas = ventas.valores.reduce((total, valor) => total + valor, 0)
+    const hayVentas = ventas.valores.some(valor => valor > 0)
 
     function cambiarSeccion(nuevaSeccion) {
         setSeccion(nuevaSeccion)
@@ -523,6 +554,11 @@ function Dashboard() {
                                     {formatoPrecio(totalVentas)}
                                 </strong>
 
+                                {!hayVentas && (
+                                    <p role="status" className="hh-vacio">
+                                        No hay ventas registradas para este período. El gráfico se completará cuando existan pedidos reales.
+                                    </p>
+                                )}
                                 <div className="hh-grafico">
                                     {ventas.valores.map((valor, indice) => (
                                         <div className="hh-columna" key={ventas.etiquetas[indice]}>
@@ -620,6 +656,7 @@ function Dashboard() {
                                                 <th scope="col">Precio</th>
                                                 <th scope="col">Stock</th>
                                                 <th scope="col">Estado</th>
+                                                <th scope="col">Acciones</th>
                                             </tr>
                                         </thead>
 
@@ -649,12 +686,25 @@ function Dashboard() {
                                                                 : 'Disponible'}
                                                         </span>
                                                     </td>
+                                                    <td>
+                                                        <button
+                                                            type="button"
+                                                            className="hh-boton hh-boton-verde"
+                                                            onClick={() => {
+                                                                seleccionarProductoEdicion(producto.id)
+                                                                cambiarSeccion('editar-producto')
+                                                            }}
+                                                            aria-label={`Editar ${producto.nombre}`}
+                                                        >
+                                                            ✏️ Editar
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             ))}
 
                                             {productosFiltrados.length === 0 && (
                                                 <tr>
-                                                    <td colSpan={5} className="hh-vacio">
+                                                    <td colSpan={6} className="hh-vacio">
                                                         No se encontraron productos.
                                                     </td>
                                                 </tr>

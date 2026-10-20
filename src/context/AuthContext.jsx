@@ -109,6 +109,35 @@ export function AuthProvider({ children }) {
         JSON.stringify(sesion)
       )
 
+      // Tras iniciar sesión, pasar el carrito de invitado a esta cuenta.
+      // El carrito de otras cuentas nunca se toca.
+      try {
+        const claveInvitado = 'carrito_huerto_invitado'
+        const claveUsuario = `carrito_huerto_usuario_${encodeURIComponent(sesion.correo.trim().toLowerCase())}`
+        const invitado = JSON.parse(localStorage.getItem(claveInvitado) || '[]')
+        const existente = JSON.parse(localStorage.getItem(claveUsuario) || '[]')
+        if (Array.isArray(invitado) && invitado.length) {
+          const combinado = Array.isArray(existente) ? [...existente] : []
+          // No descartar productos de la cuenta al combinar el carrito temporal.
+          for (const item of invitado) {
+            const posicion = combinado.findIndex(p =>
+              (p.id != null && item.id != null && String(p.id) === String(item.id)) ||
+              (p.codigo != null && item.codigo != null && String(p.codigo) === String(item.codigo))
+            )
+            if (posicion < 0) combinado.push(item)
+            else combinado[posicion] = {
+              ...combinado[posicion],
+              cantidad: (Number(combinado[posicion].cantidad) || 1) + (Number(item.cantidad) || 1)
+            }
+          }
+          localStorage.setItem(claveUsuario, JSON.stringify(combinado))
+          localStorage.removeItem(claveInvitado)
+          window.dispatchEvent(new Event('carritoActualizado'))
+        }
+      } catch (error) {
+        console.error('No se pudo transferir el carrito de invitado:', error)
+      }
+
       setUsuario(sesion)
 
       window.dispatchEvent(

@@ -71,7 +71,7 @@ function Categorias() {
 
       {/* ENCABEZADO ORIGINAL */}
       <header className="sitio-header">
-        <div className="header-container">
+        <div className="header-container d-flex flex-wrap align-items-center justify-content-between gap-3">
           <a className="logo" href="/">
             <img src={logo} alt="HuertoHogar" />
           </a>
@@ -90,7 +90,7 @@ function Categorias() {
             </ul>
           </nav>
 
-          <div className="header-icons">
+          <div className="header-icons d-flex align-items-center gap-3">
             <EncabezadoUsuario />
 
             <a href="/carrito" title="Carrito">
@@ -103,9 +103,9 @@ function Categorias() {
       <main>
 
         {/* PRESENTACIÓN DE CATEGORÍAS */}
-        <section className="cabecera-categorias">
+        <section className="cabecera-categorias d-flex flex-wrap align-items-center">
           <div>
-            <p className="ruta">
+            <p className="ruta mb-2">
               <a href="/">Inicio</a> &gt; Categorías
             </p>
 
@@ -130,7 +130,7 @@ function Categorias() {
           aria-label="Categorías de productos"
         >
           {categorias.map((categoria) => (
-            <article className="tarjeta" key={categoria.filtro}>
+            <article className="tarjeta d-flex flex-column h-100" key={categoria.filtro}>
               <div className={`foto ${categoria.clase}`}>
                 <img
                   src={categoria.imagen}
@@ -142,7 +142,7 @@ function Categorias() {
 
               <p>{categoria.descripcion}</p>
 
-              <a href={`/productos?categoria=${categoria.filtro}`}>
+              <a className="mt-auto d-inline-block" href={`/productos?categoria=${categoria.filtro}`}>
                 Consultar productos →
               </a>
             </article>
@@ -150,7 +150,7 @@ function Categorias() {
         </section>
 
         {/* DEL CAMPO A TU HOGAR */}
-        <section className="campo-hogar">
+        <section className="campo-hogar d-flex flex-wrap align-items-center gap-3">
           <span className="hoja">
             <i
               className="fa-solid fa-seedling"
@@ -248,21 +248,21 @@ function Categorias() {
         <div className="footer-column">
           <h3>REDES SOCIALES</h3>
 
-          <div className="social-icons">
+          <div className="social-icons d-flex flex-wrap align-items-center gap-2">
             <img
               src={facebook}
               alt="Facebook"
-              className="social-img"
+              className="social-img img-fluid"
             />
             <img
               src={twitter}
               alt="Twitter"
-              className="social-img"
+              className="social-img img-fluid"
             />
             <img
               src={instagram}
               alt="Instagram"
-              className="social-img"
+              className="social-img img-fluid"
             />
           </div>
 

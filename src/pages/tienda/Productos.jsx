@@ -536,13 +536,13 @@ function Productos() {
         <div className="hh-filtros" role="group" aria-label="Filtrar por categoría">
           {Object.entries({'':'Todos', ...categorias}).map(([valor, texto]) => <button type="button" key={valor} aria-pressed={filtro === valor} onClick={() => setFiltro(valor)}>{texto}</button>)}
         </div>
-        <section className="hh-rejilla" aria-label="Catálogo de productos">
+        <section className="row g-4" aria-label="Catálogo de productos">
 
           {productosFiltrados.map(producto => (
+            <div key={producto.id} className="col-12 col-sm-6 col-lg-4 d-flex">
             <article
-              className="hh-tarjeta"
+              className="hh-tarjeta w-100"
               data-categoria={producto.categoria}
-              key={producto.id}
             >
 
               {/* IMAGEN */}
@@ -594,6 +594,7 @@ function Productos() {
               </div>
 
             </article>
+            </div>
           ))}
 
         </section>

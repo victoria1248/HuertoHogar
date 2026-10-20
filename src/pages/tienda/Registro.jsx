@@ -1,366 +1,601 @@
 
+
 import { useState } from 'react'
 
 import '../../css/tienda/base.css'
+
 import '../../css/tienda/izquierda.css'
+
 import '../../css/tienda/formulario.css'
+
 import '../../css/tienda/botones.css'
+
 import '../../css/tienda/responsive.css'
+
 import '../../css/tienda/login-react.css'
 
 function Registro() {
-  const [nombre, setNombre] = useState('')
-  const [edad, setEdad] = useState('')
-  const [correo, setCorreo] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmar, setConfirmar] = useState('')
 
-  const [errores, setErrores] = useState({})
-  const [mostrarPassword, setMostrarPassword] = useState(false)
-  const [mostrarConfirmar, setMostrarConfirmar] = useState(false)
+  const [nombre, setNombre] = useState('')
 
-  function manejarRegistro(e) {
-    e.preventDefault()
+  const [edad, setEdad] = useState('')
 
-    const nuevosErrores = {}
+  const [correo, setCorreo] = useState('')
 
-    const nombreValor = nombre.trim()
-    const edadValor = Number(edad)
-    const correoValor = correo.trim().toLowerCase()
+  const [password, setPassword] = useState('')
 
-    // VALIDAR NOMBRE
-    if (nombreValor.length < 3) {
-      nuevosErrores.nombre =
-        'Ingrese un nombre válido de al menos 3 caracteres.'
-    }
+  const [confirmar, setConfirmar] = useState('')
 
-    // VALIDAR EDAD
-    if (edad === '') {
-      nuevosErrores.edad = 'Ingrese su edad.'
-    } else if (!Number.isInteger(edadValor)) {
-      nuevosErrores.edad = 'La edad debe ser un número entero.'
-    } else if (edadValor < 18) {
-      nuevosErrores.edad =
-        'Debes tener 18 años o más para registrarte.'
-    } else if (edadValor > 100) {
-      nuevosErrores.edad =
-        'La edad máxima permitida es de 100 años.'
-    }
+  const [errores, setErrores] = useState({})
 
-    // VALIDAR CORREO
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correoValor)) {
-      nuevosErrores.correo =
-        'Ingrese un correo electrónico válido.'
-    }
+  const [mostrarPassword, setMostrarPassword] = useState(false)
 
-    // VALIDAR CONTRASEÑA
-    if (password.length < 8) {
-      nuevosErrores.password =
-        'La contraseña debe tener al menos 8 caracteres.'
-    }
+  const [mostrarConfirmar, setMostrarConfirmar] = useState(false)
 
-    // CONFIRMAR CONTRASEÑA
-    if (confirmar === '' || password !== confirmar) {
-      nuevosErrores.confirmar =
-        'Las contraseñas no coinciden.'
-    }
+  function manejarRegistro(e) {
 
-    if (Object.keys(nuevosErrores).length > 0) {
-      setErrores(nuevosErrores)
-      return
-    }
+    e.preventDefault()
 
-    // RECUPERAR USUARIOS GUARDADOS
-    let usuarios = []
+    const nuevosErrores = {}
 
-    try {
-      usuarios = JSON.parse(
-        localStorage.getItem('usuarios_huerto') || '[]'
-      )
+    const nombreValor = nombre.trim()
 
-      if (!Array.isArray(usuarios)) {
-        usuarios = []
-      }
-    } catch (error) {
-      console.error(error)
-      usuarios = []
-    }
+    const edadValor = Number(edad)
 
-    // COMPROBAR CORREO REPETIDO
-    const correoExiste = usuarios.some(
-      (usuario) =>
-        String(usuario.correo || '').toLowerCase() === correoValor
-    )
+    const correoValor = correo.trim().toLowerCase()
 
-    if (correoExiste) {
-      setErrores({
-        correo: 'Este correo ya está registrado.'
-      })
-      return
-    }
+    // VALIDAR NOMBRE*
 
-    // CREAR USUARIO
-    const nuevoUsuario = {
-      id: Date.now(),
-      nombre: nombreValor,
-      edad: edadValor,
-      correo: correoValor,
-      clave: password,
-      estado: 'activo',
-      fechaRegistro: new Date().toISOString()
-    }
+    if (nombreValor.length < 3) {
 
-    usuarios.push(nuevoUsuario)
+      nuevosErrores.nombre =
 
-    // GUARDAR USUARIO
-    try {
-      localStorage.setItem(
-        'usuarios_huerto',
-        JSON.stringify(usuarios)
-      )
+        'Ingrese un nombre válido de al menos 3 caracteres.'
 
-      alert('Cuenta creada correctamente.')
+    }
 
-      window.location.href = '/login'
-    } catch (error) {
-      console.error(error)
-      alert('No se pudo guardar la cuenta en este navegador.')
-    }
-  }
+    // VALIDAR EDAD*
 
-  return (
-    <div className="contenedor-pantalla">
+    if (edad === '') {
 
-      {/* SECCIÓN IZQUIERDA */}
-      <div className="seccion-izquierda">
-        <div className="superposicion-gradiente"></div>
-      </div>
+      nuevosErrores.edad = 'Ingrese su edad.'
 
-      {/* SECCIÓN DERECHA */}
-      <div className="seccion-derecha">
+    } else if (!Number.isInteger(edadValor)) {
 
-        <div className="tarjeta-formulario">
+      nuevosErrores.edad = 'La edad debe ser un número entero.'
 
-          <p className="texto-cambiar-form">
-            <a href="/">
-              ← Volver al inicio
-            </a>
-          </p>
+    } else if (edadValor < 18) {
 
-          <form
-            id="form-registro"
-            className="formulario activo"
-            onSubmit={manejarRegistro}
-            noValidate
-          >
+      nuevosErrores.edad =
 
-            {/* ENCABEZADO */}
-            <div className="encabezado-form">
+        'Debes tener 18 años o más para registrarte.'
 
-              <h2 className="titulo-form">
-                Crear cuenta
-              </h2>
+    } else if (edadValor > 100) {
 
-              <p className="descripcion-form">
-                Registro de demostración: utiliza una clave
-                ficticia. Los datos se guardan en este navegador.
-              </p>
+      nuevosErrores.edad =
 
-            </div>
+        'La edad máxima permitida es de 100 años.'
 
-            {/* NOMBRE */}
-            <div className="grupo-campo">
+    }
 
-              <label className="etiqueta" htmlFor="reg-nombre">
-                Nombre completo
-              </label>
+    // VALIDAR CORREO*
 
-              <div className="input-con-icono">
-                <input
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correoValor)) {
+
+      nuevosErrores.correo =
+
+        'Ingrese un correo electrónico válido.'
+
+    }
+
+    // VALIDAR CONTRASEÑA*
+
+    if (password.length < 8) {
+
+      nuevosErrores.password =
+
+        'La contraseña debe tener al menos 8 caracteres.'
+
+    }
+
+    // CONFIRMAR CONTRASEÑA*
+
+    if (confirmar === '' || password !== confirmar) {
+
+      nuevosErrores.confirmar =
+
+        'Las contraseñas no coinciden.'
+
+    }
+
+    if (Object.keys(nuevosErrores).length > 0) {
+
+      setErrores(nuevosErrores)
+
+      return
+
+    }
+
+    // RECUPERAR USUARIOS GUARDADOS*
+
+    let usuarios = []
+
+    try {
+
+      usuarios = JSON.parse(
+
+        localStorage.getItem('usuarios_huerto') || '[]'
+
+      )
+
+      if (!Array.isArray(usuarios)) {
+
+        usuarios = []
+
+      }
+
+    } catch (error) {
+
+      console.error(error)
+
+      usuarios = []
+
+    }
+
+    // COMPROBAR CORREO REPETIDO*
+
+    const correoExiste = usuarios.some(
+
+      (usuario) =>
+
+        String(usuario.correo || '').toLowerCase() === correoValor
+
+    )
+
+    if (correoExiste) {
+
+      setErrores({
+
+        correo: 'Este correo ya está registrado.'
+
+      })
+
+      return
+
+    }
+
+    // CREAR USUARIO*
+
+    const nuevoUsuario = {
+
+      id: Date.now(),
+
+      nombre: nombreValor,
+
+      edad: edadValor,
+
+      correo: correoValor,
+
+      clave: password,
+
+      estado: 'activo',
+
+      fechaRegistro: new Date().toISOString()
+
+    }
+
+    usuarios.push(nuevoUsuario)
+
+    // GUARDAR USUARIO*
+
+    try {
+
+      localStorage.setItem(
+
+        'usuarios_huerto',
+
+        JSON.stringify(usuarios)
+
+      )
+
+      alert('Cuenta creada correctamente.')
+
+      window.location.href = '/login' + window.location.search
+
+    } catch (error) {
+
+      console.error(error)
+
+      alert('No se pudo guardar la cuenta en este navegador.')
+
+    }
+
+  }
+
+  return (
+
+    <div className="contenedor-pantalla container-fluid p-0">
+
+      {/* SECCIÓN IZQUIERDA */}
+
+      <div className="seccion-izquierda">
+
+        <div className="superposicion-gradiente"></div>
+
+      </div>
+
+      {/* SECCIÓN DERECHA */}
+
+      <div className="seccion-derecha">
+
+        <div className="tarjeta-formulario w-100">
+
+          <p className="texto-cambiar-form text-center">
+
+            <a href="/">
+
+              ← Volver al inicio
+
+            </a>
+
+          </p>
+
+          <form
+
+            id="form-registro"
+
+            className="formulario activo d-flex flex-column"
+
+            onSubmit={manejarRegistro}
+
+            noValidate
+
+          >
+
+            {/* ENCABEZADO */}
+
+            <div className="encabezado-form">
+
+              <h2 className="titulo-form">
+
+                Crear cuenta
+
+              </h2>
+
+              <p className="descripcion-form">
+
+                Registro de demostración: utiliza una clave
+
+                ficticia. Los datos se guardan en este navegador.
+
+              </p>
+
+            </div>
+
+            {/* NOMBRE */}
+
+            <div className="grupo-campo mb-3">
+
+              <label className="etiqueta" htmlFor="reg-nombre">
+
+                Nombre completo
+
+              </label>
+
+              <div className="input-con-icono">
+
+                <input
+
+                  className="form-control"
                   id="reg-nombre"
-                  type="text"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  autoComplete="name"
-                />
-              </div>
+                  aria-invalid={Boolean(errores.nombre)}
 
-              <span
-                className="mensaje-error"
-                id="err-nombre"
-                aria-live="polite"
-              >
-                {errores.nombre || ''}
-              </span>
+                  type="text"
 
-            </div>
+                  value={nombre}
 
-            {/* EDAD */}
-            <div className="grupo-campo">
+                  onChange={(e) => setNombre(e.target.value)}
 
-              <label className="etiqueta" htmlFor="reg-edad">
-                Edad
-              </label>
+                  autoComplete="name"
 
-              <div className="input-con-icono">
-                <input
+                />
+
+              </div>
+
+              <span
+
+                className="mensaje-error"
+
+                id="err-nombre"
+
+                aria-live="polite"
+
+              >
+
+                {errores.nombre || ''}
+
+              </span>
+
+            </div>
+
+            {/* EDAD */}
+
+            <div className="grupo-campo mb-3">
+
+              <label className="etiqueta" htmlFor="reg-edad">
+
+                Edad
+
+              </label>
+
+              <div className="input-con-icono">
+
+                <input
+
+                  className="form-control"
                   id="reg-edad"
-                  type="number"
-                  value={edad}
-                  onChange={(e) => setEdad(e.target.value)}
-                  min="18"
-                  max="100"
-                />
-              </div>
+                  aria-invalid={Boolean(errores.edad)}
 
-              <span
-                className="mensaje-error"
-                id="err-edad"
-                aria-live="polite"
-              >
-                {errores.edad || ''}
-              </span>
+                  type="number"
 
-            </div>
+                  value={edad}
 
-            {/* CORREO */}
-            <div className="grupo-campo">
+                  onChange={(e) => setEdad(e.target.value)}
 
-              <label className="etiqueta" htmlFor="reg-correo">
-                Correo Gmail
-              </label>
+                  min="18"
 
-              <div className="input-con-icono">
-                <input
+                  max="100"
+
+                />
+
+              </div>
+
+              <span
+
+                className="mensaje-error"
+
+                id="err-edad"
+
+                aria-live="polite"
+
+              >
+
+                {errores.edad || ''}
+
+              </span>
+
+            </div>
+
+            {/* CORREO */}
+
+            <div className="grupo-campo mb-3">
+
+              <label className="etiqueta" htmlFor="reg-correo">
+
+                Correo Gmail
+
+              </label>
+
+              <div className="input-con-icono">
+
+                <input
+
+                  className="form-control"
                   id="reg-correo"
-                  type="email"
-                  value={correo}
-                  onChange={(e) => setCorreo(e.target.value)}
-                  autoComplete="email"
-                />
-              </div>
+                  aria-invalid={Boolean(errores.correo)}
 
-              <span
-                className="mensaje-error"
-                id="err-correo"
-                aria-live="polite"
-              >
-                {errores.correo || ''}
-              </span>
+                  type="email"
 
-            </div>
+                  value={correo}
 
-            {/* CONTRASEÑA */}
-            <div className="grupo-campo">
+                  onChange={(e) => setCorreo(e.target.value)}
 
-              <label className="etiqueta" htmlFor="reg-password">
-                Contraseña (mínimo 8 caracteres)
-              </label>
+                  autoComplete="email"
 
-              <div className="input-con-icono">
+                />
 
-                <input
+              </div>
+
+              <span
+
+                className="mensaje-error"
+
+                id="err-correo"
+
+                aria-live="polite"
+
+              >
+
+                {errores.correo || ''}
+
+              </span>
+
+            </div>
+
+            {/* CONTRASEÑA */}
+
+            <div className="grupo-campo mb-3">
+
+              <label className="etiqueta" htmlFor="reg-password">
+
+                Contraseña (mínimo 8 caracteres)
+
+              </label>
+
+              <div className="input-con-icono">
+
+                <input
+
+                  className="form-control"
                   id="reg-password"
-                  type={mostrarPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="new-password"
-                />
+                  aria-invalid={Boolean(errores.password)}
 
-                <button
-                  type="button"
-                  className="btn-toggle-password"
-                  onClick={() =>
-                    setMostrarPassword(!mostrarPassword)
-                  }
-                  aria-label={
-                    mostrarPassword
-                      ? 'Ocultar contraseña'
-                      : 'Mostrar contraseña'
-                  }
-                >
-                  {mostrarPassword ? 'Ocultar' : 'Mostrar'}
-                </button>
+                  type={mostrarPassword ? 'text' : 'password'}
 
-              </div>
+                  value={password}
 
-              <span
-                className="mensaje-error"
-                id="err-password"
-                aria-live="polite"
-              >
-                {errores.password || ''}
-              </span>
+                  onChange={(e) => setPassword(e.target.value)}
 
-            </div>
+                  autoComplete="new-password"
 
-            {/* CONFIRMAR CONTRASEÑA */}
-            <div className="grupo-campo">
+                />
 
-              <label
-                className="etiqueta"
-                htmlFor="reg-confirm-password"
-              >
-                Confirmar contraseña
-              </label>
+                <button
 
-              <div className="input-con-icono">
+                  type="button"
 
-                <input
+                  className="btn-toggle-password"
+
+                  onClick={() =>
+
+                    setMostrarPassword(!mostrarPassword)
+
+                  }
+
+                  aria-label={
+
+                    mostrarPassword
+
+                      ? 'Ocultar contraseña'
+
+                      : 'Mostrar contraseña'
+
+                  }
+
+                >
+
+                  {mostrarPassword ? 'Ocultar' : 'Mostrar'}
+
+                </button>
+
+              </div>
+
+              <span
+
+                className="mensaje-error"
+
+                id="err-password"
+
+                aria-live="polite"
+
+              >
+
+                {errores.password || ''}
+
+              </span>
+
+            </div>
+
+            {/* CONFIRMAR CONTRASEÑA */}
+
+            <div className="grupo-campo mb-3">
+
+              <label
+
+                className="etiqueta"
+
+                htmlFor="reg-confirm-password"
+
+              >
+
+                Confirmar contraseña
+
+              </label>
+
+              <div className="input-con-icono">
+
+                <input
+
+                  className="form-control"
                   id="reg-confirm-password"
-                  type={mostrarConfirmar ? 'text' : 'password'}
-                  value={confirmar}
-                  onChange={(e) => setConfirmar(e.target.value)}
-                  autoComplete="new-password"
-                />
+                  aria-invalid={Boolean(errores.confirmar)}
 
-                <button
-                  type="button"
-                  className="btn-toggle-password"
-                  onClick={() =>
-                    setMostrarConfirmar(!mostrarConfirmar)
-                  }
-                  aria-label={
-                    mostrarConfirmar
-                      ? 'Ocultar confirmación'
-                      : 'Mostrar confirmación'
-                  }
-                >
-                  {mostrarConfirmar ? 'Ocultar' : 'Mostrar'}
-                </button>
+                  type={mostrarConfirmar ? 'text' : 'password'}
 
-              </div>
+                  value={confirmar}
 
-              <span
-                className="mensaje-error"
-                id="err-confirm-pass"
-                aria-live="polite"
-              >
-                {errores.confirmar || ''}
-              </span>
+                  onChange={(e) => setConfirmar(e.target.value)}
 
-            </div>
+                  autoComplete="new-password"
 
-            {/* BOTÓN CREAR CUENTA */}
-            <button type="submit" className="btn-verde">
-              Crear cuenta
-            </button>
+                />
 
-            {/* ENLACE LOGIN */}
-            <p className="texto-cambiar-form">
-              <a href="/login">
-                Ya tengo una cuenta
-              </a>
-            </p>
+                <button
 
-          </form>
+                  type="button"
 
-        </div>
+                  className="btn-toggle-password"
 
-      </div>
+                  onClick={() =>
 
-    </div>
-  )
+                    setMostrarConfirmar(!mostrarConfirmar)
+
+                  }
+
+                  aria-label={
+
+                    mostrarConfirmar
+
+                      ? 'Ocultar confirmación'
+
+                      : 'Mostrar confirmación'
+
+                  }
+
+                >
+
+                  {mostrarConfirmar ? 'Ocultar' : 'Mostrar'}
+
+                </button>
+
+              </div>
+
+              <span
+
+                className="mensaje-error"
+
+                id="err-confirm-pass"
+
+                aria-live="polite"
+
+              >
+
+                {errores.confirmar || ''}
+
+              </span>
+
+            </div>
+
+            {/* BOTÓN CREAR CUENTA */}
+
+            <button type="submit" className="btn-verde btn w-100">
+
+              Crear cuenta
+
+            </button>
+
+            {/* ENLACE LOGIN */}
+
+            <p className="texto-cambiar-form text-center">
+
+              <a href="/login">
+
+                Ya tengo una cuenta
+
+              </a>
+
+            </p>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  )
+
 }
 
 export default Registro

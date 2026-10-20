@@ -5,13 +5,13 @@ const logoHuerto = '/img/Logo_2.png'
 import '../../css/tienda/pago_envio.css'
 import { leerInventario, guardarInventario } from '../../datos/inventario.js'
 
-const CLAVE_CARRITO = claveCarritoActual()
+const CLAVE_CARRITO = () => claveCarritoActual()
 const TARJETA_PRUEBA = '4242424242424242'
 
 function leerCarrito() {
   try {
     const datos = JSON.parse(
-      localStorage.getItem(CLAVE_CARRITO) || '[]'
+      localStorage.getItem(CLAVE_CARRITO()) || '[]'
     )
     return Array.isArray(datos) ? datos : []
   } catch {
@@ -182,7 +182,7 @@ function TarjetaVisual({
         </div>
       </div>
 
-      <div className="pago-visual-acciones">
+      <div className="pago-visual-acciones d-flex flex-wrap gap-2">
         <button
           type="button"
           className={!mostrarReverso ? 'activo' : ''}
@@ -445,7 +445,7 @@ function PagoEnvio() {
         JSON.stringify(pedido)
       )
 
-      localStorage.removeItem(CLAVE_CARRITO)
+      localStorage.removeItem(CLAVE_CARRITO())
       window.dispatchEvent(new Event('carritoActualizado'))
 
       window.location.href = '/boleta'
@@ -462,7 +462,7 @@ function PagoEnvio() {
           <img src={logoHuerto} alt="HuertoHogar" />
         </a>
 
-        <nav className="pago-navegacion">
+        <nav className="pago-navegacion d-flex flex-wrap gap-3">
           <a href="/">Inicio</a>
           <a href="/carrito">← Volver al carrito</a>
         </nav>
@@ -478,7 +478,7 @@ function PagoEnvio() {
         </div>
       </div>
 
-      <div className="pago-introduccion">
+      <div className="pago-introduccion text-center">
         <span className="pago-subtitulo">
           FINALIZA TU COMPRA
         </span>
@@ -492,7 +492,7 @@ function PagoEnvio() {
       </div>
 
       {error && (
-        <div className="pago-error" role="alert">
+        <div className="pago-error alert alert-danger" role="alert">
           ⚠️ {error}
         </div>
       )}
@@ -520,7 +520,7 @@ function PagoEnvio() {
               </label>
               <input
                 id="p-nombre"
-                className="input-pago"
+                className="input-pago form-control"
                 value={datos.nombre}
                 onChange={e => actualizar('nombre', e.target.value)}
                 required
@@ -533,7 +533,7 @@ function PagoEnvio() {
               </label>
               <input
                 id="p-apellido"
-                className="input-pago"
+                className="input-pago form-control"
                 value={datos.apellido}
                 onChange={e => actualizar('apellido', e.target.value)}
                 required
@@ -548,7 +548,7 @@ function PagoEnvio() {
             <input
               id="p-correo"
               type="email"
-              className="input-pago"
+              className="input-pago form-control"
               placeholder="ejemplo@correo.com"
               value={datos.correo}
               onChange={e => actualizar('correo', e.target.value)}
@@ -563,7 +563,7 @@ function PagoEnvio() {
             <input
               id="p-telefono"
               type="tel"
-              className="input-pago"
+              className="input-pago form-control"
               placeholder="+56 9 1234 5678"
               value={datos.telefono}
               onChange={e => actualizar('telefono', e.target.value)}
@@ -577,7 +577,7 @@ function PagoEnvio() {
             </label>
             <select
               id="p-region"
-              className="select-pago"
+              className="select-pago form-select"
               value={datos.region}
               onChange={e => actualizar('region', e.target.value)}
               required
@@ -598,7 +598,7 @@ function PagoEnvio() {
               </label>
               <input
                 id="p-comuna"
-                className="input-pago"
+                className="input-pago form-control"
                 value={datos.comuna}
                 onChange={e => actualizar('comuna', e.target.value)}
                 required
@@ -611,7 +611,7 @@ function PagoEnvio() {
               </label>
               <input
                 id="p-ciudad"
-                className="input-pago"
+                className="input-pago form-control"
                 value={datos.ciudad}
                 onChange={e => actualizar('ciudad', e.target.value)}
                 required
@@ -625,7 +625,7 @@ function PagoEnvio() {
             </label>
             <input
               id="p-calle"
-              className="input-pago"
+              className="input-pago form-control"
               value={datos.calle}
               onChange={e => actualizar('calle', e.target.value)}
               required
@@ -638,7 +638,7 @@ function PagoEnvio() {
             </label>
             <input
               id="p-numero"
-              className="input-pago"
+              className="input-pago form-control"
               value={datos.numero}
               onChange={e => actualizar('numero', e.target.value)}
               required
@@ -681,7 +681,7 @@ function PagoEnvio() {
                 </label>
                 <input
                   id="p-torre"
-                  className="input-pago"
+                  className="input-pago form-control"
                   value={datos.torre}
                   onChange={e => actualizar('torre', e.target.value)}
                   required
@@ -694,7 +694,7 @@ function PagoEnvio() {
                 </label>
                 <input
                   id="p-depto"
-                  className="input-pago"
+                  className="input-pago form-control"
                   value={datos.departamento}
                   onChange={e => actualizar('departamento', e.target.value)}
                   required
@@ -709,7 +709,7 @@ function PagoEnvio() {
             </label>
             <textarea
               id="p-instrucciones"
-              className="input-pago"
+              className="input-pago form-control"
               rows={3}
               placeholder="Referencias para encontrar tu domicilio..."
               value={datos.instrucciones}
@@ -730,7 +730,7 @@ function PagoEnvio() {
             </div>
           </div>
 
-          <div className="pago-aviso-prueba">
+          <div className="pago-aviso-prueba alert alert-info">
             🔒 Entorno de demostración.
             No ingreses información bancaria real.
           </div>
@@ -781,7 +781,7 @@ function PagoEnvio() {
             </label>
             <input
               id="p-titular"
-              className="input-pago"
+              className="input-pago form-control"
               placeholder="NOMBRE APELLIDO"
               value={datos.titular}
               maxLength={32}
@@ -800,7 +800,7 @@ function PagoEnvio() {
             <div className="input-card-number-wrapper">
               <input
                 id="p-tarjeta"
-                className="input-pago"
+                className="input-pago form-control"
                 placeholder="0000 0000 0000 0000"
                 inputMode="numeric"
                 maxLength={19}
@@ -826,7 +826,7 @@ function PagoEnvio() {
               </label>
               <input
                 id="p-vencimiento"
-                className="input-pago"
+                className="input-pago form-control"
                 placeholder="MM/AA"
                 inputMode="numeric"
                 maxLength={5}
@@ -852,7 +852,7 @@ function PagoEnvio() {
                 <input
                   id="p-cvv"
                   type={mostrarCVV ? 'text' : 'password'}
-                  className="input-pago"
+                  className="input-pago form-control"
                   placeholder="123"
                   inputMode="numeric"
                   maxLength={3}
@@ -889,7 +889,7 @@ function PagoEnvio() {
               </label>
               <select
                 id="p-cuotas"
-                className="select-pago"
+                className="select-pago form-select"
                 value={datos.cuotas}
                 onChange={e => actualizar('cuotas', e.target.value)}
               >
@@ -921,7 +921,7 @@ function PagoEnvio() {
             </div>
 
             {carrito.length === 0 ? (
-              <div className="pago-carrito-vacio">
+              <div className="pago-carrito-vacio text-center">
                 <span>🛒</span>
                 <p>Tu carrito está vacío.</p>
                 <a href="/carrito">Volver al carrito</a>
@@ -930,7 +930,7 @@ function PagoEnvio() {
               <div className="pago-productos">
                 {carrito.map((producto, indice) => (
                   <div
-                    className="pago-producto"
+                    className="pago-producto d-flex justify-content-between gap-2"
                     key={producto.id ?? indice}
                   >
                     <span>
@@ -966,7 +966,7 @@ function PagoEnvio() {
 
           <button
             type="submit"
-            className="btn-comprar-grande"
+            className="btn-comprar-grande w-100"
             disabled={procesando || carrito.length === 0}
           >
             {procesando
@@ -974,7 +974,7 @@ function PagoEnvio() {
               : 'Confirmar compra →'}
           </button>
 
-          <div className="pago-pie-seguridad">
+          <div className="pago-pie-seguridad text-center">
             🔒 Simulación académica, sin cobros reales.
           </div>
         </aside>

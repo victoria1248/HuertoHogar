@@ -101,14 +101,14 @@ function Recetas() {
     )
 
     return (
-        <main className="hh-blog-contenido">
-            <div className="hh-blog-interior">
-                <Link to="/blog" className="hh-blog-volver">
+        <main className="container py-5">
+            <div className="mx-auto" style={{maxWidth:1180}}>
+                <Link to="/blog" className="btn btn-outline-success btn-sm mb-4">
                     ← Volver al blog
                 </Link>
 
-                <header className="hh-blog-portada">
-                    <span className="hh-blog-etiqueta">
+                <header className="bg-light rounded-4 p-4 p-md-5 mb-4">
+                    <span className="badge text-bg-success mb-2">
                         DEL CAMPO A TU COCINA
                     </span>
 
@@ -119,19 +119,19 @@ function Recetas() {
                         de HuertoHogar con preparaciones sencillas.
                     </p>
 
-                    <Link to="/blog/consejos" className="hh-blog-enlace">
+                    <Link to="/blog/consejos" className="btn btn-outline-success mt-3">
                         Explorar consejos de cultivo →
                     </Link>
                 </header>
 
-                <div className="hh-blog-buscador">
+                <div className="mb-4">
                     <label htmlFor="buscar-receta">
                         Busca una receta o un producto
                     </label>
 
                     <input
                         id="buscar-receta"
-                        type="search"
+                        type="search" className="form-control"
                         placeholder="Ejemplo: manzana, quinua, espinacas..."
                         value={busqueda}
                         onChange={(evento) => setBusqueda(evento.target.value)}
@@ -142,18 +142,18 @@ function Recetas() {
                     </p>
                 </div>
 
-                <section className="hh-blog-tarjetas" aria-label="Recetas">
+                <section className="row g-4" aria-label="Recetas">
                     {resultados.map((receta) => (
-                        <article className="hh-blog-tarjeta" key={receta.id}>
-                            <div className="hh-blog-ilustracion" aria-hidden="true">
+                        <article className="col-12 col-md-6 col-xl-4" key={receta.id}><div className="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                            <div className="ratio ratio-16x9 overflow-hidden rounded-top-4" aria-hidden="true">
                                  <img
                                             src={receta.imagen}
                                             alt={receta.nombre}
-                                            className="imagen-receta"
+                                            className="w-100 h-100 object-fit-cover"
                                 />
                             </div>
 
-                            <div className="hh-blog-cuerpo">
+                            <div className="card-body p-3">
                                 <div className="hh-blog-datos">
                                     <span>{receta.tiempo}</span>
                                     <span>{receta.porciones}</span>
@@ -167,7 +167,7 @@ function Recetas() {
                                     {' '}{receta.productos}.
                                 </p>
 
-                                <details className="hh-blog-detalle">
+                                <details className="mt-3 border-top pt-3">
                                     <summary>Ver ingredientes y preparación</summary>
 
                                     <h3>Ingredientes</h3>
@@ -185,16 +185,16 @@ function Recetas() {
                                     </ol>
                                 </details>
 
-                                <Link to="/categorias" className="hh-blog-enlace">
+                                <Link to="/categorias" className="btn btn-outline-success mt-3">
                                     Explorar nuestras categorías →
                                 </Link>
                             </div>
-                        </article>
+                        </div></article>
                     ))}
                 </section>
 
                 {resultados.length === 0 && (
-                    <p className="hh-blog-vacio">
+                    <p className="alert alert-info">
                         No encontramos recetas con ese nombre o producto.
                         Prueba con otra palabra.
                     </p>

@@ -148,7 +148,7 @@ function AdministrarUsuarios() {
     // No permitir acceso visual a clientes comunes.
     if (!esAdministrador) {
         return (
-            <div className="acceso-admin">
+            <div className="acceso-admin container py-5 text-center">
                 <h1>Acceso restringido</h1>
                 <p>
                     Esta sección está disponible únicamente para administradores.
@@ -252,7 +252,7 @@ function AdministrarUsuarios() {
             <main className="contenido-admin">
 
                 {/* ENCABEZADO */}
-                <header className="admin-header">
+                <header className="admin-header d-flex align-items-center justify-content-between gap-3">
                     <button
                         type="button"
                         className="menu-hamburguesa"
@@ -263,7 +263,7 @@ function AdministrarUsuarios() {
                         ☰
                     </button>
 
-                    <div className="header-derecha">
+                    <div className="header-derecha d-flex align-items-center gap-3">
                         <span className="campana" aria-label="Notificaciones">
                             🔔
                         </span>
@@ -324,7 +324,7 @@ function AdministrarUsuarios() {
                     id="seccion-gestion-usuarios"
                     className="seccion-agregar-admin"
                 >
-                    <div className="gestion-encabezado">
+                    <div className="gestion-encabezado d-flex flex-wrap align-items-center justify-content-between gap-3">
                         <div>
                             <h2>👥 Usuarios Registrados</h2>
                             <p>
@@ -335,7 +335,7 @@ function AdministrarUsuarios() {
 
                         <button
                             type="button"
-                            className="btn-actualizar"
+                            className="btn-actualizar btn btn-outline-success"
                             onClick={() => {
                                 setUsuarios(leerUsuarios())
                                 mostrarMensaje('Listado actualizado.')
@@ -346,9 +346,10 @@ function AdministrarUsuarios() {
                     </div>
 
                     {/* BUSCADOR Y FILTRO */}
-                    <div className="gestion-filtros">
+                    <div className="gestion-filtros d-flex flex-wrap gap-3">
                         <input
                             type="search"
+                            className="form-control"
                             placeholder="Buscar por nombre o correo..."
                             aria-label="Buscar usuarios"
                             value={busqueda}
@@ -356,6 +357,7 @@ function AdministrarUsuarios() {
                         />
 
                         <select
+                            className="form-select"
                             aria-label="Filtrar usuarios por estado"
                             value={filtro}
                             onChange={(evento) => setFiltro(evento.target.value)}
@@ -369,7 +371,7 @@ function AdministrarUsuarios() {
                     {/* MENSAJES */}
                     {mensaje && (
                         <div
-                            className={`alerta-mensaje-admin ${tipoMensaje}`}
+                            className={`alerta-mensaje-admin ${tipoMensaje} alert ${tipoMensaje === 'error' ? 'alert-danger' : 'alert-success'} d-flex justify-content-between align-items-center gap-3`}
                             role="status"
                         >
                             {mensaje}
@@ -384,8 +386,8 @@ function AdministrarUsuarios() {
                     )}
 
                     {/* TABLA */}
-                    <div className="tabla-contenedor">
-                        <table className="tabla-clientes">
+                    <div className="tabla-contenedor table-responsive">
+                        <table className="tabla-clientes table align-middle">
                             <thead>
                                 <tr>
                                     <th>Nombre completo</th>
@@ -426,7 +428,7 @@ function AdministrarUsuarios() {
                                                 </td>
 
                                                 <td>
-                                                    <div className="acciones-usuario">
+                                                    <div className="acciones-usuario d-flex flex-wrap gap-2">
                                                         <button
                                                             type="button"
                                                             className={
@@ -446,7 +448,7 @@ function AdministrarUsuarios() {
 
                                                         <button
                                                             type="button"
-                                                            className="btn-eliminar-usuario"
+                                                            className="btn-eliminar-usuario btn btn-outline-danger btn-sm"
                                                             onClick={() =>
                                                                 eliminarUsuario(
                                                                     usuario,

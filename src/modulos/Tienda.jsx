@@ -1,6 +1,7 @@
 
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext.jsx'
 
 // ========================================
 // PÁGINAS ORIGINALES
@@ -102,6 +103,7 @@ function inicializarCuentasPrueba() {
 // ========================================
 
 function App() {
+  const { autenticado } = useAuth()
   useEffect(() => {
     inicializarCuentasPrueba()
   }, [])
@@ -183,6 +185,7 @@ function App() {
   }
 
   if (rutaActual === '/pago-envio') {
+    if (!autenticado) return <Navigate to="/login?redirigir=%2Fpago-envio" replace />
     return <PagoEnvio />
   }
 

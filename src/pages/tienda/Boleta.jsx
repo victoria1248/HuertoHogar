@@ -1,561 +1,357 @@
-
 import { useEffect, useState } from 'react'
-const logoHuerto = '/img/Logo_2.png'
 import '../../css/tienda/boleta.css'
 
-const CLAVE_PEDIDO = 'ultimo_pedido_huerto'
+const logo = '/img/Logo_2.png'
 
 function leerPedido() {
   try {
-    const guardado = sessionStorage.getItem(CLAVE_PEDIDO)
-    return guardado ? JSON.parse(guardado) : null
-  } catch (error) {
-    console.error('Error al leer el pedido:', error)
+    return JSON.parse(sessionStorage.getItem('ultimo_pedido_huerto') || 'null')
+  } catch {
     return null
   }
 }
 
 function dinero(valor) {
-  return '$' + Number(valor || 0).toLocaleString('es-CL')
+  return '$' + (Number(valor) || 0).toLocaleString('es-CL')
 }
 
-function formatearFecha(valor) {
-  if (!valor) return 'Fecha no disponible'
-
+function fechaBonita(valor) {
   const fecha = new Date(valor)
-
-  if (Number.isNaN(fecha.getTime())) {
-    return 'Fecha no disponible'
-  }
-
-  return fecha.toLocaleString('es-CL', {
-    dateStyle: 'long',
-    timeStyle: 'short'
-  })
+  return Number.isNaN(fecha.getTime())
+    ? 'Fecha no disponible'
+    : fecha.toLocaleString('es-CL', { dateStyle: 'long', timeStyle: 'short' })
 }
 
-function Boleta() {
+export default function Boleta() {
   const [pedido] = useState(leerPedido)
-  const [mostrarAnimacion, setMostrarAnimacion] = useState(true)
-  const [mostrarSeguimiento, setMostrarSeguimiento] = useState(false)
+  const [animando, setAnimando] = useState(true)
 
   useEffect(() => {
-    if (!pedido) return
-
-    const temporizador = window.setTimeout(() => {
-      setMostrarAnimacion(false)
-    }, 2800)
-
+    const temporizador = window.setTimeout(() => setAnimando(false), 1300)
     return () => window.clearTimeout(temporizador)
-  }, [pedido])
-
-  function imprimirBoleta() {
-    window.print()
-  }
-
-  function descargarPDF() {
-    // Abre la impresión del navegador.
-    // El usuario selecciona "Guardar como PDF".
-    window.print()
-  }
+  }, [])
 
   if (!pedido) {
     return (
-      <div className="boleta-pagina">
-        <div className="boleta-sin-pedido">
-          <span className="boleta-sin-icono">🧾</span>
+      <main className="bn-pagina d-flex justify-content-center align-items-center">
+        <section className="bn-papel text-center p-5">
+          <div className="display-4 mb-3">🧾</div>
           <h1>No hay ninguna compra registrada</h1>
-          <p>
-            Realiza una compra de demostración para
-            visualizar tu comprobante.
-          </p>
-          <a href="/carrito">Ir al carrito</a>
-        </div>
-      </div>
+          <p>Realiza una compra de demostración para visualizar tu comprobante.</p>
+          <a href="/carrito" className="bn-boton bn-boton-verde">Ir al carrito</a>
+        </section>
+      </main>
     )
   }
 
-  if (mostrarAnimacion) {
+  if (animando) {
     return (
-      <div className="boleta-confirmacion" role="status">
-        <div
-          className="boleta-confeti"
-          aria-hidden="true"
-        >
-          {Array.from({ length: 22 }, (_, indice) => (
-            <span key={indice} />
-          ))}
-        </div>
-
-        <div className="boleta-confirmacion-contenido">
-          <div className="boleta-circulo-exito">
-            <svg
-              viewBox="0 0 100 100"
-              aria-hidden="true"
-            >
-              <path d="M24 51 L43 69 L77 33" />
-            </svg>
-          </div>
-
+      <main className="bn-pagina d-flex justify-content-center align-items-center" role="status">
+        <div className="bn-papel text-center p-5">
+          <div className="bn-exito-icono mx-auto mb-3">✓</div>
           <h1>¡Compra confirmada!</h1>
-
-          <p>
-            Tu compra de demostración se ha registrado
-            correctamente.
-          </p>
-
-          <div className="boleta-confirmacion-numero">
-            Pedido {pedido.id}
-          </div>
-
-          <div className="boleta-cargando">
-            <span />
-          </div>
-
-          <small>Preparando tu boleta...</small>
+          <p>Preparando tu comprobante de demostración…</p>
+          <div className="spinner-border text-success" aria-label="Cargando" />
         </div>
-      </div>
+      </main>
     )
   }
 
-  const fecha = formatearFecha(pedido.fecha)
   const cliente = pedido.cliente || {}
   const entrega = pedido.entrega || {}
   const pago = pedido.pago || {}
+  const productos = Array.isArray(pedido.productos) ? pedido.productos : []
 
-  const productos = Array.isArray(pedido.productos)
-    ? pedido.productos
-    : []
+  const nombre = [cliente.nombre, cliente.apellido].filter(Boolean).join(' ') || '—'
+  const direccion = [entrega.calle, entrega.numero].filter(Boolean).join(' ') || '—'
+  const ubicacion = [entrega.comuna, entrega.ciudad, entrega.region]
+    .filter(Boolean)
+    .join(', ') || '—'
 
-  const nombreCliente = [
-    cliente.nombre,
-    cliente.apellido
-  ].filter(Boolean).join(' ')
+  const estado = pedido.estado || 'Preparando pedido'
+  const estadoNormalizado = estado.toLowerCase()
+  const suspendido = estadoNormalizado.includes('suspend')
+  const entregado = estadoNormalizado.includes('entregad')
+  const enCamino = estadoNormalizado.includes('camino') || estadoNormalizado.includes('despach')
+  const paso = entregado ? 4 : enCamino ? 3 : estadoNormalizado.includes('prepar') ? 2 : 1
+  const etapas = ['Pedido confirmado', 'Preparando pedido', 'En camino', 'Entregado']
 
-  const direccion = [
-    entrega.calle,
-    entrega.numero
-  ].filter(Boolean).join(' ')
-
-  const ubicacion = [
-    entrega.comuna,
-    entrega.ciudad,
-    entrega.region
-  ].filter(Boolean).join(', ')
-
-  const etapasSeguimiento = [
-    {
-      nombre: 'Pedido confirmado',
-      descripcion:
-        'Tu compra de demostración fue registrada.',
-      completado: true
-    },
-    {
-      nombre: 'Preparando pedido',
-      descripcion:
-        'Etapa pendiente en esta simulación.',
-      completado: false
-    },
-    {
-      nombre: 'En camino',
-      descripcion:
-        'Etapa pendiente en esta simulación.',
-      completado: false
-    },
-    {
-      nombre: 'Entregado',
-      descripcion:
-        'Etapa pendiente en esta simulación.',
-      completado: false
-    }
-  ]
+  const subtotal = Number(pedido.subtotal) || productos.reduce(
+    (acumulado, producto) => acumulado +
+      (Number(producto.precio) || 0) * (Number(producto.cantidad) || 1),
+    0
+  )
+  const envio = Number(pedido.envio) || 0
+  const total = Number(pedido.total) || subtotal + envio
+  const pagoTexto = pago.metodo === 'credito'
+    ? 'Crédito'
+    : pago.metodo === 'debito'
+      ? 'Débito'
+      : pago.metodo ? String(pago.metodo) : 'Pago de demostración'
 
   return (
-    <div className="boleta-pagina">
-      <header className="boleta-header">
-        <a href="/">
-          <img src={logoHuerto} alt="HuertoHogar" />
-        </a>
+    <main className="bn-pagina">
+      <div className="bn-marco">
+        {/* Confirmación de la compra */}
+        <section className="bn-banner">
+          <div className="bn-exito-icono">✓</div>
+          <div className="bn-banner-texto">
+            <h1>¡Compra confirmada!</h1>
+            <p>Tu pedido de demostración se registró correctamente. Aquí tienes tu comprobante.</p>
+          </div>
+          <div className="bn-banner-numero">
+            <span>🛒</span>
+            <div>
+              <small>N.º de pedido</small>
+              <strong>{pedido.id || '—'}</strong>
+            </div>
+          </div>
+        </section>
 
-        <a href="/" className="boleta-volver">
-          ← Volver al inicio
-        </a>
-      </header>
-
-      <main className="boleta-contenido">
-        <div style={{textAlign:"center",margin:"15px 0"}}><a href={"/seguimiento-pedido?id=" + encodeURIComponent(pedido.id)} style={{display:"inline-block",background:"#195c35",color:"white",padding:"12px 22px",borderRadius:"24px",textDecoration:"none",fontWeight:700}}>🚚 Ver seguimiento de mi pedido</a></div>
-        <div className="boleta-encabezado-exito">
-          <div className="boleta-mini-check">✓</div>
-
-          <span>COMPRA REALIZADA</span>
-
-          <h1>¡Gracias por tu compra!</h1>
-
-          <p>
-            Tu pedido de demostración se registró
-            correctamente. Aquí tienes tu comprobante.
-          </p>
-        </div>
-
-        {/* DOCUMENTO DE COMPRA */}
-
-        <article className="boleta-documento">
-          <div className="boleta-documento-header">
-            <div className="boleta-empresa">
-              <img src={logoHuerto} alt="HuertoHogar" />
-
+        <article className="bn-papel">
+          {/* Identificación de la boleta */}
+          <div className="bn-cabecera">
+            <div className="bn-marca">
+              <img src={logo} alt="HuertoHogar" />
               <div>
                 <strong>HUERTOHOGAR</strong>
-                <small>Del campo al hogar</small>
+                <small>Del campo a tu hogar</small>
               </div>
             </div>
-
-            <div className="boleta-documento-tipo">
-              <span>COMPROBANTE DE COMPRA</span>
-              <strong>BOLETA DEMO</strong>
-              <small>Sin validez tributaria</small>
+            <div className="bn-tipo">
+              <small>COMPROBANTE DE COMPRA</small>
+              <strong>BOLETA DEMO 🌿</strong>
+              <span>Sin validez tributaria</span>
             </div>
           </div>
 
-          <div className="boleta-documento-linea" />
-
-          {/* DATOS DEL PEDIDO */}
-
-          <div className="boleta-datos-pedido">
-            <div>
-              <span>NÚMERO DE PEDIDO</span>
-              <strong>{pedido.id}</strong>
+          {/* Resumen superior */}
+          <section className="bn-datos-superiores" aria-label="Resumen del pedido">
+            <div className="bn-dato">
+              <span className="bn-dato-icono">▤</span>
+              <div>
+                <small>NÚMERO DE PEDIDO</small>
+                <strong>{pedido.id || '—'}</strong>
+              </div>
             </div>
-
-            <div>
-              <span>FECHA DE COMPRA</span>
-              <strong>{fecha}</strong>
+            <div className="bn-dato">
+              <span className="bn-dato-icono">▣</span>
+              <div>
+                <small>ESTADO ACTUAL</small>
+                <strong className={suspendido ? 'bn-etiqueta bn-rojo' : 'bn-etiqueta'}>
+                  {estado}
+                </strong>
+              </div>
             </div>
-
-            <div>
-              <span>ESTADO</span>
-              <strong className="boleta-estado">
-                ✓ Confirmado (simulación)
-              </strong>
+            <div className="bn-dato">
+              <span className="bn-dato-icono">▰</span>
+              <div>
+                <small>MÉTODO DE PAGO</small>
+                <strong>{pagoTexto}</strong>
+                <span className="bn-pago-demo">Simulado</span>
+              </div>
             </div>
-          </div>
+            <div className="bn-dato">
+              <span className="bn-dato-icono">▦</span>
+              <div>
+                <small>FECHA Y HORA DE COMPRA</small>
+                <strong>{fechaBonita(pedido.fecha)}</strong>
+              </div>
+            </div>
+          </section>
 
-          {/* CLIENTE Y DIRECCIÓN */}
-
-          <div className="boleta-bloques">
-            <section className="boleta-bloque">
-              <h2>👤 Datos del cliente</h2>
-
-              <p>
-                <strong>Nombre:</strong>{' '}
-                {nombreCliente || '—'}
-              </p>
-
-              <p>
-                <strong>Correo:</strong>{' '}
-                {cliente.correo || '—'}
-              </p>
-
-              <p>
-                <strong>Teléfono:</strong>{' '}
-                {cliente.telefono || '—'}
-              </p>
+          {/* Información del cliente y la entrega */}
+          <div className="bn-info-grid">
+            <section className="bn-info">
+              <h2>♟ &nbsp;Datos del cliente</h2>
+              <dl>
+                <dt>Nombre:</dt><dd>{nombre}</dd>
+                <dt>Correo:</dt><dd>{cliente.correo || pedido.correoCuenta || '—'}</dd>
+                <dt>Teléfono:</dt><dd>{cliente.telefono || '—'}</dd>
+              </dl>
             </section>
 
-            <section className="boleta-bloque">
-              <h2>📍 Dirección de entrega</h2>
+            <section className="bn-info">
+              <h2>📍 &nbsp;Dirección de entrega</h2>
+              <dl>
+                <dt>Dirección:</dt><dd>{direccion}</dd>
+                <dt>Comuna / Región:</dt><dd>{ubicacion}</dd>
+                {entrega.vivienda === 'departamento' && (
+                  <>
+                    <dt>Departamento:</dt>
+                    <dd>{[entrega.torre, entrega.departamento].filter(Boolean).join(' / ') || '—'}</dd>
+                  </>
+                )}
+                {entrega.instrucciones && (
+                  <>
+                    <dt>Indicaciones:</dt>
+                    <dd>{entrega.instrucciones}</dd>
+                  </>
+                )}
+              </dl>
+            </section>
 
-              <p>{direccion || '—'}</p>
-              <p>{ubicacion || '—'}</p>
-
-              {entrega.vivienda === 'departamento' && (
-                <p>
-                  Torre: {entrega.torre || '—'} ·{' '}
-                  Depto: {entrega.departamento || '—'}
-                </p>
-              )}
-
-              {entrega.instrucciones && (
-                <p>
-                  <strong>Indicaciones:</strong>{' '}
-                  {entrega.instrucciones}
-                </p>
-              )}
+            <section className="bn-info">
+              <h2>ⓘ &nbsp;Información adicional</h2>
+              <dl>
+                <dt>Tipo de compra:</dt><dd>Demostración</dd>
+                <dt>Fecha de registro:</dt><dd>{fechaBonita(pedido.fecha)}</dd>
+                <dt>Origen:</dt><dd>HuertoHogar</dd>
+                {pago.ultimosCuatro && (
+                  <>
+                    <dt>Tarjeta:</dt><dd>•••• {pago.ultimosCuatro}</dd>
+                  </>
+                )}
+                {pago.metodo === 'credito' && (
+                  <>
+                    <dt>Cuotas:</dt><dd>{pago.cuotas || 1}</dd>
+                  </>
+                )}
+              </dl>
             </section>
           </div>
 
-          {/* DETALLE DE PRODUCTOS */}
-
-          <section className="boleta-productos">
-            <h2>🛒 Detalle de la compra</h2>
-
-            <div className="boleta-tabla-contenedor">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Producto</th>
-                    <th>Cant.</th>
-                    <th>Precio unit.</th>
-                    <th>Subtotal</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {productos.map((producto, indice) => {
-                    const cantidad =
-                      Number(producto.cantidad) || 1
-
-                    const precio =
-                      Number(producto.precio) || 0
-
-                    return (
+          {/* Productos y total */}
+          <div className="bn-compra-grid">
+            <section className="bn-productos">
+              <h2>🛒 &nbsp;Detalle de la compra</h2>
+              <div className="table-responsive">
+                <table className="table bn-tabla">
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Precio unitario</th>
+                      <th>Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {productos.length > 0 ? productos.map((producto, indice) => (
                       <tr key={producto.id ?? indice}>
                         <td>
-                          {producto.nombre || 'Producto'}
+                          <div className="bn-producto-nombre">
+                            {producto.imagen && (
+                              <img
+                                src={producto.imagen}
+                                alt=""
+                                onError={(evento) => {
+                                  evento.currentTarget.style.display = 'none'
+                                }}
+                              />
+                            )}
+                            <span>
+                              <strong>{producto.nombre || 'Producto'}</strong>
+                              <small>{producto.descripcion || 'Producto HuertoHogar'}</small>
+                            </span>
+                          </div>
                         </td>
-
-                        <td>{cantidad}</td>
-
-                        <td>{dinero(precio)}</td>
-
+                        <td>{Number(producto.cantidad) || 1}</td>
+                        <td>{dinero(producto.precio)}</td>
                         <td>
-                          {dinero(precio * cantidad)}
+                          <strong>
+                            {dinero((Number(producto.precio) || 0) * (Number(producto.cantidad) || 1))}
+                          </strong>
                         </td>
                       </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </section>
-
-          {/* PAGO Y TOTALES */}
-
-          <div className="boleta-final">
-            <section className="boleta-metodo">
-              <h2>💳 Método de pago</h2>
-
-              <p>
-                <strong>Tipo:</strong>{' '}
-                {pago.metodo === 'credito'
-                  ? 'Crédito'
-                  : 'Débito'}
-              </p>
-
-              <p>
-                <strong>Tarjeta:</strong>{' '}
-                •••• •••• ••••{' '}
-                {pago.ultimosCuatro || '••••'}
-              </p>
-
-              {pago.metodo === 'credito' && (
-                <p>
-                  <strong>Cuotas:</strong>{' '}
-                  {pago.cuotas || '1'}
-                </p>
-              )}
-
-              <p className="boleta-pago-demo">
-                Pago simulado, sin cobro real
-              </p>
+                    )) : (
+                      <tr>
+                        <td colSpan={4}>No hay productos en el comprobante.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </section>
 
-            <section className="boleta-totales">
-              <div>
-                <span>Subtotal</span>
-                <strong>
-                  {dinero(pedido.subtotal)}
-                </strong>
-              </div>
-
-              <div>
-                <span>Envío</span>
-                <strong>
-                  {Number(pedido.envio || 0) === 0
-                    ? 'Gratis'
-                    : dinero(pedido.envio)}
-                </strong>
-              </div>
-
-              <div className="boleta-total-grande">
-                <span>TOTAL</span>
-                <strong>
-                  {dinero(pedido.total)}
-                </strong>
+            <section className="bn-totales">
+              <h2>Resumen de tu compra</h2>
+              <div><span>Subtotal</span><strong>{dinero(subtotal)}</strong></div>
+              <div><span>Envío</span><strong>{envio ? dinero(envio) : 'Gratis'}</strong></div>
+              <div className="bn-total">
+                <span>Total</span>
+                <strong>{dinero(total)}</strong>
               </div>
             </section>
           </div>
 
-          <footer className="boleta-documento-footer">
-            <p>🌱 Gracias por preferir HuertoHogar.</p>
-
-            <small>
-              Documento de demostración académica.
-              No corresponde a una boleta electrónica
-              del SII ni acredita un pago real.
-            </small>
-          </footer>
-        </article>
-
-        {/* BOTONES DE ACCIÓN */}
-
-        <div
-          className="boleta-acciones"
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '12px',
-            justifyContent: 'center',
-            marginTop: '25px'
-          }}
-        >
-          <button
-            type="button"
-            className="boleta-boton-imprimir"
-            onClick={imprimirBoleta}
-          >
-            🖨️ Imprimir
-          </button>
-
-          <button
-            type="button"
-            className="boleta-boton-imprimir"
-            onClick={descargarPDF}
-          >
-            📄 Descargar PDF
-          </button>
-
-          <button
-            type="button"
-            className="boleta-boton-imprimir"
-            onClick={() =>
-              setMostrarSeguimiento(anterior => !anterior)
-            }
-            aria-expanded={mostrarSeguimiento}
-          >
-            📦 {mostrarSeguimiento
-              ? 'Ocultar seguimiento'
-              : 'Seguimiento del pedido'}
-          </button>
-
-          <a
-            href="/"
-            className="boleta-boton-inicio"
-          >
-            🏠 Volver al inicio
-          </a>
-        </div>
-
-        {/* SEGUIMIENTO DEL PEDIDO */}
-
-        {mostrarSeguimiento && (
-          <section
-            style={{
-              maxWidth: '800px',
-              margin: '28px auto',
-              padding: '28px',
-              background: '#fff',
-              border: '1px solid #dce8df',
-              borderRadius: '18px',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.06)'
-            }}
-          >
-            <div style={{ textAlign: 'center' }}>
-              <span
-                style={{
-                  fontSize: '34px',
-                  display: 'block',
-                  marginBottom: '10px'
-                }}
-              >
-                📦
-              </span>
-
-              <h2 style={{ color: '#176a37' }}>
-                Seguimiento de tu pedido
-              </h2>
-
-              <p>
-                Número de pedido:{' '}
-                <strong>{pedido.id}</strong>
-              </p>
-
-              <p
-                style={{
-                  fontSize: '13px',
-                  color: '#64748b'
-                }}
-              >
-                Seguimiento de demostración.
-                No representa un despacho real.
-              </p>
+          {/* Seguimiento horizontal bajo la boleta */}
+          <section className="bn-seguimiento" aria-label="Seguimiento del pedido">
+            <div className="bn-seguimiento-titulo">
+              <h2>🚚 &nbsp;Seguimiento del pedido</h2>
+              <p>Conoce el estado de tu compra</p>
             </div>
-
-            <div
-              style={{
-                marginTop: '28px',
-                display: 'grid',
-                gap: '22px'
-              }}
-            >
-              {etapasSeguimiento.map((etapa, indice) => (
-                <div
-                  key={etapa.nombre}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '16px'
-                  }}
-                >
+            {suspendido ? (
+              <div className="alert alert-warning mb-0">
+                <strong>Pedido suspendido.</strong>{' '}
+                {pedido.motivoSuspension || 'Contacta a la tienda para más información.'}
+              </div>
+            ) : (
+              <div className="bn-linea-pasos">
+                {etapas.map((etapa, indice) => (
                   <div
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                      borderRadius: '50%',
-                      flexShrink: 0,
-                      display: 'grid',
-                      placeItems: 'center',
-                      background: etapa.completado
-                        ? '#198754'
-                        : '#e5e7eb',
-                      color: etapa.completado
-                        ? '#fff'
-                        : '#64748b',
-                      fontWeight: 'bold'
-                    }}
+                    className={'bn-paso ' + (indice < paso ? 'bn-completo' : '')}
+                    key={etapa}
                   >
-                    {etapa.completado ? '✓' : indice + 1}
+                    <div className="bn-circulo">{indice < paso ? '✓' : indice + 1}</div>
+                    <strong>{etapa}</strong>
+                    <small>
+                      {indice === 0
+                        ? fechaBonita(pedido.fecha)
+                        : indice < paso
+                          ? 'Etapa registrada'
+                          : 'Etapa pendiente en esta simulación.'}
+                    </small>
                   </div>
-
-                  <div>
-                    <strong
-                      style={{
-                        color: etapa.completado
-                          ? '#176a37'
-                          : '#64748b'
-                      }}
-                    >
-                      {etapa.nombre}
-                    </strong>
-
-                    <p
-                      style={{
-                        margin: '5px 0 0',
-                        color: '#64748b',
-                        fontSize: '14px'
-                      }}
-                    >
-                      {etapa.descripcion}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
+            <a
+              className="bn-link-seguimiento"
+              href={'/seguimiento-pedido?id=' + encodeURIComponent(pedido.id || '')}
+            >
+              Ver seguimiento completo →
+            </a>
           </section>
-        )}
-      </main>
-    </div>
+
+          {/* Aviso de demostración */}
+          <div className="bn-aviso">
+            <span>ⓘ</span>
+            <p>
+              <strong>Esta es una boleta de demostración.</strong>
+              <br />
+              No tiene validez tributaria y es solo para fines de prueba en HuertoHogar.
+              No acredita un pago real.
+            </p>
+          </div>
+
+          {/* Acciones */}
+          <div className="bn-acciones">
+            <a className="bn-boton bn-boton-blanco" href="/">
+              ← &nbsp;Volver al inicio
+            </a>
+            <div>
+              <button
+                className="bn-boton bn-boton-blanco"
+                type="button"
+                onClick={() => window.print()}
+              >
+                ▣ &nbsp;Imprimir boleta
+              </button>
+              <button
+                className="bn-boton bn-boton-verde"
+                type="button"
+                onClick={() => window.print()}
+                title="En el diálogo de impresión, selecciona Guardar como PDF"
+              >
+                ↓ &nbsp;Descargar PDF
+              </button>
+            </div>
+          </div>
+          <p className="bn-ayuda-pdf">
+            Para descargar, selecciona «Guardar como PDF» en la ventana de impresión.
+          </p>
+        </article>
+      </div>
+    </main>
   )
 }
-
-export default Boleta
